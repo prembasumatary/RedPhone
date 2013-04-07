@@ -58,7 +58,7 @@ public class NetworkConnector {
   public int makeConnection() throws SessionInitiationFailureException {
     int result = -1;
     int timeout = 1000;
-    for (int attempts = 0; attempts < 10; attempts++) {
+    for (int attempts = 0; attempts < 5; attempts++) {
       Log.d("NetworkConnector", "attempting connection");
       result = attemptConnection( timeout );
       if (result != -1)
