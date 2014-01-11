@@ -19,10 +19,18 @@ package org.thoughtcrime.redphone.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.View;
+import android.widget.Button;
+
+import com.actionbarsherlock.app.SherlockActivity;
 
 import org.thoughtcrime.redphone.Constants;
 import org.thoughtcrime.redphone.R;
@@ -37,7 +45,7 @@ import org.thoughtcrime.redphone.call.CallListener;
  * @author Moxie Marlinspike
  *
  */
-public class RedPhoneChooser extends Activity {
+public class RedPhoneChooser extends FragmentActivity {
 
   @Override
   public void onCreate(Bundle bundle) {
@@ -47,43 +55,8 @@ public class RedPhoneChooser extends Activity {
   }
 
   private void initializeResources() {
-    final String number = getIntent().getStringExtra(Constants.REMOTE_NUMBER);
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    builder.setIcon(R.drawable.redphone_icon);
-    builder.setTitle(R.string.RedPhoneChooser_upgrade_to_redphone);
-    builder.setMessage(R.string.RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call);
-
-    builder.setPositiveButton(R.string.RedPhoneChooser_secure_call, new DialogInterface.OnClickListener() {
-      public void onClick(DialogInterface dialog, int which) {
-        Intent intent = new Intent(RedPhoneChooser.this, RedPhoneService.class);
-        intent.setAction(RedPhoneService.ACTION_OUTGOING_CALL);
-        intent.putExtra(Constants.REMOTE_NUMBER, number);
-        startService(intent);
-
-        Intent activityIntent = new Intent();
-        activityIntent.setClass(RedPhoneChooser.this, RedPhone.class);
-        activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(activityIntent);
-
-        finish();
-      }
-    });
-
-    builder.setNegativeButton(R.string.RedPhoneChooser_insecure_call, new DialogInterface.OnClickListener() {
-      public void onClick(DialogInterface dialog, int which) {
-        String remoteNumber = getIntent().getStringExtra(Constants.REMOTE_NUMBER);
-        CallChooserCache.getInstance().addInsecureChoice(remoteNumber);
-
-        Intent intent = new Intent("android.intent.action.CALL",
-                                   Uri.fromParts("tel", remoteNumber + CallListener.IGNORE_SUFFIX,
-                                                 null));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-      }
-    });
-
-    builder.show();
+    UpgradeCallDialogFragment dialogFragment = new UpgradeCallDialogFragment(getIntent().getStringExtra(Constants.REMOTE_NUMBER));
+    dialogFragment.show(getSupportFragmentManager(), "upgrade");
   }
 }
