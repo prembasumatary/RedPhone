@@ -102,10 +102,10 @@
     <string name="RecentCallListActivity_loading">Loading...</string>
     <string name="RecentCallListActivity_empty_call_log">Empty call log.</string>    
     
-    <string name="RedPhoneChooser_upgrade_to_redphone">Upgrade to RedPhone?</string>
-    <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">This contact also uses RedPhone. Would you like to upgrade to a secure call?</string>
-    <string name="RedPhoneChooser_secure_call">Secure Call</string>
-    <string name="RedPhoneChooser_insecure_call">Insecure Call</string>
+    <string name="RedPhoneChooser_upgrade_to_redphone">Secure with RedPhone?</string>
+    <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">This contact also uses RedPhone. Would you like to secure this call?</string>
+    <string name="RedPhoneChooser_secure_call">Yes, secure</string>
+    <string name="RedPhoneChooser_insecure_call">No</string>
     
     <string name="RegistrationProgressActivity_verifying_number">Verifying number</string>
     <string name="RegistrationProgressActivity_edit_s">Edit %s</string>
