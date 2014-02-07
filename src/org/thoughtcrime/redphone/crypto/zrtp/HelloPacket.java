@@ -20,7 +20,9 @@ package org.thoughtcrime.redphone.crypto.zrtp;
 import org.thoughtcrime.redphone.network.RtpPacket;
 import org.thoughtcrime.redphone.util.Conversions;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,8 +37,12 @@ import java.util.Set;
 public class HelloPacket extends HandshakePacket {
   public  static final String TYPE = "Hello   ";
 
+  private static final List<byte[]> KEY_AGREEMENTS = new ArrayList<byte[]>(1) {{
+    add(new byte[] {'E', 'C', '2', '5'});
+  }};
+
   private static final int HELLO_MIN_LENGTH       = 88;
-  private static final int OPTIONAL_VALUES_LENGTH = 0;
+  private static final int OPTIONAL_VALUES_LENGTH = KEY_AGREEMENTS.size() * 4;
 
   private static final int MAGIC_LENGTH   = 2;
   private static final int LENGTH_LENGTH  = 2;
@@ -96,7 +102,7 @@ public class HelloPacket extends HandshakePacket {
     setClientId();
     setH3(hashChain.getH3());
     setZID(zid);
-    setFlags();
+    setKeyAgreement();
     setMac(hashChain.getH2(),
            OPTIONS_OFFSET + OPTIONAL_VALUES_LENGTH,
            HELLO_MIN_LENGTH + OPTIONAL_VALUES_LENGTH - MAC_LENGTH);
@@ -161,6 +167,10 @@ public class HelloPacket extends HandshakePacket {
     return (this.data[KC_OFFSET] & 0xFF) >> 4;
   }
 
+  private void setKeyAgreementOptionsCount(int count) {
+    this.data[KC_OFFSET] |= ((count << 4) & 0xFF);
+  }
+
   public Set<String> getKeyAgreementOptions() {
     Set<String> keyAgreementOptions = new HashSet<String>();
 
@@ -175,6 +185,19 @@ public class HelloPacket extends HandshakePacket {
     }
 
     return keyAgreementOptions;
+  }
+
+  public void setKeyAgreementOptions(List<byte[]> options) {
+    int keyAgreementOptionsOffset  = OPTIONS_OFFSET                +
+        (getHashOptionCount()    * 4) +
+        (getCipherOptionCount()  * 4) +
+        (getAuthTagOptionCount() * 4);
+
+    for (int i=0;i<options.size();i++) {
+      int    optionOffset = keyAgreementOptionsOffset + (i * 4);
+      byte[] option       = options.get(i);
+      System.arraycopy(option, 0, this.data, optionOffset, 4);
+    }
   }
 
   private int getSasOptionCount() {
@@ -201,8 +224,9 @@ public class HelloPacket extends HandshakePacket {
     System.arraycopy(zid, 0, this.data, ZID_OFFSET, zid.length);
   }
 
-  private void setFlags() {
-    // Leave flags empty.
+  private void setKeyAgreement() {
+    setKeyAgreementOptionsCount(KEY_AGREEMENTS.size());
+    setKeyAgreementOptions(KEY_AGREEMENTS);
   }
 
   private void fixOffsetsForHeaderBug() {
