@@ -7,7 +7,7 @@ RedPhone is an application that enables encrypted voice communication between Re
 
 Current BitHub Payment Per Commit:
 =================
-![Current Price](https://bithub.herokuapp.com/v1/status/payment/commit)
+![Current Price](https://bithub.herokuapp.com/v1/status/payment/commit/)
 
 Bug tracker
 -----------
