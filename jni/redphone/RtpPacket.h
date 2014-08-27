@@ -18,7 +18,7 @@ private:
 
 public:
   RtpPacket(char *packet, int packetLen);
-  RtpPacket(char *payload, int payloadLen, int sequenceNumber);
+  RtpPacket(char *payload, int payloadLen, int sequenceNumber, int timestamp);
   ~RtpPacket();
 
   uint16_t getSequenceNumber();

@@ -12,7 +12,7 @@
 #endif
 
 MicrophoneReader::MicrophoneReader(int androidSdkVersion, AudioCodec &audioCodec, RtpAudioSender &rtpAudioSender) :
-  androidSdkVersion(androidSdkVersion), audioCodec(audioCodec), rtpAudioSender(rtpAudioSender)
+  androidSdkVersion(androidSdkVersion), timestamp(0), audioCodec(audioCodec), rtpAudioSender(rtpAudioSender)
 {
 //  int inputBufferFrames = (sampleRate / bufferFrames / 4) * bufferFrames;
 //
@@ -33,8 +33,8 @@ void MicrophoneReader::recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueu
 //  __android_log_print(ANDROID_LOG_WARN, TAG, "Got recorder callback!");
   int encodedAudioLen = audioCodec.encode(inputBuffer, encodedAudio, sizeof(encodedAudio));
 //  __android_log_print(ANDROID_LOG_WARN, TAG, "Successfully encoded %d bytes of audio", encodedAudioLen);
-
-  rtpAudioSender.send(encodedAudio, encodedAudioLen);
+  timestamp += FRAME_SIZE;
+  rtpAudioSender.send(timestamp, encodedAudio, encodedAudioLen);
 //  __android_log_print(ANDROID_LOG_WARN, TAG, "Successfully sent via RTP...");
 
   (*bufferQueue)->Enqueue(bufferQueue, inputBuffer, FRAME_SIZE * sizeof(short));

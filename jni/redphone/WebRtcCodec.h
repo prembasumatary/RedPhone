@@ -6,63 +6,45 @@
 
 #include <modules/audio_coding/neteq/interface/audio_decoder.h>
 
-class WebRtcCodec : public AudioDecoder {
+class WebRtcCodec : public webrtc::AudioDecoder {
 
 private:
   AudioCodec &codec;
 
 public:
   WebRtcCodec(AudioCodec &codec) :
-    AudioDecoder(kDecoderArbitrary), codec(codec)
+    AudioDecoder(webrtc::kDecoderArbitrary), codec(codec)
   {}
 
   int Decode(const uint8_t* encoded, size_t encoded_len,
              int16_t* decoded, SpeechType* speech_type)
   {
     *speech_type = kSpeech;
-    return codec.decode(encoded, encoded_len, decoded);
-  }
-
-  int DecodeRedundant(const uint8_t* encoded, size_t encoded_len,
-                      int16_t* decoded, SpeechType* speech_type)
-  {
-    return Decode(encoded, encoded_len, decoded, speech_type);
+    return codec.decode((char*)encoded, encoded_len, decoded);
   }
 
   bool HasDecodePlc() const {
-    return TRUE;
+    return 1;
   }
 
   int DecodePlc(int num_frames, int16_t* decoded) {
     return codec.decode(NULL, SPEEX_ENCODED_FRAME_SIZE * num_frames, decoded);
   }
 
-  void Init() {}
+  int Init() { return 0; }
 
-  int PacketDuration(const uint8_t* encoded, size_t encoded_len) {
+  int PacketDuration(const uint8_t* encoded, size_t encoded_len) const {
     return (encoded_len / SPEEX_ENCODED_FRAME_SIZE) * SPEEX_FRAME_SIZE;
   }
 
   int PacketDurationRedundant(const uint8_t* encoded, size_t encoded_len) const {
-    return PacketDuration(encoded, encoded_len);
+    return this->PacketDuration(encoded, encoded_len);
   }
 
   bool PacketHasFec(const uint8_t* encoded, size_t encoded_len) const {
-    return FALSE;
+    return 0;
   }
-
-  static bool CodecSupported(NetEqDecoder codec_type) {
-    return codec_type == kDecoderArbitrary;
-  }
-
-  static int CodecSampleRateHz(NetEqDecoder codec_type) {
-    return 8000;
-  }
-
-  static AudioDecoder* CreateAudioDecoder(NetEqDecoder codec_type) {
-    return NULL;
-  }
-}
+};
 
 
 

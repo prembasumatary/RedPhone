@@ -6,8 +6,8 @@
 
 #define TAG "AudioPlayer"
 
-AudioPlayer::AudioPlayer(int sampleRate, int bufferFrames, JitterBuffer &jitterBuffer, AudioCodec &audioCodec) :
-  jitterBuffer(jitterBuffer), audioCodec(audioCodec), sampleRate(sampleRate), bufferFrames(bufferFrames)
+AudioPlayer::AudioPlayer(int sampleRate, int bufferFrames, WebRtcJitterBuffer &webRtcJitterBuffer, AudioCodec &audioCodec) :
+  webRtcJitterBuffer(webRtcJitterBuffer), audioCodec(audioCodec), sampleRate(sampleRate), bufferFrames(bufferFrames)
 {
 //  int outputBufferFrames = (sampleRate / bufferFrames / 4) * bufferFrames;
 
@@ -26,7 +26,7 @@ void AudioPlayer::playerCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void
 
 void AudioPlayer::playerCallback(SLAndroidSimpleBufferQueueItf bufferQueue) {
 //  __android_log_print(ANDROID_LOG_WARN, TAG, "Got player callback!");
-
+/*
   int decoded;
   EncodedAudioData *encodedAudioData = jitterBuffer.getAudio();
 
@@ -41,8 +41,10 @@ void AudioPlayer::playerCallback(SLAndroidSimpleBufferQueueItf bufferQueue) {
     memset(outputBuffer, 0, FRAME_SIZE * sizeof(short));
     decoded = FRAME_SIZE * sizeof(short);
   }
-
-  (*bufferQueue)->Enqueue(bufferQueue, outputBuffer, FRAME_SIZE * sizeof(short));
+*/
+  int samples = webRtcJitterBuffer.getAudio(outputBuffer, FRAME_SIZE);
+//  __android_log_print(ANDROID_LOG_WARN, TAG, "Jitter gave me: %d samples", samples);
+  (*bufferQueue)->Enqueue(bufferQueue, outputBuffer, samples * sizeof(short));
 }
 
 int AudioPlayer::start(SLEngineItf *engineEnginePtr) {

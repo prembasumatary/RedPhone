@@ -64,8 +64,9 @@ static int startAudio(int androidSdkVersion, int sampleRate, int bufferFrames,
 
   SequenceCounter  sequenceCounter;
   RtpAudioReceiver audioReceiver(socketFd, &sockAddr, sizeof(sockAddr), masterKey);
-  JitterBuffer     jitterBuffer;
-  AudioPlayer      audioPlayer(sampleRate, bufferFrames, jitterBuffer, audioCodec);
+  WebRtcJitterBuffer webRtcJitterBuffer(audioCodec);
+//  JitterBuffer     jitterBuffer;
+  AudioPlayer      audioPlayer(sampleRate, bufferFrames, webRtcJitterBuffer, audioCodec);
 
   __android_log_print(ANDROID_LOG_WARN, TAG, "Starting MicrophoneReader...");
 
@@ -93,7 +94,8 @@ static int startAudio(int androidSdkVersion, int sampleRate, int bufferFrames,
     int64_t  logicalSequence = sequenceCounter.getNextLogicalSequence(sequenceNumber);
 //    __android_log_print(ANDROID_LOG_WARN, TAG, "Calculated logical sequence: %lld", logicalSequence);
 
-    jitterBuffer.addAudio(logicalSequence, packet->getPayload(), packet->getPayloadLen());
+    webRtcJitterBuffer.addAudio(packet);
+//    jitterBuffer.addAudio(logicalSequence, packet->getPayload(), packet->getPayloadLen());
 
     delete packet;
   }

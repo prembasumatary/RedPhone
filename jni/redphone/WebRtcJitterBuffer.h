@@ -11,23 +11,20 @@
 class WebRtcJitterBuffer {
 
 private:
-  NetEq *neteq;
+  webrtc::NetEq *neteq;
   WebRtcCodec webRtcCodec;
 
 public:
   WebRtcJitterBuffer(AudioCodec &codec) : webRtcCodec(codec) {
-    NetEq::Config config;
+    webrtc::NetEq::Config config;
     config.sample_rate_hz = 8000;
 
-    neteq = NetEq::Create(config);
-
-    if (neteq->RegisterExternalDecoder(&webRtcCodec, kDecoderPCMu, 0) != kOK) {
-      throw -1; // TODO
-    }
+    neteq = webrtc::NetEq::Create(config);
+    neteq->RegisterExternalDecoder(&webRtcCodec, webrtc::kDecoderPCMu, 0); // TODO check return
   }
 
   void addAudio(RtpPacket *packet) {
-    WebRtcRTPHeader header;
+    webrtc::WebRtcRTPHeader header;
     header.header.payloadType    = packet->getPayloadType();
     header.header.sequenceNumber = packet->getSequenceNumber();
     header.header.timestamp      = packet->getTimestamp();
@@ -40,16 +37,16 @@ public:
   }
 
   int getAudio(short *rawData, int maxRawData) {
-    int samplesPerChannel;
-    int numChannels;
+    int samplesPerChannel = 0;
+    int numChannels       = 0;
 
-    neteq->GetAudio(maxRawData, rawData, &samplesPerChannel, &numChannels); // TODO check return
+    neteq->GetAudio(maxRawData, rawData, &samplesPerChannel, &numChannels, NULL); // TODO check return
 
     return samplesPerChannel;
   }
 
 
-}
+};
 
 
 

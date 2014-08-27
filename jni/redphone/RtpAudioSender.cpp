@@ -24,8 +24,8 @@ RtpAudioSender::~RtpAudioSender() {
   srtp_dealloc(session);
 }
 
-int RtpAudioSender::send(char* encodedData, int encodedDataLen) {
-  RtpPacket packet(encodedData, encodedDataLen, sequenceNumber++);
+int RtpAudioSender::send(int timestamp, char* encodedData, int encodedDataLen) {
+  RtpPacket packet(encodedData, encodedDataLen, sequenceNumber++, timestamp);
 
   char* serializedPacket    = packet.getSerializedPacket();
   int   serializedPacketLen = packet.getSerializedPacketLen();

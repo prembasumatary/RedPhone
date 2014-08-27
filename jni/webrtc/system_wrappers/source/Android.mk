@@ -40,7 +40,9 @@ LOCAL_SRC_FILES := \
     tick_util.cc \
     timestamp_extrapolator.cc \
     trace_posix.cc \
-    rw_lock_generic.cc
+    rw_lock_generic.cc \
+    rw_lock_posix.cc \
+    logging.cc
 
 LOCAL_CFLAGS := \
     $(MY_WEBRTC_COMMON_DEFS)

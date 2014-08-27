@@ -25,7 +25,7 @@ private:
 public:
   RtpAudioSender(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, char* masterKey);
   ~RtpAudioSender();
-  int send(char *encodedData, int encodedDataLen);
+  int send(int timestamp, char *encodedData, int encodedDataLen);
 
 };
 
