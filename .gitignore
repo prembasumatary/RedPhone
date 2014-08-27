@@ -18,4 +18,5 @@ signing.properties
 ._*
 .Spotlight-V100
 .Trashes
-
+obj/
+jni/libspeex/.deps/
