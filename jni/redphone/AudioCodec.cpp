@@ -1,7 +1,7 @@
 #include "AudioCodec.h"
 
 #include <speex/speex.h>
-#include <speex/speex_preprocess.h>
+//#include <speex/speex_preprocess.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
