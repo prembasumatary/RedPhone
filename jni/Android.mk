@@ -9,6 +9,9 @@ include $(JNI_DIR)/webrtc/modules/audio_processing/utility/Android.mk
 include $(JNI_DIR)/webrtc/system_wrappers/source/Android.mk
 
 include $(JNI_DIR)/webrtc/modules/audio_coding/neteq/Android.mk
+include $(JNI_DIR)/webrtc/modules/audio_coding/codecs/g711/Android.mk
+include $(JNI_DIR)/webrtc/modules/audio_coding/codecs/cng/Android.mk
+include $(JNI_DIR)/webrtc/common_audio/vad/Android.mk
 
 LOCAL_PATH := $(call my-dir)
 
@@ -120,7 +123,11 @@ libwebrtc_aec \
 libwebrtc_spl \
 libwebrtc_apm_utility \
 libwebrtc_system_wrappers \
-libwebrtc_neteq
+libwebrtc_neteq \
+libwebrtc_g711 \
+libwebrtc_cng \
+libwebrtc_spl \
+libwebrtc_vad
 
 
 include $(BUILD_SHARED_LIBRARY)

@@ -12,7 +12,7 @@ RtpPacket::RtpPacket(char* packetBuf, int packetLen) {
   memcpy(packet, packetBuf, packetLen);
 }
 
-RtpPacket::RtpPacket(char* payload, int payloadBufLen, int sequenceNumber) {
+RtpPacket::RtpPacket(char* payload, int payloadBufLen, int sequenceNumber, int timestamp) {
   packet     = (char*)malloc(sizeof(RtpHeader) + payloadBufLen + SRTP_MAX_TRAILER_LEN);
   payloadLen = payloadBufLen;
 
@@ -22,7 +22,7 @@ RtpPacket::RtpPacket(char* payload, int payloadBufLen, int sequenceNumber) {
   header.flags          = htons(32768);
   header.sequenceNumber = htons(sequenceNumber);
   header.ssrc           = 0;
-  header.timestamp      = 0; // TODO
+  header.timestamp      = htonl(timestamp);
 
   memcpy(packet, (void*)&header, sizeof(RtpHeader));
   memcpy(packet + sizeof(RtpHeader), payload, payloadLen);

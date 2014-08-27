@@ -17,6 +17,7 @@
 class MicrophoneReader {
   private:
     int androidSdkVersion;
+    int timestamp;
     AudioCodec &audioCodec;
     RtpAudioSender &rtpAudioSender;
 

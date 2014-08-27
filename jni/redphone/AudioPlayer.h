@@ -5,6 +5,7 @@
 #include <SLES/OpenSLES_Android.h>
 #include <SLES/OpenSLES_AndroidConfiguration.h>
 
+#include "WebRtcJitterBuffer.h"
 #include "AudioCodec.h"
 #include "JitterBuffer.h"
 
@@ -15,7 +16,8 @@
 class AudioPlayer {
 
 private:
- JitterBuffer &jitterBuffer;
+// JitterBuffer &jitterBuffer;
+ WebRtcJitterBuffer &webRtcJitterBuffer;
  AudioCodec &audioCodec;
 
  int sampleRate;
@@ -30,7 +32,7 @@ private:
  short outputBuffer[FRAME_SIZE];
 
 public:
-  AudioPlayer(int sampleRate, int bufferFrames, JitterBuffer &jitterBuffer, AudioCodec &audioCodec);
+  AudioPlayer(int sampleRate, int bufferFrames, WebRtcJitterBuffer &jitterBuffer, AudioCodec &audioCodec);
   int start(SLEngineItf *engineEngine);
   static void playerCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void *context);
   void playerCallback(SLAndroidSimpleBufferQueueItf bufferQueue);
