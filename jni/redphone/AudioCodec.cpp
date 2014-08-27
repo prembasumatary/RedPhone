@@ -10,9 +10,14 @@
 
 #define TAG "AudioCodec"
 
+
+
 AudioCodec::AudioCodec() {
-  enc = speex_encoder_init( speex_lib_get_mode( SPEEX_MODEID_NB ) );
-  dec = speex_decoder_init( speex_lib_get_mode( SPEEX_MODEID_NB ) );
+  enc        = speex_encoder_init( speex_lib_get_mode( SPEEX_MODEID_NB ) );
+  dec        = speex_decoder_init( speex_lib_get_mode( SPEEX_MODEID_NB ) );
+
+  WebRtcAecm_Create(&aecm);
+  WebRtcAecm_Init(aecm, SPEEX_SAMPLE_RATE);
 
   if (enc == NULL) {
     throw -1;
@@ -51,8 +56,14 @@ AudioCodec::~AudioCodec() {
 }
 
 int AudioCodec::encode(short *rawData, char* encodedData, int maxEncodedDataLen) {
+  short cleanData[160];
+
+//  speex_echo_capture(echo_state, (spx_int16_t *)rawData, (spx_int16_t *)canceledEcho);
+  WebRtcAecm_Process(aecm, rawData, NULL, cleanData, 160, 75);
+//  WebRtcAec_Process(aec, rawData, NULL, cleanData, NULL, 160, 110, 0);
+
   speex_bits_reset(&enc_bits);
-  speex_encode_int(enc, (spx_int16_t *)rawData, &enc_bits);
+  speex_encode_int(enc, (spx_int16_t *)cleanData, &enc_bits);
 
   return speex_bits_write(&enc_bits, encodedData, maxEncodedDataLen);
 }
@@ -64,6 +75,9 @@ int AudioCodec::decode(char* encodedData, int encodedDataLen, short *rawData) {
 
   // TODO buffer overflow!
   while (speex_decode_int(dec, &dec_bits, rawData + rawDataOffset) == 0) {
+//    speex_echo_playback(echo_state, (spx_int16_t *)(rawData + rawDataOffset));
+    WebRtcAecm_BufferFarend(aecm, rawData + rawDataOffset, dec_frame_size);
+//    WebRtcAec_BufferFarend(aec, rawData + rawDataOffset, dec_frame_size);
     rawDataOffset += dec_frame_size;
   }
 

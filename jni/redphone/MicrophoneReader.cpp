@@ -66,6 +66,7 @@ int MicrophoneReader::start(SLEngineItf *engineEnginePtr) {
     SLint32 recordingPreset = SL_ANDROID_RECORDING_PRESET_GENERIC;
 
     if (androidSdkVersion >= 14) {
+       __android_log_print(ANDROID_LOG_WARN, TAG, "Using voice communication Microphone preset...");
       recordingPreset = SL_ANDROID_RECORDING_PRESET_VOICE_COMMUNICATION;
     }
 

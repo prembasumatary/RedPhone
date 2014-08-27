@@ -22,6 +22,10 @@ public:
   ~RtpPacket();
 
   uint16_t getSequenceNumber();
+  int getPayloadType();
+  uint32_t getTimestamp();
+  uint32_t getSsrc();
+
   char* getPayload();
   uint32_t getPayloadLen();
 
