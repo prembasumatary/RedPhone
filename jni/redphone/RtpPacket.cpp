@@ -37,6 +37,21 @@ uint16_t RtpPacket::getSequenceNumber() {
   return ntohs(header->sequenceNumber);
 }
 
+int RtpPacket::getPayloadType() {
+  RtpHeader *header = (RtpHeader*)packet;
+  return header->flags & 0x7F;
+}
+
+uint32_t RtpPacket::getTimestamp() {
+  RtpHeader *header = (RtpHeader*)packet;
+  return ntohl(header->timestamp);
+}
+
+uint32_t RtpPacket::getSsrc() {
+  RtpHeader *header = (RtpHeader*)packet;
+  return ntohl(header->ssrc);
+}
+
 char* RtpPacket::getPayload() {
   return packet + sizeof(RtpHeader);
 }
