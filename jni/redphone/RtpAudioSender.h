@@ -10,21 +10,20 @@
 
 class RtpAudioSender {
 private:
-  int socketFd;
+  int      socketFd;
   uint32_t sequenceNumber;
 
-
   struct sockaddr_in *sockAddr;
-  int sockAddrLen;
-//  struct sockaddr_in socketDestination;
+  int                sockAddrLen;
 
-  srtp_t session;
+  srtp_t        session;
   srtp_policy_t policy;
-
 
 public:
   RtpAudioSender(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, char* masterKey);
   ~RtpAudioSender();
+
+  int init();
   int send(int timestamp, char *encodedData, int encodedDataLen);
 
 };

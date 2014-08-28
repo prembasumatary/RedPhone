@@ -18,11 +18,10 @@ class MicrophoneReader {
   private:
     int androidSdkVersion;
     int timestamp;
+
     AudioCodec &audioCodec;
     RtpAudioSender &rtpAudioSender;
 
-//    int sampleRate;
-//    int bufferFrames;
     short inputBuffer[FRAME_SIZE];
     char encodedAudio[1024];
 
@@ -30,16 +29,14 @@ class MicrophoneReader {
     SLRecordItf recorderRecord;
 
     SLAndroidConfigurationItf androidConfig;
-
     SLAndroidSimpleBufferQueueItf recorderBufferQueue;
-
-    //SLuint32 convertSampleRate(SLuint32 rate);
 
   public:
     MicrophoneReader(int androidSdkVersion, AudioCodec &audioCodec, RtpAudioSender &rtpAudioSender);
-    ~MicrophoneReader();
 
     int start(SLEngineItf *engineEngine);
+    void stop();
+
     void recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueue);
     static void recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void* context);
 

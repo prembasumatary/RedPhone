@@ -9,15 +9,7 @@
 AudioPlayer::AudioPlayer(int sampleRate, int bufferFrames, WebRtcJitterBuffer &webRtcJitterBuffer, AudioCodec &audioCodec) :
   webRtcJitterBuffer(webRtcJitterBuffer), audioCodec(audioCodec), sampleRate(sampleRate), bufferFrames(bufferFrames)
 {
-//  int outputBufferFrames = (sampleRate / bufferFrames / 4) * bufferFrames;
-
-//  outputBuffer = (short *) calloc(outputBufferFrames, sizeof(short));
 }
-
-//void AudioPlayer::addAudio(sint64_t sequence, uint8_t* encodedData, int encodedDataLen) {
-//  EncodedAudioData *encodedAudioData = new EncodedAudioData(encodedData, encodedDataLen, sequence);
-//  pendingAudio.push(encodedAudioData);
-//}
 
 void AudioPlayer::playerCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void *context) {
   AudioPlayer* audioPlayer = static_cast<AudioPlayer*>(context);
@@ -129,4 +121,9 @@ int AudioPlayer::start(SLEngineItf *engineEnginePtr) {
     }
 
     return 0;
+}
+
+void AudioPlayer::stop() {
+  (*bqPlayerPlay)->SetPlayState(bqPlayerPlay, SL_PLAYSTATE_STOPPED);
+  (*bqPlayerBufferQueue)->Clear(bqPlayerBufferQueue);
 }

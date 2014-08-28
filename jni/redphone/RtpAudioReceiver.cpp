@@ -14,21 +14,29 @@ RtpAudioReceiver::RtpAudioReceiver(int socketFd, struct sockaddr_in *sockAddr, i
   policy.ssrc.value = 0;
   policy.key        = (unsigned char*)masterKey;
   policy.next       = NULL;
+}
 
-  srtp_create(&session, &policy);
+int RtpAudioReceiver::init() {
+  if (srtp_create(&session, &policy) != err_status_ok) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "srtp_create failed!");
+    return -1;
+  }
+
+  return 0;
 }
 
 RtpPacket* RtpAudioReceiver::receive(char* encodedData, int encodedDataLen) {
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Calling recvfrom()");
-
   int received = recv(socketFd, encodedData, encodedDataLen, 0);
 
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Received data %d", received);
+  if (received == -1) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "recv() failed!");
+    return NULL;
+  }
 
-  int unprotect_result = srtp_unprotect(session, encodedData, &received);
-
-//   __android_log_print(ANDROID_LOG_WARN, TAG, "srtp_unprotect() result %d vs %d", unprotect_result, err_status_ok);
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "New data length %d", received);
+  if (srtp_unprotect(session, encodedData, &received) != err_status_ok) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "srtp_unprotect() failed!");
+    return NULL;
+  }
 
   return new RtpPacket(encodedData, received);
 }

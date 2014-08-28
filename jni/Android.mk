@@ -113,7 +113,8 @@ $(JNI_DIR)/redphone/RtpPacket.cpp \
 $(JNI_DIR)/redphone/RtpAudioReceiver.cpp \
 $(JNI_DIR)/redphone/AudioPlayer.cpp \
 $(JNI_DIR)/redphone/JitterBuffer.cpp \
-$(JNI_DIR)/redphone/CallAudioManager.cpp
+$(JNI_DIR)/redphone/CallAudioManager.cpp \
+$(JNI_DIR)/redphone/WebRtcJitterBuffer.cpp
 
 LOCAL_STATIC_LIBRARIES := \
 libspeex \

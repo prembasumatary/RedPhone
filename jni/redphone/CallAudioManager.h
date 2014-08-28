@@ -15,6 +15,9 @@ extern "C" {
 JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_start
   (JNIEnv *, jobject, jint, jint, jint, jint, jstring, jint, jbyteArray);
 
+JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_stop
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif

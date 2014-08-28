@@ -24,7 +24,9 @@ static int startAudio(int androidSdkVersion, int sampleRate, int bufferFrames,
                       int socketFd, const char* serverIp, int serverPort,
                       char* masterKey)
 {
-  __android_log_print(ANDROID_LOG_WARN, TAG, "CallAudioManager::startAudio()");
+  __android_log_print(ANDROID_LOG_WARN, TAG, "CallAudioManager::startAudio(%d, %d, %s, %d)",
+                      androidSdkVersion, socketFd, serverIp, serverPort);
+  running = 1;
 
   struct sockaddr_in sockAddr;
   SLObjectItf        engineObject;
@@ -55,17 +57,38 @@ static int startAudio(int androidSdkVersion, int sampleRate, int bufferFrames,
     return -1;
   }
 
-  __android_log_print(ANDROID_LOG_WARN, TAG, "srtp_init()");
   srtp_init();
 
-  AudioCodec       audioCodec;
-  RtpAudioSender   audioSender(socketFd, &sockAddr, sizeof(sockAddr), masterKey);
-  MicrophoneReader microphoneReader(androidSdkVersion, audioCodec, audioSender);
+  AudioCodec audioCodec;
+
+  if (audioCodec.init() != 0) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to initialize codec!");
+    return -1;
+  }
+
+  RtpAudioSender audioSender(socketFd, &sockAddr, sizeof(sockAddr), masterKey);
+
+  if (audioSender.init() != 0) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to initialize RTP sender!");
+    return -1;
+  }
+
+  RtpAudioReceiver audioReceiver(socketFd, &sockAddr, sizeof(sockAddr), masterKey);
+
+  if (audioReceiver.init() != 0) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to initialize RTP receiver!");
+    return -1;
+  }
+
+  WebRtcJitterBuffer webRtcJitterBuffer(audioCodec);
+
+  if (webRtcJitterBuffer.init() != 0) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to initialize jitter buffer!");
+    return -1;
+  }
 
   SequenceCounter  sequenceCounter;
-  RtpAudioReceiver audioReceiver(socketFd, &sockAddr, sizeof(sockAddr), masterKey);
-  WebRtcJitterBuffer webRtcJitterBuffer(audioCodec);
-//  JitterBuffer     jitterBuffer;
+  MicrophoneReader microphoneReader(androidSdkVersion, audioCodec, audioSender);
   AudioPlayer      audioPlayer(sampleRate, bufferFrames, webRtcJitterBuffer, audioCodec);
 
   __android_log_print(ANDROID_LOG_WARN, TAG, "Starting MicrophoneReader...");
@@ -76,6 +99,7 @@ static int startAudio(int androidSdkVersion, int sampleRate, int bufferFrames,
   }
 
   __android_log_print(ANDROID_LOG_WARN, TAG, "Starting AudioPlayer...");
+
   if (audioPlayer.start(&engineEngine) == -1) {
     __android_log_print(ANDROID_LOG_WARN, TAG, "AudioPlayer::start() returned -1!");
     return -1;
@@ -83,29 +107,19 @@ static int startAudio(int androidSdkVersion, int sampleRate, int bufferFrames,
 
   char buffer[4096];
 
-  running = 1;
-
   while(running) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Waiting for RTP packet...");
     RtpPacket *packet = audioReceiver.receive(buffer, sizeof(buffer));
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Got RTP packet....");
-    int16_t  sequenceNumber  = packet->getSequenceNumber();
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Got sequence number: %d", sequenceNumber);
-    int64_t  logicalSequence = sequenceCounter.getNextLogicalSequence(sequenceNumber);
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Calculated logical sequence: %lld", logicalSequence);
 
-    webRtcJitterBuffer.addAudio(packet);
-//    jitterBuffer.addAudio(logicalSequence, packet->getPayload(), packet->getPayloadLen());
-
-    delete packet;
+    if (packet != NULL) {
+      webRtcJitterBuffer.addAudio(packet);
+      delete packet;
+    }
   }
 
-  return 0;
-}
-JNIEXPORT jint JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_stop
-(JNIEnv *env, jobject obj)
-{
-  running = 0;
+  microphoneReader.stop();
+  audioPlayer.stop();
+  webRtcJitterBuffer.stop();
+
   return 0;
 }
 
@@ -122,5 +136,11 @@ JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_st
 
   env->ReleaseByteArrayElements(masterKey, (jbyte*)masterKeyBytes, 0);
   env->ReleaseStringUTFChars(serverIpString, serverIp);
+}
+
+JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_stop
+(JNIEnv *env, jobject obj)
+{
+  running = 0;
 }
 

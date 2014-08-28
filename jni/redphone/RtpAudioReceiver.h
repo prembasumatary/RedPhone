@@ -23,7 +23,7 @@ private:
 
 public:
   RtpAudioReceiver(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, char* masterKey);
-
+  int init();
   RtpPacket* receive(char* encodedData, int encodedDataLen);
 
 };

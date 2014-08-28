@@ -47,3 +47,7 @@ MY_WEBRTC_COMMON_DEFS += \
 endif
 
 endif # ifeq ($(TARGET_ARCH),arm)
+
+#added for redphone
+
+#MY_WEBRTC_COMMON_DEFS += '-DNDEBUG'
