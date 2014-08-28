@@ -5,6 +5,10 @@
 #include "WebRtcCodec.h"
 #include "RtpPacket.h"
 
+#include <android/log.h>
+#include <pthread.h>
+#include <unistd.h>
+
 #include <modules/audio_coding/neteq/interface/neteq.h>
 #include <modules/interface/module_common_types.h>
 
@@ -13,39 +17,19 @@ class WebRtcJitterBuffer {
 private:
   webrtc::NetEq *neteq;
   WebRtcCodec webRtcCodec;
+  volatile int running;
 
 public:
-  WebRtcJitterBuffer(AudioCodec &codec) : webRtcCodec(codec) {
-    webrtc::NetEq::Config config;
-    config.sample_rate_hz = 8000;
+  WebRtcJitterBuffer(AudioCodec &codec);
+  int init();
 
-    neteq = webrtc::NetEq::Create(config);
-    neteq->RegisterExternalDecoder(&webRtcCodec, webrtc::kDecoderPCMu, 0); // TODO check return
-  }
+  // TODO destrucotor?
 
-  void addAudio(RtpPacket *packet) {
-    webrtc::WebRtcRTPHeader header;
-    header.header.payloadType    = packet->getPayloadType();
-    header.header.sequenceNumber = packet->getSequenceNumber();
-    header.header.timestamp      = packet->getTimestamp();
-    header.header.ssrc           = packet->getSsrc();
-
-    uint8_t *payload = (uint8_t*)malloc(packet->getPayloadLen());
-    memcpy(payload, packet->getPayload(), packet->getPayloadLen());
-
-    neteq->InsertPacket(header, payload, packet->getPayloadLen(), 0); // TODO check return
-  }
-
-  int getAudio(short *rawData, int maxRawData) {
-    int samplesPerChannel = 0;
-    int numChannels       = 0;
-
-    neteq->GetAudio(maxRawData, rawData, &samplesPerChannel, &numChannels, NULL); // TODO check return
-
-    return samplesPerChannel;
-  }
-
-
+  void addAudio(RtpPacket *packet);
+  int getAudio(short *rawData, int maxRawData);
+  void stop();
+  void collectStats();
+  static void* collectStats(void *context);
 };
 
 

@@ -14,13 +14,6 @@
 MicrophoneReader::MicrophoneReader(int androidSdkVersion, AudioCodec &audioCodec, RtpAudioSender &rtpAudioSender) :
   androidSdkVersion(androidSdkVersion), timestamp(0), audioCodec(audioCodec), rtpAudioSender(rtpAudioSender)
 {
-//  int inputBufferFrames = (sampleRate / bufferFrames / 4) * bufferFrames;
-//
-//  inputBuffer = (short *) calloc(inputBufferFrames, sizeof(short));
-}
-
-MicrophoneReader::~MicrophoneReader() {
-//  free(inputBuffer);
 }
 
 void MicrophoneReader::recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void *context) {
@@ -99,4 +92,9 @@ int MicrophoneReader::start(SLEngineItf *engineEnginePtr) {
   }
 
   return 0;
+}
+
+void MicrophoneReader::stop() {
+  (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_STOPPED);
+  (*recorderBufferQueue)->Clear(recorderBufferQueue);
 }

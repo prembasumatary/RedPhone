@@ -33,7 +33,10 @@ private:
 
 public:
   AudioPlayer(int sampleRate, int bufferFrames, WebRtcJitterBuffer &jitterBuffer, AudioCodec &audioCodec);
+
   int start(SLEngineItf *engineEngine);
+  void stop();
+
   static void playerCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void *context);
   void playerCallback(SLAndroidSimpleBufferQueueItf bufferQueue);
 };

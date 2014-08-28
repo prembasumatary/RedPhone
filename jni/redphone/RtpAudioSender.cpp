@@ -16,8 +16,15 @@ RtpAudioSender::RtpAudioSender(int socketFd, struct sockaddr_in *sockAddr, int s
   policy.ssrc.value = 0;
   policy.key        = (unsigned char*)masterKey;
   policy.next       = NULL;
+}
 
-  srtp_create(&session, &policy);
+int RtpAudioSender::init() {
+  if (srtp_create(&session, &policy) != err_status_ok) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "srtp_create failed!");
+    return -1;
+  }
+
+  return 0;
 }
 
 RtpAudioSender::~RtpAudioSender() {
@@ -30,20 +37,17 @@ int RtpAudioSender::send(int timestamp, char* encodedData, int encodedDataLen) {
   char* serializedPacket    = packet.getSerializedPacket();
   int   serializedPacketLen = packet.getSerializedPacketLen();
 
-  int protect_result = srtp_protect(session, serializedPacket, &serializedPacketLen);
+  if (srtp_protect(session, serializedPacket, &serializedPacketLen) != err_status_ok) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "srtp_protect() failed!");
+    return -1;
+  }
 
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "srtp_protect() result: %d", protect_result);
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Total packet length: %d", serializedPacketLen);
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Socket FD: %d", socketFd);
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "SockAddrLen: %d", sockAddrLen);
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Destination port: %d", ntohs(sockAddr->sin_port));
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Destination addr: %d", sockAddr->sin_addr.s_addr);
+  if (sendto(socketFd, serializedPacket, serializedPacketLen, 0,
+             (struct sockaddr*)sockAddr, sockAddrLen) == -1)
+  {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "sendto() failed!");
+    return -1;
+  }
 
-
-  int sendto_result = sendto(socketFd, serializedPacket, serializedPacketLen, 0,
-                             (struct sockaddr*)sockAddr, sockAddrLen);
-
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "sendto_result result: %d, errno: %d", sendto_result, errno);
-
-  return sendto_result;
+  return 0;
 }
