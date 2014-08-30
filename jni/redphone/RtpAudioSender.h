@@ -15,9 +15,11 @@ private:
 
   struct sockaddr_in *sockAddr;
   int                sockAddrLen;
-
+  
+  int           initialized;
   srtp_t        session;
   srtp_policy_t policy;
+  char *masterKey;
 
 public:
   RtpAudioSender(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, char* masterKey);

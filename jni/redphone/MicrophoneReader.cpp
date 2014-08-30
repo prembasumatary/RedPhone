@@ -12,8 +12,15 @@
 #endif
 
 MicrophoneReader::MicrophoneReader(int androidSdkVersion, AudioCodec &audioCodec, RtpAudioSender &rtpAudioSender) :
-  androidSdkVersion(androidSdkVersion), timestamp(0), audioCodec(audioCodec), rtpAudioSender(rtpAudioSender)
+  androidSdkVersion(androidSdkVersion), timestamp(0), audioCodec(audioCodec), rtpAudioSender(rtpAudioSender),
+  recorderObject(NULL), recorderRecord(NULL), recorderBufferQueue(NULL)
 {
+}
+
+MicrophoneReader::~MicrophoneReader() {
+  if (recorderObject != NULL) {
+    (*recorderObject)->Destroy(recorderObject);
+  }
 }
 
 void MicrophoneReader::recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void *context) {
@@ -95,6 +102,11 @@ int MicrophoneReader::start(SLEngineItf *engineEnginePtr) {
 }
 
 void MicrophoneReader::stop() {
-  (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_STOPPED);
-  (*recorderBufferQueue)->Clear(recorderBufferQueue);
+  if (recorderRecord != NULL) {
+    (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_STOPPED);
+  }
+
+  if (recorderBufferQueue != NULL) {
+    (*recorderBufferQueue)->Clear(recorderBufferQueue);
+  }
 }

@@ -17,12 +17,15 @@ private:
   int socketFd;
   struct sockaddr_in *sockAddr;
   int sockAddrLen;
+  int initialized;
 
   srtp_t session;
   srtp_policy_t policy;
 
 public:
   RtpAudioReceiver(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, char* masterKey);
+  ~RtpAudioReceiver();
+
   int init();
   RtpPacket* receive(char* encodedData, int encodedDataLen);
 

@@ -2,7 +2,9 @@
 
 #define TAG "WebRtcJitterBuffer"
 
-WebRtcJitterBuffer::WebRtcJitterBuffer(AudioCodec &codec) : webRtcCodec(codec), running(1) {}
+WebRtcJitterBuffer::WebRtcJitterBuffer(AudioCodec &codec) :
+  neteq(NULL), webRtcCodec(codec), running(1)
+{}
 
 int WebRtcJitterBuffer::init() {
   webrtc::NetEq::Config config;
@@ -24,6 +26,12 @@ int WebRtcJitterBuffer::init() {
   pthread_create(&thread, NULL, &WebRtcJitterBuffer::collectStats, this);
 
   return 0;
+}
+
+WebRtcJitterBuffer::~WebRtcJitterBuffer() {
+  if (neteq != NULL) {
+    delete neteq;
+  }
 }
 
 // TODO destrucotor?

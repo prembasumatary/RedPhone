@@ -5,6 +5,34 @@
 #ifndef _Included_org_thoughtcrime_redphone_audio_CallAudioManager2
 #define _Included_org_thoughtcrime_redphone_audio_CallAudioManager2
 #ifdef __cplusplus
+
+class CallAudioManager {
+
+private:
+  int                running;
+  int                srtp_initialized;
+  SLObjectItf        engineObject;
+  SLEngineItf        engineEngine;
+  AudioCodec         audioCodec;
+  RtpAudioSender     audioSender;
+  RtpAudioReceiver   audioReceiver;
+  WebRtcJitterBuffer webRtcJitterBuffer;
+  MicrophoneReader   microphoneReader;
+  AudioPlayer        audioPlayer;
+
+public:
+  CallAudioManager(int androidSdkVersion, int socketFd, struct sockaddr_in *sockAddr,
+                   char* masterKey);
+  ~CallAudioManager();
+  int run();
+
+//static int startAudio(int androidSdkVersion, int sampleRate, int bufferFrames,
+//                      int socketFd, const char* serverIp, int serverPort,
+//                      char* masterKey)
+
+
+};
+
 extern "C" {
 #endif
 /*

@@ -27,6 +27,7 @@ private:
   SpeexEchoState *echo_state;
 
   int enc_frame_size, dec_frame_size;
+  int initialized;
 
 public:
   AudioCodec();

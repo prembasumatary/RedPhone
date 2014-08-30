@@ -12,30 +12,31 @@
 
 #define ECHO_TAIL_MILLIS 75
 
-AudioCodec::AudioCodec() : enc(NULL), dec(NULL), aecm(NULL)
+AudioCodec::AudioCodec() : enc(NULL), dec(NULL), aecm(NULL), initialized(0)
 { }
 
 int AudioCodec::init() {
-  enc = speex_encoder_init( speex_lib_get_mode( SPEEX_MODEID_NB ) );
-  dec = speex_decoder_init( speex_lib_get_mode( SPEEX_MODEID_NB ) );
 
-  WebRtcAecm_Create(&aecm);
-  WebRtcAecm_Init(aecm, SPEEX_SAMPLE_RATE);
-
-  if (enc == NULL) {
+  if ((enc = speex_encoder_init(speex_lib_get_mode(SPEEX_MODEID_NB))) == NULL) {
     __android_log_print(ANDROID_LOG_WARN, TAG, "Encoder failed to initialize!");
     return -1;
   }
 
-  if (dec == NULL) {
+  if ((dec = speex_decoder_init(speex_lib_get_mode(SPEEX_MODEID_NB))) == NULL) {
     __android_log_print(ANDROID_LOG_WARN, TAG, "Decoder failed to initialize!");
     return -1;
   }
 
-  if (aecm == NULL) {
+  if (WebRtcAecm_Create(&aecm) != 0) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "AECM failed to create!");
+    return -1;
+  }
+
+  if (WebRtcAecm_Init(aecm, SPEEX_SAMPLE_RATE) != 0) {
     __android_log_print(ANDROID_LOG_WARN, TAG, "AECM failed to initialize!");
     return -1;
   }
+
 
   spx_int32_t config = 1;
   speex_decoder_ctl(dec, SPEEX_SET_ENH, &config);
@@ -55,12 +56,18 @@ int AudioCodec::init() {
   speex_bits_init(&enc_bits);
   speex_bits_init(&dec_bits);
 
+  initialized = 1;
+
   return 0;
 }
 
 AudioCodec::~AudioCodec() {
-  speex_bits_destroy( &enc_bits );
-  speex_bits_destroy( &dec_bits );
+  if (initialized) {
+    speex_bits_destroy( &enc_bits );
+    speex_bits_destroy( &dec_bits );
+  }
+
+  if (aecm != NULL) WebRtcAecm_Free(aecm);
 
   if (enc != NULL) speex_encoder_destroy( enc );
   if (dec != NULL) speex_decoder_destroy( dec );

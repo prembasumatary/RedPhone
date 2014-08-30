@@ -16,6 +16,8 @@ include $(JNI_DIR)/webrtc/modules/audio_coding/codecs/g711/Android.mk
 include $(JNI_DIR)/webrtc/modules/audio_coding/codecs/cng/Android.mk
 include $(JNI_DIR)/webrtc/common_audio/vad/Android.mk
 
+include $(JNI_DIR)/openssl/Android.mk
+
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -48,7 +50,8 @@ libwebrtc_neteq \
 libwebrtc_g711 \
 libwebrtc_cng \
 libwebrtc_spl \
-libwebrtc_vad
+libwebrtc_vad \
+libcrypto_static
 
 
 include $(BUILD_SHARED_LIBRARY)
