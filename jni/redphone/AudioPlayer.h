@@ -20,8 +20,8 @@ private:
  WebRtcJitterBuffer &webRtcJitterBuffer;
  AudioCodec &audioCodec;
 
- int sampleRate;
- int bufferFrames;
+// int sampleRate;
+// int bufferFrames;
 
  SLObjectItf bqPlayerObject;
  SLPlayItf   bqPlayerPlay;
@@ -32,7 +32,8 @@ private:
  short outputBuffer[FRAME_SIZE];
 
 public:
-  AudioPlayer(int sampleRate, int bufferFrames, WebRtcJitterBuffer &jitterBuffer, AudioCodec &audioCodec);
+  AudioPlayer(WebRtcJitterBuffer &jitterBuffer, AudioCodec &audioCodec);
+  ~AudioPlayer();
 
   int start(SLEngineItf *engineEngine);
   void stop();

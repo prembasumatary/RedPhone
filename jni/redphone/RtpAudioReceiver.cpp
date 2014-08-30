@@ -5,7 +5,7 @@
 #define TAG "RtpAudioReceiver"
 
 RtpAudioReceiver::RtpAudioReceiver(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, char* masterKey) :
-  socketFd(socketFd), sockAddr(sockAddr), sockAddrLen(sockAddrLen)
+  socketFd(socketFd), sockAddr(sockAddr), sockAddrLen(sockAddrLen), initialized(0), session(NULL)
 {
   crypto_policy_set_rtp_default(&policy.rtp);
   crypto_policy_set_rtcp_default(&policy.rtcp);
@@ -14,6 +14,12 @@ RtpAudioReceiver::RtpAudioReceiver(int socketFd, struct sockaddr_in *sockAddr, i
   policy.ssrc.value = 0;
   policy.key        = (unsigned char*)masterKey;
   policy.next       = NULL;
+}
+
+RtpAudioReceiver::~RtpAudioReceiver() {
+  if (initialized && session != NULL) {
+    srtp_dealloc(session);
+  }
 }
 
 int RtpAudioReceiver::init() {

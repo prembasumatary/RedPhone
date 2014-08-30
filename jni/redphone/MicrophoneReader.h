@@ -33,6 +33,7 @@ class MicrophoneReader {
 
   public:
     MicrophoneReader(int androidSdkVersion, AudioCodec &audioCodec, RtpAudioSender &rtpAudioSender);
+    ~MicrophoneReader();
 
     int start(SLEngineItf *engineEngine);
     void stop();

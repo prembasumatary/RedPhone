@@ -21,6 +21,7 @@ private:
 
 public:
   WebRtcJitterBuffer(AudioCodec &codec);
+  ~WebRtcJitterBuffer();
   int init();
 
   // TODO destrucotor?

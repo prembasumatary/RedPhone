@@ -7,7 +7,7 @@
 #define TAG "RtpAudoSender"
 
 RtpAudioSender::RtpAudioSender(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, char* masterKey) :
-  socketFd(socketFd), sequenceNumber(0), sockAddr(sockAddr), sockAddrLen(sockAddrLen)
+  socketFd(socketFd), sequenceNumber(0), sockAddr(sockAddr), sockAddrLen(sockAddrLen), initialized(0), session(NULL), masterKey(masterKey)
 {
   crypto_policy_set_rtp_default(&policy.rtp);
   crypto_policy_set_rtcp_default(&policy.rtcp);
@@ -19,16 +19,22 @@ RtpAudioSender::RtpAudioSender(int socketFd, struct sockaddr_in *sockAddr, int s
 }
 
 int RtpAudioSender::init() {
-  if (srtp_create(&session, &policy) != err_status_ok) {
-    __android_log_print(ANDROID_LOG_WARN, TAG, "srtp_create failed!");
+  int result;
+
+  if ((result = srtp_create(&session, &policy)) != err_status_ok) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "srtp_create failed! %d", result);
     return -1;
   }
+
+  initialized = 1;
 
   return 0;
 }
 
 RtpAudioSender::~RtpAudioSender() {
-  srtp_dealloc(session);
+  if (initialized && session != NULL) {
+    srtp_dealloc(session);
+  }
 }
 
 int RtpAudioSender::send(int timestamp, char* encodedData, int encodedDataLen) {
