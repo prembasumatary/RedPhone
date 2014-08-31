@@ -6,7 +6,9 @@
 #include <stdlib.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
-#include "srtp.h"
+//#include "srtp.h"
+
+#include "SrtpStream.h"
 
 class RtpAudioSender {
 private:
@@ -15,15 +17,20 @@ private:
 
   struct sockaddr_in *sockAddr;
   int                sockAddrLen;
-  
-  int           initialized;
-  srtp_t        session;
-  srtp_policy_t policy;
-  char *masterKey;
+
+//  SequenceCounter sequenceCounter;
+  SrtpStream      srtpStream;
+
+//  int           initialized;
+//  srtp_t        session;
+//  srtp_policy_t policy;
+//  char *masterKey;
 
 public:
-  RtpAudioSender(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, char* masterKey);
-  ~RtpAudioSender();
+  RtpAudioSender(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen,
+                 SrtpStreamParameters &parameters);
+
+//  ~RtpAudioSender();
 
   int init();
   int send(int timestamp, char *encodedData, int encodedDataLen);

@@ -6,11 +6,12 @@
 #define _Included_org_thoughtcrime_redphone_audio_CallAudioManager2
 #ifdef __cplusplus
 
+#include "SrtpStream.h"
+
 class CallAudioManager {
 
 private:
-  int                running;
-  int                srtp_initialized;
+//  int                srtp_initialized;
   SLObjectItf        engineObject;
   SLEngineItf        engineEngine;
   AudioCodec         audioCodec;
@@ -22,7 +23,7 @@ private:
 
 public:
   CallAudioManager(int androidSdkVersion, int socketFd, struct sockaddr_in *sockAddr,
-                   char* masterKey);
+                   SrtpStreamParameters &senderParameters, SrtpStreamParameters &receiverParameters);
   ~CallAudioManager();
   int run();
 
@@ -41,7 +42,8 @@ extern "C" {
  * Signature: (IIIILjava/lang/String;I[B)V
  */
 JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_start
-  (JNIEnv *, jobject, jint, jint, jint, jint, jstring, jint, jbyteArray);
+  (JNIEnv *, jobject, jint, jint, jint, jint, jstring, jint,
+   jbyteArray, jbyteArray, jbyteArray, jbyteArray, jbyteArray, jbyteArray);
 
 JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_stop
   (JNIEnv *, jobject);
