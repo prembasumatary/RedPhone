@@ -163,7 +163,7 @@ static SrtpStreamParameters* constructSrtpStreamParameters(JNIEnv *env, jbyteArr
   return parameters;
 }
 
-jlong JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_create
+jlong JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_create
   (JNIEnv *env, jobject obj, jint androidSdkVersion,
    jint socketFd, jstring serverIpString, jint serverPort,
    jbyteArray senderCipherKey, jbyteArray senderMacKey, jbyteArray senderSalt,
@@ -187,7 +187,7 @@ jlong JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_create
   return (jlong)manager;
 }
 
-void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_start
+void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_start
 (JNIEnv *env, jobject obj, jlong handle)
 {
   CallAudioManager *manager = reinterpret_cast<CallAudioManager *>(handle);
@@ -199,21 +199,21 @@ void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_start
   }
 }
 
-void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_setMute
+void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_setMute
 (JNIEnv *env, jobject obj, jlong handle, jboolean muteEnabled)
 {
   CallAudioManager *manager = reinterpret_cast<CallAudioManager *>(handle);
   manager->setMute(muteEnabled);
 }
 
-void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_stop
+void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_stop
 (JNIEnv *env, jobject obj, jlong handle)
 {
   CallAudioManager *manager = reinterpret_cast<CallAudioManager*>(handle);
   manager->stop();
 }
 
-void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_dispose
+void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_dispose
 (JNIEnv *env, jobject obj, jlong handle)
 {
   CallAudioManager *manager = reinterpret_cast<CallAudioManager*>(handle);

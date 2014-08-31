@@ -11,9 +11,9 @@ import java.net.DatagramSocket;
 import java.net.DatagramSocketImpl;
 import java.net.SocketException;
 
-public class CallAudioManager2 {
+public class CallAudioManager {
 
-  private static final String TAG = CallAudioManager2.class.getSimpleName();
+  private static final String TAG = CallAudioManager.class.getSimpleName();
 
   static {
     System.loadLibrary("redphone-audio");
@@ -21,9 +21,9 @@ public class CallAudioManager2 {
 
   private final long handle;
 
-  public CallAudioManager2(DatagramSocket socket, String remoteHost, int remotePort,
-                           byte[] senderCipherKey, byte[] senderMacKey, byte[] senderSalt,
-                           byte[] receiverCipherKey, byte[] receiverMacKey, byte[] receiverSalt)
+  public CallAudioManager(DatagramSocket socket, String remoteHost, int remotePort,
+                          byte[] senderCipherKey, byte[] senderMacKey, byte[] senderSalt,
+                          byte[] receiverCipherKey, byte[] receiverMacKey, byte[] receiverSalt)
       throws SocketException, AudioException
   {
     try {

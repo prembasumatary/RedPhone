@@ -39,24 +39,23 @@ public:
 extern "C" {
 #endif
 /*
- * Class:     org_thoughtcrime_redphone_audio_CallAudioManager2
- * Method:    start
- * Signature: (IIIILjava/lang/String;I[B)V
+ * Class:     org_thoughtcrime_redphone_audio_CallAudioManager
+ * Method:    create
  */
-JNIEXPORT jlong JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_create
+JNIEXPORT jlong JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_create
   (JNIEnv *, jobject, jint, jint, jstring, jint,
    jbyteArray, jbyteArray, jbyteArray, jbyteArray, jbyteArray, jbyteArray);
 
-JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_start
+JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_start
   (JNIEnv *, jobject, jlong);
 
-JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_stop
+JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_stop
   (JNIEnv *, jobject, jlong);
 
-JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_setMute
+JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_setMute
   (JNIEnv *, jobject, jlong, jboolean);
 
-JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_dispose
+JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_dispose
   (JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus

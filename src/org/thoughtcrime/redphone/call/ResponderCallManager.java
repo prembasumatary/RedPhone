@@ -22,7 +22,7 @@ import android.util.Log;
 
 import org.thoughtcrime.redphone.Release;
 import org.thoughtcrime.redphone.audio.AudioException;
-import org.thoughtcrime.redphone.audio.CallAudioManager2;
+import org.thoughtcrime.redphone.audio.CallAudioManager;
 import org.thoughtcrime.redphone.crypto.SecureRtpSocket;
 import org.thoughtcrime.redphone.crypto.zrtp.MasterSecret;
 import org.thoughtcrime.redphone.crypto.zrtp.ZRTPResponderSocket;
@@ -151,15 +151,15 @@ public class ResponderCallManager extends CallManager {
                           MasterSecret masterSecret, boolean muteEnabled)
       throws SocketException, AudioException
   {
-    this.callAudioManager2 = new CallAudioManager2(socket, remoteIp, remotePort,
-                                                   masterSecret.getResponderSrtpKey(),
-                                                   masterSecret.getResponderMacKey(),
-                                                   masterSecret.getResponderSrtpSailt(),
-                                                   masterSecret.getInitiatorSrtpKey(),
-                                                   masterSecret.getInitiatorMacKey(),
-                                                   masterSecret.getInitiatorSrtpSalt());
-    this.callAudioManager2.setMute(muteEnabled);
-    this.callAudioManager2.start();
+    this.callAudioManager = new CallAudioManager(socket, remoteIp, remotePort,
+                                                 masterSecret.getResponderSrtpKey(),
+                                                 masterSecret.getResponderMacKey(),
+                                                 masterSecret.getResponderSrtpSailt(),
+                                                 masterSecret.getInitiatorSrtpKey(),
+                                                 masterSecret.getInitiatorMacKey(),
+                                                 masterSecret.getInitiatorSrtpSalt());
+    this.callAudioManager.setMute(muteEnabled);
+    this.callAudioManager.start();
   }
 
 }
