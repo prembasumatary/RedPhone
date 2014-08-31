@@ -28,6 +28,7 @@ public:
 
   char* getPayload();
   uint32_t getPayloadLen();
+  void setPayloadLen(uint32_t len);
 
   char* getSerializedPacket();
   int getSerializedPacketLen();

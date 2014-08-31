@@ -23,7 +23,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE     := redphone-audio
-LOCAL_C_INCLUDES := $(JNI_DIR)/libsrtp/include/ $(JNI_DIR)/libsrtp/crypto/include/ $(JNI_DIR)/libspeex/include/ $(JNI_DIR)/webrtc/ $(JNI_DIR)
+LOCAL_C_INCLUDES := $(JNI_DIR)/libsrtp/include/ $(JNI_DIR)/libsrtp/crypto/include/ $(JNI_DIR)/libspeex/include/ $(JNI_DIR)/webrtc/ $(JNI_DIR)/openssl/include/ $(JNI_DIR)
 LOCAL_LDLIBS     += -lOpenSLES -llog
 LOCAL_CFLAGS     += -Wall
 
@@ -36,7 +36,8 @@ $(JNI_DIR)/redphone/RtpAudioReceiver.cpp \
 $(JNI_DIR)/redphone/AudioPlayer.cpp \
 $(JNI_DIR)/redphone/JitterBuffer.cpp \
 $(JNI_DIR)/redphone/CallAudioManager.cpp \
-$(JNI_DIR)/redphone/WebRtcJitterBuffer.cpp
+$(JNI_DIR)/redphone/WebRtcJitterBuffer.cpp \
+$(JNI_DIR)/redphone/SrtpStream.cpp
 
 LOCAL_STATIC_LIBRARIES := \
 libspeex \
