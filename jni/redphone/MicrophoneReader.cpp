@@ -18,9 +18,6 @@ MicrophoneReader::MicrophoneReader(int androidSdkVersion, AudioCodec &audioCodec
 }
 
 MicrophoneReader::~MicrophoneReader() {
-  if (recorderObject != NULL) {
-    (*recorderObject)->Destroy(recorderObject);
-  }
 }
 
 void MicrophoneReader::recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void *context) {
@@ -108,5 +105,9 @@ void MicrophoneReader::stop() {
 
   if (recorderBufferQueue != NULL) {
     (*recorderBufferQueue)->Clear(recorderBufferQueue);
+  }
+
+  if (recorderObject != NULL) {
+    (*recorderObject)->Destroy(recorderObject);
   }
 }

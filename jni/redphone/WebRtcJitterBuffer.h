@@ -17,7 +17,6 @@ class WebRtcJitterBuffer {
 private:
   webrtc::NetEq *neteq;
   WebRtcCodec webRtcCodec;
-  volatile int running;
 
 public:
   WebRtcJitterBuffer(AudioCodec &codec);
