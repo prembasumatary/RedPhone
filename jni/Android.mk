@@ -1,7 +1,6 @@
 JNI_DIR := $(call my-dir)
 
 include $(JNI_DIR)/libspeex/Android.mk
-include $(JNI_DIR)/libsrtp/Android.mk
 
 include $(JNI_DIR)/webrtc/common_audio/signal_processing/Android.mk
 include $(JNI_DIR)/webrtc/modules/audio_processing/aec/Android.mk
@@ -41,7 +40,6 @@ $(JNI_DIR)/redphone/SrtpStream.cpp
 
 LOCAL_STATIC_LIBRARIES := \
 libspeex \
-libsrtp \
 libwebrtc_aecm \
 libwebrtc_ns \
 libwebrtc_spl \
