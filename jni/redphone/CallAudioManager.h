@@ -7,6 +7,7 @@
 #ifdef __cplusplus
 
 #include "SrtpStream.h"
+#include "Clock.h"
 
 class CallAudioManager {
 
@@ -18,6 +19,7 @@ private:
   RtpAudioSender     audioSender;
   RtpAudioReceiver   audioReceiver;
   WebRtcJitterBuffer webRtcJitterBuffer;
+  Clock              clock;
   MicrophoneReader   microphoneReader;
   AudioPlayer        audioPlayer;
 

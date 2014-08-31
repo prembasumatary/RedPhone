@@ -47,6 +47,11 @@ uint32_t RtpPacket::getTimestamp() {
   return ntohl(header->timestamp);
 }
 
+void RtpPacket::setTimestamp(uint32_t timestamp) {
+  RtpHeader *header = (RtpHeader*)packet;
+  header->timestamp = htonl(timestamp);
+}
+
 uint32_t RtpPacket::getSsrc() {
   RtpHeader *header = (RtpHeader*)packet;
   return ntohl(header->ssrc);

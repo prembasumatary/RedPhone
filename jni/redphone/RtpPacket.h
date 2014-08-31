@@ -24,6 +24,7 @@ public:
   uint16_t getSequenceNumber();
   int getPayloadType();
   uint32_t getTimestamp();
+  void setTimestamp(uint32_t timestamp);
   uint32_t getSsrc();
 
   char* getPayload();

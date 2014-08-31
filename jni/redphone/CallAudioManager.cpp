@@ -25,7 +25,8 @@ CallAudioManager::CallAudioManager(int androidSdkVersion, int socketFd, struct s
   : engineObject(NULL), engineEngine(NULL), audioCodec(),
     audioSender(socketFd, sockAddr, sizeof(struct sockaddr_in), senderParameters),
     audioReceiver(socketFd, sockAddr, sizeof(struct sockaddr_in), receiverParameters),
-    webRtcJitterBuffer(audioCodec), microphoneReader(androidSdkVersion, audioCodec, audioSender),
+    webRtcJitterBuffer(audioCodec), clock(),
+    microphoneReader(androidSdkVersion, audioCodec, audioSender, clock),
     audioPlayer(webRtcJitterBuffer, audioCodec)
 {
 }
@@ -109,11 +110,14 @@ int CallAudioManager::run() {
 
   while(running) {
     RtpPacket *packet = audioReceiver.receive(buffer, sizeof(buffer));
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "read() returned!");
 
     if (packet != NULL) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Timestamp: %d, Sequence: %d", packet->getTimestamp(), packet->getSequenceNumber());
-      webRtcJitterBuffer.addAudio(packet);
+
+      if (packet->getTimestamp() == 0) {
+        packet->setTimestamp(clock.getImprovisedTimestamp(packet->getPayloadLen()));
+      }
+
+      webRtcJitterBuffer.addAudio(packet, clock.getTickCount());
       delete packet;
     }
   }
