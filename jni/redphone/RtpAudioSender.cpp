@@ -7,7 +7,7 @@
 #define TAG "RtpAudioSender"
 
 RtpAudioSender::RtpAudioSender(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen,
-                               SrtpStreamParameters &parameters) :
+                               SrtpStreamParameters *parameters) :
   socketFd(socketFd), sequenceNumber(0), sockAddr(sockAddr), sockAddrLen(sockAddrLen),
   srtpStream(parameters)
 {

@@ -121,9 +121,13 @@ void AudioPlayer::stop() {
 
   if (bqPlayerObject != NULL) {
     (*bqPlayerObject)->Destroy(bqPlayerObject);
+    bqPlayerPlay        = NULL;
+    bqPlayerBufferQueue = NULL;
+    bqPlayerObject      = NULL;
   }
 
   if (outputMixObject != NULL) {
     (*outputMixObject)->Destroy(outputMixObject);
+    outputMixObject = NULL;
   }
 }
