@@ -36,6 +36,7 @@ public:
   int init();
   int encode(short *rawData, char* encodedData, int encodedDataLen);
   int decode(char* encodedData, int encodedDataLen, short* rawData);
+  int conceal(int frames, short *rawData);
 
 };
 

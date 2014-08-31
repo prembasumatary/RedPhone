@@ -24,13 +24,11 @@ public:
   }
 
   bool HasDecodePlc() const {
-//    return 1;
-    return 0;
+    return 1;
   }
 
   int DecodePlc(int num_frames, int16_t* decoded) {
-//    return codec.decode(NULL, SPEEX_ENCODED_FRAME_SIZE * num_frames, decoded);
-    return 0;
+    return codec.conceal(num_frames, decoded);
   }
 
   int Init() { return 0; }
