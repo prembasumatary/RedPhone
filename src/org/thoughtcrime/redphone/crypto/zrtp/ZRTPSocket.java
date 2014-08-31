@@ -33,6 +33,7 @@ import javax.crypto.interfaces.DHPublicKey;
 import javax.crypto.spec.DHParameterSpec;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.DatagramSocket;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -109,6 +110,18 @@ public abstract class ZRTPSocket {
     this.hashChain         = new HashChain();
 
     this.socket.setTimeout(RETRANSMIT_INTERVAL_MILLIS);
+  }
+
+  public String getRemoteIp() {
+    return socket.getRemoteIp();
+  }
+
+  public int getRemotePort() {
+    return socket.getRemotePort();
+  }
+
+  public DatagramSocket getDatagramSocket() {
+    return socket.getDatagramSocket();
   }
 
   protected abstract void handleHello(HandshakePacket packet) throws InvalidPacketException;

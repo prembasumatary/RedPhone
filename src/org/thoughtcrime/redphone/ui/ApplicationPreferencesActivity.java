@@ -32,7 +32,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.thoughtcrimegson.Gson;
 
-import org.thoughtcrime.redphone.audio.DeviceAudioSettings;
 import org.thoughtcrime.redphone.monitor.CallQualityConfig;
 import org.thoughtcrime.redphone.R;
 import org.thoughtcrime.redphone.Release;
@@ -172,12 +171,6 @@ public class ApplicationPreferencesActivity extends SherlockPreferenceActivity {
   public static float getCallStreamDesBufferLevel( Context context ) {
     return PreferenceManager
            .getDefaultSharedPreferences(context).getFloat(CALL_STREAM_DES_LEVEL, 2.5f);
-  }
-
-  public static boolean getAudioModeIncall(Context context) {
-    return PreferenceManager
-           .getDefaultSharedPreferences(context).getBoolean(AUDIO_SPEAKER_INCALL,
-                                                            DeviceAudioSettings.useInCallMode() );
   }
 
   public static boolean getAudioCompatibilityMode(Context context) {

@@ -31,11 +31,11 @@ import android.util.Log;
 import java.io.IOException;
 
 /**
- * Plays the 'incoming call' ringtone and manages the audio player state associated with this
- * process.
- *
- * @author Stuart O. Anderson
- */
+* Plays the 'incoming call' ringtone and manages the audio player state associated with this
+* process.
+*
+* @author Stuart O. Anderson
+*/
 public class IncomingRinger {
   private static final String TAG = IncomingRinger.class.getName();
   private static final long[] VIBRATE_PATTERN = {0, 1000, 1000};

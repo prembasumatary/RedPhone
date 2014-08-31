@@ -335,7 +335,7 @@ public class SignalingSocket {
 
   public boolean waitForSignal() throws SignalingException {
     try {
-      socket.setSoTimeout(500);
+      socket.setSoTimeout(1500);
       return lineReader.waitForAvailable();
     } catch (IOException ioe) {
       throw new SignalingException(ioe);
