@@ -22,7 +22,7 @@ class MicrophoneReader {
     AudioCodec &audioCodec;
     RtpAudioSender &rtpAudioSender;
 
-    short inputBuffer[FRAME_SIZE];
+    short inputBuffer[FRAME_SIZE * 2];
     char encodedAudio[1024];
 
     SLObjectItf recorderObject;
