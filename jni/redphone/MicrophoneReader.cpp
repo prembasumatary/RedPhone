@@ -27,14 +27,13 @@ void MicrophoneReader::recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueu
 
 void MicrophoneReader::recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueue)
 {
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Got recorder callback!");
   int encodedAudioLen = audioCodec.encode(inputBuffer, encodedAudio, sizeof(encodedAudio));
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Successfully encoded %d bytes of audio", encodedAudioLen);
-  timestamp += FRAME_SIZE;
-  rtpAudioSender.send(timestamp, encodedAudio, encodedAudioLen);
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Successfully sent via RTP...");
+  encodedAudioLen += audioCodec.encode(inputBuffer + FRAME_SIZE, encodedAudio + encodedAudioLen, sizeof(encodedAudio) - encodedAudioLen);
 
-  (*bufferQueue)->Enqueue(bufferQueue, inputBuffer, FRAME_SIZE * sizeof(short));
+  timestamp += (FRAME_SIZE * 2);
+  rtpAudioSender.send(timestamp, encodedAudio, encodedAudioLen);
+
+  (*bufferQueue)->Enqueue(bufferQueue, inputBuffer, FRAME_SIZE * 2 * sizeof(short));
 }
 
 int MicrophoneReader::start(SLEngineItf *engineEnginePtr) {
@@ -87,7 +86,7 @@ int MicrophoneReader::start(SLEngineItf *engineEnginePtr) {
     return -1;
   }
 
-  if ((*recorderBufferQueue)->Enqueue(recorderBufferQueue, inputBuffer, FRAME_SIZE * sizeof(short)) != SL_RESULT_SUCCESS) {
+  if ((*recorderBufferQueue)->Enqueue(recorderBufferQueue, inputBuffer, FRAME_SIZE * 2 * sizeof(short)) != SL_RESULT_SUCCESS) {
     return -1;
   }
 

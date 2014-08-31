@@ -109,8 +109,10 @@ int CallAudioManager::run() {
 
   while(running) {
     RtpPacket *packet = audioReceiver.receive(buffer, sizeof(buffer));
+//    __android_log_print(ANDROID_LOG_WARN, TAG, "read() returned!");
 
     if (packet != NULL) {
+//    __android_log_print(ANDROID_LOG_WARN, TAG, "Timestamp: %d, Sequence: %d", packet->getTimestamp(), packet->getSequenceNumber());
       webRtcJitterBuffer.addAudio(packet);
       delete packet;
     }
