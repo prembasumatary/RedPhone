@@ -36,14 +36,33 @@ import java.net.SocketTimeoutException;
  * @author Stuart O. Anderson
  */
 public class RtpSocket {
+
   private final byte [] buf = new byte[4096];
-  private DatagramSocket socket;
+
+  private final String remoteIp;
+  private final int    remotePort;
+
+  private final DatagramSocket socket;
 
   public RtpSocket(int localPort, InetSocketAddress remoteAddress) throws SocketException {
-    socket = new DatagramSocket(localPort);
-    socket.setSoTimeout(1);
-    socket.connect(new InetSocketAddress(remoteAddress.getAddress().getHostAddress(), remoteAddress.getPort()));
-    Log.d( "RtpSocket", "Connected to: " + remoteAddress.getAddress().getHostAddress() );
+    this.socket     = new DatagramSocket(localPort);
+    this.remoteIp   = remoteAddress.getAddress().getHostAddress();
+    this.remotePort = remoteAddress.getPort();
+
+    socket.connect(new InetSocketAddress(remoteIp, remotePort));
+    Log.d( "RtpSocket", "Connected to: " + remoteIp );
+  }
+
+  public String getRemoteIp() {
+    return remoteIp;
+  }
+
+  public int getRemotePort() {
+    return remotePort;
+  }
+
+  public DatagramSocket getDatagramSocket() {
+    return socket;
   }
 
   public void setTimeout(int timeoutMillis) {
@@ -54,11 +73,8 @@ public class RtpSocket {
     }
   }
 
-  private long totalSendTime = 0;
-  private PeriodicTimer pt = new PeriodicTimer(10000);
 
   public void send(RtpPacket outPacket) throws IOException {
-    long start = SystemClock.uptimeMillis();
     try {
       socket.send(new DatagramPacket(outPacket.getPacket(), outPacket.getPacketLength()));
     } catch (IOException e) {
@@ -66,21 +82,13 @@ public class RtpSocket {
         throw new IOException(e);
       }
     }
-    long stop = SystemClock.uptimeMillis();
-    totalSendTime += stop - start;
-    if( pt.periodically() ) {
-      Log.d( "RPS", "Send avg time:" + (totalSendTime/(double)pt.getPeriod()) );
-      totalSendTime = 0;
-    }
   }
 
   public RtpPacket receive() throws IOException {
     try {
       DatagramPacket dataPack = new DatagramPacket(buf, buf.length);
-      socket.setSoTimeout(1);
       socket.receive(dataPack);
-      RtpPacket inPacket = new RtpPacket(dataPack.getData(), dataPack.getLength());
-      return inPacket;
+      return  new RtpPacket(dataPack.getData(), dataPack.getLength());
     } catch( SocketTimeoutException e ) {
       //Do Nothing.
     } catch (IOException e) {

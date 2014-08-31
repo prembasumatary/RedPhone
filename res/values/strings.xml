@@ -220,5 +220,6 @@
     <string name="registration_progress__redphone_can_also_call_you_to_verify_your_number">RedPhone can also call you to verify your number. Tap \'Call Me\' and enter the six digit code that you hear below.</string>
     <string name="registration_progress__verify">Verify</string>
     <string name="registration_progress__call_me">Call Me</string>
+    <string name="CallAudioManager__sorry_there_was_a_problem_initializing_the_audio_on_your_device">Sorry, there was a problem initializing the audio on your device.</string>
     <!-- EOF -->
 </resources>

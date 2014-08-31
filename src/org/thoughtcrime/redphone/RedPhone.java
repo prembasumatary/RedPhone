@@ -50,7 +50,6 @@ import org.thoughtcrime.redphone.monitor.MonitorConfigUpdateReceiver;
 import org.thoughtcrime.redphone.ui.ApplicationPreferencesActivity;
 import org.thoughtcrime.redphone.ui.CallControls;
 import org.thoughtcrime.redphone.ui.CallScreen;
-import org.thoughtcrime.redphone.ui.QualityReporting;
 import org.thoughtcrime.redphone.util.AudioUtils;
 import org.thoughtcrime.redphone.util.PeriodicActionUtils;
 
@@ -388,15 +387,7 @@ public class RedPhone extends Activity {
     callStateHandler.postDelayed(new Runnable() {
 
     public void run() {
-      if (Release.DELIVER_DIAGNOSTIC_DATA &&
-          ApplicationPreferencesActivity.getAskUserToSendDiagnosticData(RedPhone.this)) {
-        if( !deliveringTimingData) {
-          deliveringTimingData = true;
-          QualityReporting.sendDiagnosticData(RedPhone.this);
-        }
-      } else {
-        RedPhone.this.finish();
-      }
+      RedPhone.this.finish();
     }}, delayMillis);
   }
 

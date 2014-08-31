@@ -25,6 +25,7 @@ import org.thoughtcrime.redphone.network.RtpSocket;
 import org.thoughtcrime.redphone.profiling.TimeProfiler;
 
 import java.io.IOException;
+import java.net.DatagramSocket;
 
 /**
  * A socket that does SRTP.
@@ -32,42 +33,34 @@ import java.io.IOException;
  * Every outgoing packet is encrypted/authenticated, and every incoming
  * packet is verified/decrypted.
  *
+ * EDIT: Now just a shim for passing handshake packets.  TODO
+ *
  * @author Moxie Marlinspike
  *
  */
 
 public class SecureRtpSocket {
 
-  private SecureStream incomingContext;
-  private SecureStream outgoingContext;
   private final RtpSocket socket;
 
   public SecureRtpSocket(RtpSocket socket) {
     this.socket = socket;
-    initializeStreamContexts();
+  }
+
+  public String getRemoteIp() {
+    return socket.getRemoteIp();
+  }
+
+  public int getRemotePort() {
+    return socket.getRemotePort();
+  }
+
+  public DatagramSocket getDatagramSocket() {
+    return socket.getDatagramSocket();
   }
 
   public void close() {
     this.socket.close();
-  }
-
-  public void setKeys(byte[] incomingCipherKey, byte[] incomingMacKey, byte[] incomingSalt,
-            byte[] outgoingCipherKey, byte[] outgoingMacKey, byte[] outgoingSalt)
-  {
-    this.incomingContext = new SecureStream(incomingCipherKey, incomingMacKey, incomingSalt);
-    this.outgoingContext = new SecureStream(outgoingCipherKey, outgoingMacKey, outgoingSalt);
-  }
-
-  private void initializeStreamContexts() {
-    byte[] incomingCipherKey = new byte[16];
-    byte[] outgoingCipherKey = new byte[16];
-    byte[] incomingMacKey    = new byte[20];
-    byte[] outgoingMacKey    = new byte[20];
-    byte[] incomingSalt      = new byte[14];
-    byte[] outgoingSalt      = new byte[14];
-
-    this.incomingContext = new SecureStream(incomingCipherKey, incomingMacKey, incomingSalt);
-    this.outgoingContext = new SecureStream(outgoingCipherKey, outgoingMacKey, outgoingSalt);
   }
 
   public void send(HandshakePacket packet) throws IOException {
@@ -77,13 +70,15 @@ public class SecureRtpSocket {
 
   public HandshakePacket receiveHandshakePacket(boolean verifyCRC) throws IOException {
     RtpPacket barePacket = socket.receive();
+
     if (barePacket == null)
       return null;
 
     HandshakePacket handshakePacket = new HandshakePacket(barePacket);
-    if (!verifyCRC || handshakePacket.verifyCRC())
+
+    if (!verifyCRC || handshakePacket.verifyCRC()) {
       return handshakePacket;
-    else {
+    } else {
       Log.w("SecureRedPhoneSocket", "Bad CRC!");
       return null;
     }
@@ -91,45 +86,5 @@ public class SecureRtpSocket {
 
   public void setTimeout(int timeoutMillis) {
     socket.setTimeout(timeoutMillis);
-  }
-
-  public void send(SecureRtpPacket packet) throws IOException {
-    TimeProfiler.startBlock("SRPS:send:updateSeq" );
-    outgoingContext.updateSequence(packet);
-    TimeProfiler.stopBlock("SRPS:send:updateSeq" );
-    TimeProfiler.startBlock("SRPS:send:encrypt" );
-    outgoingContext.encrypt(packet);
-    TimeProfiler.stopBlock("SRPS:send:encrypt" );
-    TimeProfiler.startBlock("SRPS:send:mac" );
-    outgoingContext.mac(packet);
-    TimeProfiler.stopBlock("SRPS:send:mac" );
-    TimeProfiler.startBlock("SRPS:send:send" );
-    socket.send(packet);
-    TimeProfiler.stopBlock("SRPS:send:send" );
-  }
-
-  public SecureRtpPacket receive() throws IOException {
-    TimeProfiler.startBlock( "SecureRedphoneSocket::receive" );
-    RtpPacket barePacket;
-    barePacket = socket.receive();
-    TimeProfiler.stopBlock( "SecureRedphoneSocket::receive" );
-
-    if (barePacket == null)
-      return null;
-
-    SecureRtpPacket packet = new SecureRtpPacket(barePacket);
-
-    TimeProfiler.startBlock( "VerfiyRcvMac" );
-    if (incomingContext.verifyMac(packet)) {
-      TimeProfiler.stopBlock( "VerfiyRcvMac" );
-      incomingContext.updateSequence(packet);
-      TimeProfiler.startBlock( "RecvDecrypt" );
-      incomingContext.decrypt(packet);
-      TimeProfiler.stopBlock( "RecvDecrypt" );
-      return packet;
-    }
-
-    Log.w("SecureRedPhoneSocket", "Bad mac on packet...");
-    return null;
   }
 }

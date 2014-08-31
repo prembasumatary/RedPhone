@@ -20,6 +20,8 @@ package org.thoughtcrime.redphone.call;
 import android.content.Context;
 import android.util.Log;
 import org.thoughtcrime.redphone.Release;
+import org.thoughtcrime.redphone.audio.AudioException;
+import org.thoughtcrime.redphone.audio.CallAudioManager2;
 import org.thoughtcrime.redphone.crypto.SecureRtpSocket;
 import org.thoughtcrime.redphone.crypto.zrtp.MasterSecret;
 import org.thoughtcrime.redphone.crypto.zrtp.ZRTPInitiatorSocket;
@@ -34,6 +36,7 @@ import org.thoughtcrime.redphone.signaling.SignalingException;
 import org.thoughtcrime.redphone.signaling.SignalingSocket;
 import org.thoughtcrime.redphone.ui.ApplicationPreferencesActivity;
 
+import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
 
@@ -120,12 +123,19 @@ public class InitiatingCallManager extends CallManager {
   }
 
   @Override
-  protected void setSecureSocketKeys(MasterSecret masterSecret) {
-    secureSocket.setKeys(masterSecret.getResponderSrtpKey(), masterSecret
-        .getResponderMacKey(), masterSecret.getResponderSrtpSailt(),
-        masterSecret.getInitiatorSrtpKey(), masterSecret
-            .getInitiatorMacKey(), masterSecret
-            .getInitiatorSrtpSalt());
+  protected void runAudio(DatagramSocket socket, String remoteIp, int remotePort,
+                          MasterSecret masterSecret, boolean muteEnabled)
+      throws SocketException, AudioException
+  {
+    this.callAudioManager2 = new CallAudioManager2(socket, remoteIp, remotePort,
+                                                   masterSecret.getInitiatorSrtpKey(),
+                                                   masterSecret.getInitiatorMacKey(),
+                                                   masterSecret.getInitiatorSrtpSalt(),
+                                                   masterSecret.getResponderSrtpKey(),
+                                                   masterSecret.getResponderMacKey(),
+                                                   masterSecret.getResponderSrtpSailt());
+    this.callAudioManager2.setMute(muteEnabled);
+    this.callAudioManager2.start();
   }
 
   //***************************
