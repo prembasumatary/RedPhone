@@ -6,7 +6,7 @@
 #include <speex/speex_echo.h>
 
 #include <modules/audio_processing/aecm/include/echo_control_mobile.h>
-#include <modules/audio_processing/aec/include/echo_cancellation.h>
+#include <modules/audio_processing/ns/include/noise_suppression_x.h>
 
 #define SPEEX_BIT_RATE    8000
 #define SPEEX_SAMPLE_RATE 8000
@@ -22,6 +22,7 @@ private:
   void *dec; //speex decoder
 
   void *aecm;
+  NsxHandle *ns;
 
   SpeexBits enc_bits, dec_bits;
   SpeexEchoState *echo_state;
