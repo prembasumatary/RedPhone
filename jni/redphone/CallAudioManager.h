@@ -6,6 +6,8 @@
 #define _Included_org_thoughtcrime_redphone_audio_CallAudioManager2
 #ifdef __cplusplus
 
+#include <pthread.h>
+
 #include "SrtpStream.h"
 #include "Clock.h"
 
@@ -13,6 +15,7 @@ class CallAudioManager {
 
 private:
   volatile int       running;
+  int                finished;
   SLObjectItf        engineObject;
   SLEngineItf        engineEngine;
   AudioCodec         audioCodec;
@@ -23,17 +26,21 @@ private:
   MicrophoneReader   microphoneReader;
   AudioPlayer        audioPlayer;
   struct sockaddr_in *sockAddr;
+  pthread_cond_t     condition;
+  pthread_mutex_t    mutex;
 
 public:
+
   CallAudioManager(int androidSdkVersion, int socketFd, struct sockaddr_in *sockAddr,
                    SrtpStreamParameters *senderParameters, SrtpStreamParameters *receiverParameters);
   ~CallAudioManager();
+  int init();
 
   int start();
   void stop();
 
   void setMute(int muteEnabled);
-
+  int isFinished();
 };
 
 extern "C" {
