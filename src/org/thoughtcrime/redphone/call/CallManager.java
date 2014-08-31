@@ -26,7 +26,7 @@ import android.os.Process;
 import android.util.Log;
 import org.thoughtcrime.redphone.audio.AudioException;
 //import org.thoughtcrime.redphone.audio.CallAudioManager;
-import org.thoughtcrime.redphone.audio.CallAudioManager2;
+import org.thoughtcrime.redphone.audio.CallAudioManager;
 import org.thoughtcrime.redphone.crypto.SecureRtpSocket;
 import org.thoughtcrime.redphone.crypto.zrtp.MasterSecret;
 import org.thoughtcrime.redphone.crypto.zrtp.NegotiationFailedException;
@@ -61,13 +61,13 @@ public abstract class CallManager extends Thread {
   protected final Context           context;
   protected final CallMonitor       monitor;
 
-  private   boolean           terminated;
-  private   boolean           loopbackMode;
-  protected CallAudioManager2 callAudioManager2;
-  private   SignalManager     signalManager;
-  private   SASInfo           sasInfo;
-  private   boolean           muteEnabled;
-  private   boolean           callConnected;
+  private   boolean          terminated;
+  private   boolean          loopbackMode;
+  protected CallAudioManager callAudioManager;
+  private   SignalManager    signalManager;
+  private   SASInfo          sasInfo;
+  private   boolean          muteEnabled;
+  private   boolean          callConnected;
 
   protected SessionDescriptor sessionDescriptor;
   protected ZRTPSocket        zrtpSocket;
@@ -149,8 +149,8 @@ public abstract class CallManager extends Thread {
       monitor.startUpload(context, String.valueOf(sessionDescriptor.sessionId));
     }
 
-    if (callAudioManager2 != null)
-      callAudioManager2.terminate();
+    if (callAudioManager != null)
+      callAudioManager.terminate();
 
     if (signalManager != null)
       signalManager.terminate();
@@ -204,8 +204,8 @@ public abstract class CallManager extends Thread {
 
   public void setMute(boolean enabled) {
     muteEnabled = enabled;
-    if(callAudioManager2 != null) {
-      callAudioManager2.setMute(muteEnabled);
+    if (callAudioManager != null) {
+      callAudioManager.setMute(muteEnabled);
     }
   }
 
@@ -224,10 +224,10 @@ public abstract class CallManager extends Thread {
     DatagramSocket socket = new DatagramSocket(2222);
     socket.connect(new InetSocketAddress("127.0.0.1", 2222));
 
-    this.callAudioManager2 = new CallAudioManager2(socket, "127.0.0.1", 2222,
-                                                   new byte[16], new byte[20], new byte[14],
-                                                   new byte[16], new byte[20], new byte[14]);
+    this.callAudioManager = new CallAudioManager(socket, "127.0.0.1", 2222,
+                                                 new byte[16], new byte[20], new byte[14],
+                                                 new byte[16], new byte[20], new byte[14]);
 
-    this.callAudioManager2.start();
+    this.callAudioManager.start();
   }
 }

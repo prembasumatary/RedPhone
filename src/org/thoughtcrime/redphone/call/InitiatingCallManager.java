@@ -21,7 +21,7 @@ import android.content.Context;
 import android.util.Log;
 import org.thoughtcrime.redphone.Release;
 import org.thoughtcrime.redphone.audio.AudioException;
-import org.thoughtcrime.redphone.audio.CallAudioManager2;
+import org.thoughtcrime.redphone.audio.CallAudioManager;
 import org.thoughtcrime.redphone.crypto.SecureRtpSocket;
 import org.thoughtcrime.redphone.crypto.zrtp.MasterSecret;
 import org.thoughtcrime.redphone.crypto.zrtp.ZRTPInitiatorSocket;
@@ -127,15 +127,15 @@ public class InitiatingCallManager extends CallManager {
                           MasterSecret masterSecret, boolean muteEnabled)
       throws SocketException, AudioException
   {
-    this.callAudioManager2 = new CallAudioManager2(socket, remoteIp, remotePort,
-                                                   masterSecret.getInitiatorSrtpKey(),
-                                                   masterSecret.getInitiatorMacKey(),
-                                                   masterSecret.getInitiatorSrtpSalt(),
-                                                   masterSecret.getResponderSrtpKey(),
-                                                   masterSecret.getResponderMacKey(),
-                                                   masterSecret.getResponderSrtpSailt());
-    this.callAudioManager2.setMute(muteEnabled);
-    this.callAudioManager2.start();
+    this.callAudioManager = new CallAudioManager(socket, remoteIp, remotePort,
+                                                 masterSecret.getInitiatorSrtpKey(),
+                                                 masterSecret.getInitiatorMacKey(),
+                                                 masterSecret.getInitiatorSrtpSalt(),
+                                                 masterSecret.getResponderSrtpKey(),
+                                                 masterSecret.getResponderMacKey(),
+                                                 masterSecret.getResponderSrtpSailt());
+    this.callAudioManager.setMute(muteEnabled);
+    this.callAudioManager.start();
   }
 
   //***************************
