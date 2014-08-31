@@ -20,7 +20,7 @@
 
 CallAudioManager::CallAudioManager(int androidSdkVersion, int socketFd, struct sockaddr_in *sockAddr,
                                    SrtpStreamParameters *senderParameters, SrtpStreamParameters *receiverParameters)
-  : running(0), engineObject(NULL), engineEngine(NULL), audioCodec(),
+  : running(0), finished(1), engineObject(NULL), engineEngine(NULL), audioCodec(),
     audioSender(socketFd, sockAddr, sizeof(struct sockaddr_in), senderParameters),
     audioReceiver(socketFd, sockAddr, sizeof(struct sockaddr_in), receiverParameters),
     webRtcJitterBuffer(audioCodec), clock(),
@@ -28,6 +28,20 @@ CallAudioManager::CallAudioManager(int androidSdkVersion, int socketFd, struct s
     audioPlayer(webRtcJitterBuffer, audioCodec),
     sockAddr(sockAddr)
 {
+}
+
+int CallAudioManager::init() {
+  if (pthread_mutex_init(&mutex, NULL) != 0) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to create mutex!");
+    return -1;
+  }
+
+  if (pthread_cond_init(&condition, NULL) != 0) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to create condition!");
+    return -1;
+  }
+
+  return 0;
 }
 
 CallAudioManager::~CallAudioManager() {
@@ -49,7 +63,8 @@ CallAudioManager::~CallAudioManager() {
 }
 
 int CallAudioManager::start() {
-  running = 1;
+  running  = 1;
+  finished = 0;
 
   if (slCreateEngine(&engineObject, 0, NULL, 0, NULL, NULL) != SL_RESULT_SUCCESS) {
     __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to create engineObject!");
@@ -116,6 +131,16 @@ int CallAudioManager::start() {
     }
   }
 
+  if (pthread_mutex_lock(&mutex) != 0) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to acquire mutex!");
+    return 0;
+  }
+
+  finished = 1;
+
+  pthread_cond_signal(&condition);
+  pthread_mutex_unlock(&mutex);
+
   return 0;
 }
 
@@ -124,6 +149,14 @@ void CallAudioManager::stop() {
   microphoneReader.stop();
   audioPlayer.stop();
   webRtcJitterBuffer.stop();
+
+  pthread_mutex_lock(&mutex);
+  while (finished == 0) {
+    pthread_cond_wait(&condition, &mutex);
+  }
+  pthread_mutex_unlock(&mutex);
+
+  usleep(40000); // Duration of microphone frame.
 }
 
 void CallAudioManager::setMute(int muteEnabled) {
@@ -183,6 +216,13 @@ jlong JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_create
 
   CallAudioManager *manager = new CallAudioManager(androidSdkVersion, socketFd, sockAddr,
                                                    senderParameters, receiverParameters);
+
+  if (manager->init() != 0) {
+    delete manager;
+    env->ThrowNew(env->FindClass("org/thoughtcrime/redphone/audio/NativeAudioException"),
+                                 "Failed to initialize native audio");
+    return -1;
+  }
 
   return (jlong)manager;
 }
