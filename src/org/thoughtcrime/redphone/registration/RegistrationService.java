@@ -19,7 +19,6 @@ import org.thoughtcrime.redphone.RedPhoneService;
 import org.thoughtcrime.redphone.directory.DirectoryUpdateReceiver;
 import org.thoughtcrime.redphone.directory.NumberFilter;
 import org.thoughtcrime.redphone.gcm.GCMRegistrarHelper;
-import org.thoughtcrime.redphone.monitor.MonitorConfigUpdateReceiver;
 import org.thoughtcrime.redphone.signaling.AccountCreationException;
 import org.thoughtcrime.redphone.signaling.AccountCreationSocket;
 import org.thoughtcrime.redphone.signaling.DirectoryResponse;

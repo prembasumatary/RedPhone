@@ -46,15 +46,12 @@ import org.thoughtcrime.redphone.codec.CodecSetupException;
 import org.thoughtcrime.redphone.contacts.PersonInfo;
 import org.thoughtcrime.redphone.crypto.zrtp.SASInfo;
 import org.thoughtcrime.redphone.gcm.GCMRegistrarHelper;
-import org.thoughtcrime.redphone.monitor.CallDataImpl;
 import org.thoughtcrime.redphone.pstn.CallStateView;
 import org.thoughtcrime.redphone.pstn.IncomingPstnCallListener;
 import org.thoughtcrime.redphone.signaling.OtpCounterProvider;
 import org.thoughtcrime.redphone.signaling.SessionDescriptor;
 import org.thoughtcrime.redphone.signaling.SignalingException;
 import org.thoughtcrime.redphone.signaling.SignalingSocket;
-import org.thoughtcrime.redphone.ui.ApplicationPreferencesActivity;
-import org.thoughtcrime.redphone.ui.CallQualityDialog;
 import org.thoughtcrime.redphone.ui.NotificationBarManager;
 import org.thoughtcrime.redphone.util.Base64;
 import org.thoughtcrime.redphone.util.CallLogger;
@@ -117,8 +114,6 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
     initializeRingers();
     initializePstnCallListener();
     registerUncaughtExceptionHandler();
-
-    CallDataImpl.clearCache(this);
   }
 
   @Override
@@ -377,7 +372,6 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
     }
 
     if (currentCallManager != null) {
-      maybeStartQualityMetricsActivity();
       currentCallManager.terminate();
       currentCallManager = null;
     }
@@ -389,34 +383,6 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
     // XXX moxie@thoughtcrime.org -- Do we still need to stop the Service?
 //    Log.d("RedPhoneService", "STOP SELF" );
 //    this.stopSelf();
-  }
-
-  public void maybeStartQualityMetricsActivity() {
-    if(currentCallManager.getSessionDescriptor() == null
-      || !currentCallManager.callConnected()
-      || (!ApplicationPreferencesActivity.getDisplayDialogPreference(this)
-      && ApplicationPreferencesActivity.wasUserNotifedOfCallQaulitySettings(this))) {
-      return;
-    }
-
-    SessionDescriptor sessionDescriptor = currentCallManager.getSessionDescriptor();
-    Intent callQualityDialogIntent = new Intent(this,CallQualityDialog.class);
-    callQualityDialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    callQualityDialogIntent.putExtra("callId",sessionDescriptor.sessionId);
-    startActivity(callQualityDialogIntent);
-
-    Notification notification = new NotificationCompat.Builder(this)
-      .setAutoCancel(true)
-      .setContentTitle(getResources().getText(R.string.CallQualityDialog__redphone))
-      .setContentText(getResources().getText(R.string.CallQualityDialog__provide_call_quality_feedback))
-      .setContentIntent(PendingIntent.getActivity(this, 0, callQualityDialogIntent, PendingIntent.FLAG_UPDATE_CURRENT))
-      .setSmallIcon(R.drawable.registration_notification)
-      .setDefaults(Notification.DEFAULT_LIGHTS)
-      .setTicker(getResources().getText(R.string.CallQualityDialog__provide_call_quality_feedback))
-      .build();
-
-    NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-    nm.notify(CallQualityDialog.CALL_QUALITY_NOTIFICATION_ID, notification);
   }
 
   public void setCallStateHandler(Handler handler) {

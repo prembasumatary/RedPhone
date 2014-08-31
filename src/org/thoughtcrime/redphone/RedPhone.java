@@ -46,8 +46,6 @@ import org.thoughtcrime.redphone.codec.CodecSetupException;
 import org.thoughtcrime.redphone.contacts.PersonInfo;
 import org.thoughtcrime.redphone.crypto.zrtp.SASInfo;
 import org.thoughtcrime.redphone.directory.DirectoryUpdateReceiver;
-import org.thoughtcrime.redphone.monitor.MonitorConfigUpdateReceiver;
-import org.thoughtcrime.redphone.ui.ApplicationPreferencesActivity;
 import org.thoughtcrime.redphone.ui.CallControls;
 import org.thoughtcrime.redphone.ui.CallScreen;
 import org.thoughtcrime.redphone.util.AudioUtils;
@@ -184,7 +182,6 @@ public class RedPhone extends Activity {
     callScreen.setConfirmSasButtonListener(new ConfirmSasButtonListener());
 
     PeriodicActionUtils.scheduleUpdate(this, DirectoryUpdateReceiver.class);
-    PeriodicActionUtils.scheduleUpdate(this, MonitorConfigUpdateReceiver.class);
   }
 
   private void sendInstallLink(String user) {

@@ -22,7 +22,6 @@ import android.util.Log;
 import org.thoughtcrime.redphone.crypto.zrtp.HandshakePacket;
 import org.thoughtcrime.redphone.network.RtpPacket;
 import org.thoughtcrime.redphone.network.RtpSocket;
-import org.thoughtcrime.redphone.profiling.TimeProfiler;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
