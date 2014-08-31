@@ -96,3 +96,12 @@ int AudioCodec::decode(char* encodedData, int encodedDataLen, short *rawData) {
 
   return rawDataOffset;
 }
+
+int AudioCodec::conceal(int frames, short *rawData) {
+  int i=0;
+  for (i=0;i<frames;i++) {
+    speex_decode_int(dec, NULL, rawData + (i * dec_frame_size));
+  }
+
+  return frames * dec_frame_size;
+}
