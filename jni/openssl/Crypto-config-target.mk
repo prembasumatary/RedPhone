@@ -719,10 +719,22 @@ ifeq ($(TARGET_ARCH),arm)
     LOCAL_CFLAGS += $(LOCAL_CFLAGS_arm)
 endif
 
-#ifeq($(TARGET_ARCH),arm64)
-#    LOCAL_SRC_FILES := $(LOCAL_SRC_FILES_arm64)
-#endif
+ifeq ($(TARGET_ARCH),arm64)
+    LOCAL_SRC_FILES := $(LOCAL_SRC_FILES_arm64)
+    LOCAL_CFLAGS += $(LOCAL_CLFAGS_arm64)
+endif
 
-#ifeq($(TARGET_ARCH),x86)
-#    LOCAL_SRC_FILES := $(LOCAL_SRC_FILES_x86)
-#endif
+ifeq ($(TARGET_ARCH),x86)
+    LOCAL_SRC_FILES := $(LOCAL_SRC_FILES_x86)
+    LOCAL_CFLAGS += $(LOCAL_CFLAGS_x86)
+endif
+
+ifeq ($(TARGET_ARCH),x86_64)
+    LOCAL_SRC_FILES := $(LOCAL_SRC_FILES_x86_64)
+    LOCAL_CFLAGS += $(LOCAL_CFLAGS_x86_64)
+endif
+
+ifeq ($(TARGET_ARCH),mips)
+    LOCAL_SRC_FILES := $(LOCAL_SRC_FILES_mips)
+    LOCAL_CFLAGS += $(LOCAL_CFLAGS_mips)
+endif
