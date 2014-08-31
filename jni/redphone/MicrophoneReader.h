@@ -3,6 +3,7 @@
 
 #include "AudioCodec.h"
 #include "RtpAudioSender.h"
+#include "Clock.h"
 
 #include <jni.h>
 
@@ -17,10 +18,11 @@
 class MicrophoneReader {
   private:
     int androidSdkVersion;
-    int timestamp;
+//    int timestamp;
 
     AudioCodec &audioCodec;
     RtpAudioSender &rtpAudioSender;
+    Clock &clock;
 
     short inputBuffer[FRAME_SIZE * 2];
     char encodedAudio[1024];
@@ -32,7 +34,7 @@ class MicrophoneReader {
     SLAndroidSimpleBufferQueueItf recorderBufferQueue;
 
   public:
-    MicrophoneReader(int androidSdkVersion, AudioCodec &audioCodec, RtpAudioSender &rtpAudioSender);
+    MicrophoneReader(int androidSdkVersion, AudioCodec &audioCodec, RtpAudioSender &rtpAudioSender, Clock &clock);
     ~MicrophoneReader();
 
     int start(SLEngineItf *engineEngine);

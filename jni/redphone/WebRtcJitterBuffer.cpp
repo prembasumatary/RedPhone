@@ -38,9 +38,7 @@ WebRtcJitterBuffer::~WebRtcJitterBuffer() {
   }
 }
 
-// TODO destrucotor?
-
-void WebRtcJitterBuffer::addAudio(RtpPacket *packet) {
+void WebRtcJitterBuffer::addAudio(RtpPacket *packet, uint32_t tick) {
   webrtc::WebRtcRTPHeader header;
   header.header.payloadType    = packet->getPayloadType();
   header.header.sequenceNumber = packet->getSequenceNumber();
@@ -50,7 +48,7 @@ void WebRtcJitterBuffer::addAudio(RtpPacket *packet) {
   uint8_t *payload = (uint8_t*)malloc(packet->getPayloadLen());
   memcpy(payload, packet->getPayload(), packet->getPayloadLen());
 
-  if (neteq->InsertPacket(header, payload, packet->getPayloadLen(), 0) != 0) {
+  if (neteq->InsertPacket(header, payload, packet->getPayloadLen(), tick) != 0) {
     __android_log_print(ANDROID_LOG_WARN, TAG, "neteq->InsertPacket() failed!");
   }
 }

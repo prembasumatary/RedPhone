@@ -23,9 +23,7 @@ public:
   ~WebRtcJitterBuffer();
   int init();
 
-  // TODO destrucotor?
-
-  void addAudio(RtpPacket *packet);
+  void addAudio(RtpPacket *packet, uint32_t tick);
   int getAudio(short *rawData, int maxRawData);
   void stop();
   void collectStats();
