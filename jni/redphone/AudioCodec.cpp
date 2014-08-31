@@ -12,7 +12,7 @@
 
 #define ECHO_TAIL_MILLIS 75
 
-AudioCodec::AudioCodec() : enc(NULL), dec(NULL), aecm(NULL), initialized(0)
+AudioCodec::AudioCodec() : enc(NULL), dec(NULL), aecm(NULL), ns(NULL), initialized(0)
 { }
 
 int AudioCodec::init() {
@@ -37,6 +37,20 @@ int AudioCodec::init() {
     return -1;
   }
 
+//  if (WebRtcNsx_Create(&ns) != 0) {
+//    __android_log_print(ANDROID_LOG_WARN, TAG, "NS failed to create!");
+//    return -1;
+//  }
+//
+//  if (WebRtcNsx_Init(ns, SPEEX_SAMPLE_RATE) != 0) {
+//    __android_log_print(ANDROID_LOG_WARN, TAG, "NS failed to initialize!");
+//    return -1;
+//  }
+//
+//  if (WebRtcNsx_set_policy(ns, 0) != 0) { // "Mild"
+//    __android_log_print(ANDROID_LOG_WARN, TAG, "NS policy failed!");
+//    return -1;
+//  }
 
   spx_int32_t config = 1;
   speex_decoder_ctl(dec, SPEEX_SET_ENH, &config);
@@ -74,7 +88,11 @@ AudioCodec::~AudioCodec() {
 }
 
 int AudioCodec::encode(short *rawData, char* encodedData, int maxEncodedDataLen) {
+//  short nonoiseData[SPEEX_FRAME_SIZE];
   short cleanData[SPEEX_FRAME_SIZE];
+
+//  WebRtcNsx_Process(ns, rawData, NULL, nonoiseData, NULL);
+//  WebRtcNsx_Process(ns, rawData+80, NULL, nonoiseData+80, NULL);
 
   WebRtcAecm_Process(aecm, rawData, NULL, cleanData, SPEEX_FRAME_SIZE, ECHO_TAIL_MILLIS);
 

@@ -43,7 +43,7 @@ LOCAL_STATIC_LIBRARIES := \
 libspeex \
 libsrtp \
 libwebrtc_aecm \
-libwebrtc_aec \
+libwebrtc_ns \
 libwebrtc_spl \
 libwebrtc_apm_utility \
 libwebrtc_system_wrappers \
