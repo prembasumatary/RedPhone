@@ -56,7 +56,7 @@ int AudioCodec::init() {
   speex_decoder_ctl(dec, SPEEX_SET_ENH, &config);
   config = 0;
   speex_encoder_ctl(enc, SPEEX_SET_VBR, &config);
-  config = 3;
+  config = 4;
   speex_encoder_ctl(enc, SPEEX_SET_QUALITY, &config);
   config = 1;
   speex_encoder_ctl(enc, SPEEX_SET_COMPLEXITY, &config);
