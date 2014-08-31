@@ -17,11 +17,7 @@
 
 package org.thoughtcrime.redphone.network;
 
-import android.os.SystemClock;
 import android.util.Log;
-
-import org.thoughtcrime.redphone.call.CallStateListener;
-import org.thoughtcrime.redphone.profiling.PeriodicTimer;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

@@ -40,7 +40,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import org.thoughtcrime.redphone.monitor.MonitorConfigUpdateReceiver;
 import org.thoughtcrime.redphone.util.PeriodicActionUtils;
 
 /**
@@ -155,7 +154,6 @@ public class DialerActivity extends SherlockFragmentActivity {
     }
 
     PeriodicActionUtils.scheduleUpdate(this, DirectoryUpdateReceiver.class);
-    PeriodicActionUtils.scheduleUpdate(this, MonitorConfigUpdateReceiver.class);
   }
 
   @Override

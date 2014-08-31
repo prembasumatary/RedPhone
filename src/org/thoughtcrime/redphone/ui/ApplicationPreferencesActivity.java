@@ -32,7 +32,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.thoughtcrimegson.Gson;
 
-import org.thoughtcrime.redphone.monitor.CallQualityConfig;
 import org.thoughtcrime.redphone.R;
 import org.thoughtcrime.redphone.Release;
 import org.thoughtcrime.redphone.signaling.SignalingException;
@@ -190,22 +189,6 @@ public class ApplicationPreferencesActivity extends SherlockPreferenceActivity {
            .getDefaultSharedPreferences(context).getBoolean(LOOPBACK_MODE_PREF, false);
   }
 
-  public static boolean isSimulateDroppedPackets(Context context) {
-    return Release.DEBUG &&
-           PreferenceManager
-           .getDefaultSharedPreferences(context).getBoolean(SIMULATE_PACKET_DROPS, false);
-  }
-
-  public static boolean isMinimizeLatency(Context context) {
-    return PreferenceManager
-           .getDefaultSharedPreferences(context).getBoolean(MINIMIZE_LATENCY, false);
-  }
-
-  public static boolean isSingleThread(Context context) {
-    return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SINGLE_THREAD, false);
-  }
-
-
   private class GCMToggleListener implements Preference.OnPreferenceChangeListener {
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -261,57 +244,6 @@ public class ApplicationPreferencesActivity extends SherlockPreferenceActivity {
     }
   }
 
-
-  public static void setAskUserToSendDiagnosticData(Context context, boolean enabled) {
-    PreferenceManager
-    .getDefaultSharedPreferences(context).edit()
-    .putBoolean(ASK_DIAGNOSTIC_REPORTING, enabled).commit();
-  }
-
-  public static boolean getAskUserToSendDiagnosticData(Context context ) {
-    return PreferenceManager
-           .getDefaultSharedPreferences(context)
-           .getBoolean(ASK_DIAGNOSTIC_REPORTING, true);
-  }
-
-  public static void setCallQualityConfig(Context context, CallQualityConfig callQualityConfig) {
-    PreferenceManager.getDefaultSharedPreferences(context).edit()
-      .putString(CALL_QUALITY_QUESTIONS_PREF, gson.toJson(callQualityConfig)).commit();
-  }
-
-  public static CallQualityConfig getCallQualityConfig(Context context) {
-    String configJson = PreferenceManager.getDefaultSharedPreferences(context).
-      getString(CALL_QUALITY_QUESTIONS_PREF, gson.toJson(new CallQualityConfig()));
-
-    return gson.fromJson(configJson, CallQualityConfig.class);
-  }
-  public static void setUserNotfiedOfCallQualitySettings(Context context,boolean value){
-	  PreferenceManager.getDefaultSharedPreferences(context).edit()
-        .putBoolean(USER_ASKED_FOR_FEEDBACK_OPT_IN, value)
-        .commit();
-  }
-  public static boolean wasUserNotifedOfCallQaulitySettings(Context context){
-	  return PreferenceManager
-	           .getDefaultSharedPreferences(context).getBoolean(USER_ASKED_FOR_FEEDBACK_OPT_IN, false);
-  }
-  public static boolean getMetricsOptInFlag(Context context){
-	  return PreferenceManager
-	           .getDefaultSharedPreferences(context).getBoolean(ENABLE_CALL_METRICS_UPLOAD, true);
-  }
-  public static void setMetricsOptInFlag(Context context,boolean value){
-	  PreferenceManager.getDefaultSharedPreferences(context).edit()
-        .putBoolean(ENABLE_CALL_METRICS_UPLOAD, value)
-        .commit();
-  }
-  public static boolean getDisplayDialogPreference(Context context){
-	  return PreferenceManager
-	           .getDefaultSharedPreferences(context).getBoolean(ENABLE_CALL_QUALITY_DIALOG, true);
-  }
-  public static void setDisplayDialogPreference(Context context,boolean value){
-	  PreferenceManager.getDefaultSharedPreferences(context).edit()
-        .putBoolean(ENABLE_CALL_QUALITY_DIALOG, value)
-        .commit();
-  }
   public static boolean getBluetoothEnabled(Context context) {
     return PreferenceManager
       .getDefaultSharedPreferences(context).getBoolean(BLUETOOTH_ENABLED, false);

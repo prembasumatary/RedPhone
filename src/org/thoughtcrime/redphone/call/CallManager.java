@@ -18,14 +18,10 @@
 package org.thoughtcrime.redphone.call;
 
 import android.content.Context;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Process;
 import android.util.Log;
+
 import org.thoughtcrime.redphone.audio.AudioException;
-//import org.thoughtcrime.redphone.audio.CallAudioManager;
 import org.thoughtcrime.redphone.audio.CallAudioManager;
 import org.thoughtcrime.redphone.crypto.SecureRtpSocket;
 import org.thoughtcrime.redphone.crypto.zrtp.MasterSecret;
@@ -33,8 +29,6 @@ import org.thoughtcrime.redphone.crypto.zrtp.NegotiationFailedException;
 import org.thoughtcrime.redphone.crypto.zrtp.RecipientUnavailableException;
 import org.thoughtcrime.redphone.crypto.zrtp.SASInfo;
 import org.thoughtcrime.redphone.crypto.zrtp.ZRTPSocket;
-import org.thoughtcrime.redphone.monitor.CallMonitor;
-import org.thoughtcrime.redphone.monitor.EventStream;
 import org.thoughtcrime.redphone.signaling.SessionDescriptor;
 import org.thoughtcrime.redphone.signaling.SignalingSocket;
 import org.thoughtcrime.redphone.ui.ApplicationPreferencesActivity;
@@ -44,6 +38,8 @@ import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
+
+//import org.thoughtcrime.redphone.audio.CallAudioManager;
 
 /**
  * The base class for both Initiating and Responder call
@@ -59,7 +55,6 @@ public abstract class CallManager extends Thread {
   protected final String            remoteNumber;
   protected final CallStateListener callStateListener;
   protected final Context           context;
-  protected final CallMonitor       monitor;
 
   private   boolean          terminated;
   private   boolean          loopbackMode;
@@ -74,8 +69,6 @@ public abstract class CallManager extends Thread {
   protected SecureRtpSocket   secureSocket;
   protected SignalingSocket   signalingSocket;
 
-  private EventStream lifecycleMonitor;
-
   public CallManager(Context context, CallStateListener callStateListener,
                     String remoteNumber, String threadName)
   {
@@ -85,31 +78,21 @@ public abstract class CallManager extends Thread {
     this.terminated        = false;
     this.context           = context;
     this.loopbackMode      = ApplicationPreferencesActivity.getLoopbackEnabled(context);
-    this.monitor           = new CallMonitor(context);
 
-    initMonitor();
-    printInitDebug();
     AudioUtils.resetConfiguration(context);
-  }
-
-  private void initMonitor() {
-     lifecycleMonitor = monitor.addEventStream("call-setup");
   }
 
   @Override
   public void run() {
     Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO);
 
-    lifecycleMonitor.emitEvent("call-begin");
     try {
       Log.d( "CallManager", "negotiating..." );
       if (!terminated) {
-        lifecycleMonitor.emitEvent("start-negotiate");
         zrtpSocket.negotiateStart();
       }
 
       if (!terminated) {
-        lifecycleMonitor.emitEvent("performing-handshake");
         callStateListener.notifyPerformingHandshake();
         zrtpSocket.negotiateFinish();
       }
@@ -143,11 +126,6 @@ public abstract class CallManager extends Thread {
 
   public void terminate() {
     this.terminated = true;
-    lifecycleMonitor.emitEvent("terminate");
-
-    if (monitor != null && sessionDescriptor != null) {
-      monitor.startUpload(context, String.valueOf(sessionDescriptor.sessionId));
-    }
 
     if (callAudioManager != null)
       callAudioManager.terminate();
@@ -181,26 +159,6 @@ public abstract class CallManager extends Thread {
                                    MasterSecret masterSecret, boolean muteEnabled)
       throws SocketException, AudioException;
 
-  private void printInitDebug() {
-    Context c = context;
-    String vName = "unknown";
-    try {
-        vName = c.getPackageManager().getPackageInfo("org.thoughtcrime.redphone", 0).versionName;
-    } catch (NameNotFoundException e) {
-    }
-
-    ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-
-    monitor.addNominalValue("device", Build.DEVICE);
-    monitor.addNominalValue("manufacturer", Build.MANUFACTURER);
-    monitor.addNominalValue("android-version", Build.VERSION.RELEASE);
-    monitor.addNominalValue("product", Build.PRODUCT);
-    monitor.addNominalValue("redphone-version", vName);
-    monitor.addNominalValue("network-type", networkInfo == null ? null : networkInfo.getTypeName());
-    monitor.addNominalValue("network-subtype", networkInfo == null ? null : networkInfo.getSubtypeName());
-    monitor.addNominalValue("network-extra", networkInfo == null ? null : networkInfo.getExtraInfo());
-  }
 
   public void setMute(boolean enabled) {
     muteEnabled = enabled;
