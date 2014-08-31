@@ -13,13 +13,6 @@ AudioPlayer::AudioPlayer(WebRtcJitterBuffer &webRtcJitterBuffer, AudioCodec &aud
 }
 
 AudioPlayer::~AudioPlayer() {
-  if (bqPlayerObject != NULL) {
-    (*bqPlayerObject)->Destroy(bqPlayerObject);
-  }
-
-  if (outputMixObject != NULL) {
-    (*outputMixObject)->Destroy(outputMixObject);
-  }
 }
 
 void AudioPlayer::playerCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void *context) {
@@ -124,5 +117,13 @@ void AudioPlayer::stop() {
 
   if (bqPlayerBufferQueue != NULL) {
     (*bqPlayerBufferQueue)->Clear(bqPlayerBufferQueue);
+  }
+
+  if (bqPlayerObject != NULL) {
+    (*bqPlayerObject)->Destroy(bqPlayerObject);
+  }
+
+  if (outputMixObject != NULL) {
+    (*outputMixObject)->Destroy(outputMixObject);
   }
 }

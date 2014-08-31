@@ -2,9 +2,13 @@
 
 #define TAG "WebRtcJitterBuffer"
 
+static volatile int running = 0;
+
 WebRtcJitterBuffer::WebRtcJitterBuffer(AudioCodec &codec) :
-  neteq(NULL), webRtcCodec(codec), running(1)
-{}
+  neteq(NULL), webRtcCodec(codec)
+{
+  running = 1;
+}
 
 int WebRtcJitterBuffer::init() {
   webrtc::NetEq::Config config;

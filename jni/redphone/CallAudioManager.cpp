@@ -34,7 +34,7 @@ CallAudioManager::~CallAudioManager() {
 //  if (srtp_initialized) {
 //    srtp_shutdown();
 //  }
-
+  __android_log_print(ANDROID_LOG_WARN, TAG, "Shutting down...");
   microphoneReader.stop();
   audioPlayer.stop();
   webRtcJitterBuffer.stop();
@@ -42,6 +42,8 @@ CallAudioManager::~CallAudioManager() {
   if (engineObject != NULL) {
     (*engineObject)->Destroy(engineObject);
   }
+
+  __android_log_print(ANDROID_LOG_WARN, TAG, "Shutdown complete....");
 }
 
 int CallAudioManager::run() {
