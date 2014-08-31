@@ -4,7 +4,7 @@
 
 #define TAG "RtpAudioReceiver"
 
-RtpAudioReceiver::RtpAudioReceiver(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, SrtpStreamParameters &parameters) :
+RtpAudioReceiver::RtpAudioReceiver(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, SrtpStreamParameters *parameters) :
   socketFd(socketFd), sockAddr(sockAddr), sockAddrLen(sockAddrLen), sequenceCounter(), srtpStream(parameters)
 {
 //  crypto_policy_set_rtp_default(&policy.rtp);

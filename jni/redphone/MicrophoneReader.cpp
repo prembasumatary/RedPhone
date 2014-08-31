@@ -12,7 +12,8 @@
 #endif
 
 MicrophoneReader::MicrophoneReader(int androidSdkVersion, AudioCodec &audioCodec, RtpAudioSender &rtpAudioSender, Clock &clock) :
-  androidSdkVersion(androidSdkVersion), audioCodec(audioCodec), rtpAudioSender(rtpAudioSender), clock(clock),
+  androidSdkVersion(androidSdkVersion), muteEnabled(0),
+  audioCodec(audioCodec), rtpAudioSender(rtpAudioSender), clock(clock),
   recorderObject(NULL), recorderRecord(NULL), recorderBufferQueue(NULL)
 {
 }
@@ -27,13 +28,20 @@ void MicrophoneReader::recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueu
 
 void MicrophoneReader::recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueue)
 {
+  if (muteEnabled) {
+    memset(inputBuffer, 0, FRAME_SIZE * 2 * sizeof(short));
+  }
+
   int encodedAudioLen = audioCodec.encode(inputBuffer, encodedAudio, sizeof(encodedAudio));
   encodedAudioLen += audioCodec.encode(inputBuffer + FRAME_SIZE, encodedAudio + encodedAudioLen, sizeof(encodedAudio) - encodedAudioLen);
 
-//  timestamp += (FRAME_SIZE * 2);
   rtpAudioSender.send(clock.tick(2), encodedAudio, encodedAudioLen);
 
   (*bufferQueue)->Enqueue(bufferQueue, inputBuffer, FRAME_SIZE * 2 * sizeof(short));
+}
+
+void MicrophoneReader::setMute(int muteEnabled) {
+  this->muteEnabled = muteEnabled;
 }
 
 int MicrophoneReader::start(SLEngineItf *engineEnginePtr) {
@@ -108,5 +116,9 @@ void MicrophoneReader::stop() {
 
   if (recorderObject != NULL) {
     (*recorderObject)->Destroy(recorderObject);
+
+    recorderRecord      = NULL;
+    recorderObject      = NULL;
+    recorderBufferQueue = NULL;
   }
 }

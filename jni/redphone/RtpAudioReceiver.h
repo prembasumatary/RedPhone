@@ -31,7 +31,7 @@ private:
 //  srtp_policy_t policy;
 
 public:
-  RtpAudioReceiver(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, SrtpStreamParameters &parameters);
+  RtpAudioReceiver(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen, SrtpStreamParameters *parameters);
 //  ~RtpAudioReceiver();
 //
   int init();

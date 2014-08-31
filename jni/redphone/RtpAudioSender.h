@@ -28,7 +28,7 @@ private:
 
 public:
   RtpAudioSender(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen,
-                 SrtpStreamParameters &parameters);
+                 SrtpStreamParameters *parameters);
 
 //  ~RtpAudioSender();
 

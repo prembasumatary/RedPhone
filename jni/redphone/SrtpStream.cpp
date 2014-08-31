@@ -4,10 +4,27 @@
 #include <unistd.h>
 
 #define AES_BLOCK_SIZE    16
-#define SRTP_SALT_SIZE    14
-#define SRTP_MAC_KEY_SIZE 20
 
 #define TAG "SrtpStream"
+
+SrtpStream::SrtpStream(SrtpStreamParameters *parameters) :
+  parameters(parameters)
+{}
+
+SrtpStream::~SrtpStream() {
+  if (parameters != NULL) {
+    delete parameters;
+  }
+}
+
+int SrtpStream::init() {
+  if (AES_set_encrypt_key(parameters->cipherKey, SRTP_AES_KEY_SIZE * 8, &key) != 0) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to set AES key!");
+    return -1;
+  }
+
+  return 0;
+}
 
 void SrtpStream::setIv(int64_t logicalSequence, uint32_t ssrc, uint8_t *salt, uint8_t *iv) {
   memset(iv, 0, AES_BLOCK_SIZE);
@@ -23,18 +40,6 @@ void SrtpStream::setIv(int64_t logicalSequence, uint32_t ssrc, uint8_t *salt, ui
   iv[13] ^= (uint8_t)(logicalSequence);
 }
 
-SrtpStream::SrtpStream(SrtpStreamParameters &parameters) :
-  parameters(parameters)
-{}
-
-int SrtpStream::init() {
-  if (AES_set_encrypt_key(parameters.cipherKey, 128, &key) != 0) {
-    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to set AES key!");
-    return -1;
-  }
-
-  return 0;
-}
 
 int SrtpStream::decrypt(RtpPacket &packet, int64_t logicalSequence) {
   uint8_t iv[AES_BLOCK_SIZE];
@@ -44,7 +49,7 @@ int SrtpStream::decrypt(RtpPacket &packet, int64_t logicalSequence) {
   uint32_t num    = 0;
   uint32_t digest = 0;
 
-  setIv(logicalSequence, packet.getSsrc(), parameters.salt, iv);
+  setIv(logicalSequence, packet.getSsrc(), parameters->salt, iv);
   memset(ecount, 0, sizeof(ecount));
 
   if (packet.getPayloadLen() < (SRTP_MAC_SIZE + 1)) {
@@ -52,7 +57,7 @@ int SrtpStream::decrypt(RtpPacket &packet, int64_t logicalSequence) {
     return -1;
   }
 
-  HMAC(EVP_sha1(), parameters.macKey, SRTP_MAC_KEY_SIZE,
+  HMAC(EVP_sha1(), parameters->macKey, SRTP_MAC_KEY_SIZE,
        (uint8_t*)packet.getSerializedPacket(), packet.getSerializedPacketLen() - SRTP_MAC_SIZE, ourMac, &digest);
 
   if (memcmp(ourMac, packet.getSerializedPacket() + packet.getSerializedPacketLen() - SRTP_MAC_SIZE,
@@ -77,12 +82,12 @@ int SrtpStream::encrypt(RtpPacket &packet, int64_t logicalSequence) {
   uint32_t num    = 0;
   uint32_t digest = 0;
 
-  setIv(logicalSequence, packet.getSsrc(), parameters.salt, iv);
+  setIv(logicalSequence, packet.getSsrc(), parameters->salt, iv);
   memset(ecount, 0, sizeof(ecount));
 
   AES_ctr128_encrypt((uint8_t*)packet.getPayload(), (uint8_t*)packet.getPayload(), packet.getPayloadLen(), &key, iv, ecount, &num);
 
-  HMAC(EVP_sha1(), parameters.macKey, SRTP_MAC_KEY_SIZE,
+  HMAC(EVP_sha1(), parameters->macKey, SRTP_MAC_KEY_SIZE,
        (uint8_t*)packet.getSerializedPacket(), packet.getSerializedPacketLen(),
        (uint8_t*)packet.getSerializedPacket() + packet.getSerializedPacketLen(), &digest);
 

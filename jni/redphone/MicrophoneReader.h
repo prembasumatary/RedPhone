@@ -18,7 +18,7 @@
 class MicrophoneReader {
   private:
     int androidSdkVersion;
-//    int timestamp;
+    volatile int muteEnabled;
 
     AudioCodec &audioCodec;
     RtpAudioSender &rtpAudioSender;
@@ -39,6 +39,8 @@ class MicrophoneReader {
 
     int start(SLEngineItf *engineEngine);
     void stop();
+
+    void setMute(int muteEnabled);
 
     void recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueue);
     static void recorderCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void* context);

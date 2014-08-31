@@ -12,7 +12,7 @@
 class CallAudioManager {
 
 private:
-//  int                srtp_initialized;
+  volatile int       running;
   SLObjectItf        engineObject;
   SLEngineItf        engineEngine;
   AudioCodec         audioCodec;
@@ -22,17 +22,17 @@ private:
   Clock              clock;
   MicrophoneReader   microphoneReader;
   AudioPlayer        audioPlayer;
+  struct sockaddr_in *sockAddr;
 
 public:
   CallAudioManager(int androidSdkVersion, int socketFd, struct sockaddr_in *sockAddr,
-                   SrtpStreamParameters &senderParameters, SrtpStreamParameters &receiverParameters);
+                   SrtpStreamParameters *senderParameters, SrtpStreamParameters *receiverParameters);
   ~CallAudioManager();
-  int run();
 
-//static int startAudio(int androidSdkVersion, int sampleRate, int bufferFrames,
-//                      int socketFd, const char* serverIp, int serverPort,
-//                      char* masterKey)
+  int start();
+  void stop();
 
+  void setMute(int muteEnabled);
 
 };
 
@@ -43,12 +43,21 @@ extern "C" {
  * Method:    start
  * Signature: (IIIILjava/lang/String;I[B)V
  */
-JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_start
-  (JNIEnv *, jobject, jint, jint, jint, jint, jstring, jint,
+JNIEXPORT jlong JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_create
+  (JNIEnv *, jobject, jint, jint, jstring, jint,
    jbyteArray, jbyteArray, jbyteArray, jbyteArray, jbyteArray, jbyteArray);
 
+JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_start
+  (JNIEnv *, jobject, jlong);
+
 JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_stop
-  (JNIEnv *, jobject);
+  (JNIEnv *, jobject, jlong);
+
+JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_setMute
+  (JNIEnv *, jobject, jlong, jboolean);
+
+JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_dispose
+  (JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

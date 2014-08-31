@@ -18,27 +18,28 @@
 
 #define TAG "CallAudioManager"
 
-static volatile int running = 0;
-
 CallAudioManager::CallAudioManager(int androidSdkVersion, int socketFd, struct sockaddr_in *sockAddr,
-                                   SrtpStreamParameters &senderParameters, SrtpStreamParameters &receiverParameters)
-  : engineObject(NULL), engineEngine(NULL), audioCodec(),
+                                   SrtpStreamParameters *senderParameters, SrtpStreamParameters *receiverParameters)
+  : running(0), engineObject(NULL), engineEngine(NULL), audioCodec(),
     audioSender(socketFd, sockAddr, sizeof(struct sockaddr_in), senderParameters),
     audioReceiver(socketFd, sockAddr, sizeof(struct sockaddr_in), receiverParameters),
     webRtcJitterBuffer(audioCodec), clock(),
     microphoneReader(androidSdkVersion, audioCodec, audioSender, clock),
-    audioPlayer(webRtcJitterBuffer, audioCodec)
+    audioPlayer(webRtcJitterBuffer, audioCodec),
+    sockAddr(sockAddr)
 {
 }
 
 CallAudioManager::~CallAudioManager() {
-//  if (srtp_initialized) {
-//    srtp_shutdown();
-//  }
   __android_log_print(ANDROID_LOG_WARN, TAG, "Shutting down...");
+
   microphoneReader.stop();
   audioPlayer.stop();
   webRtcJitterBuffer.stop();
+
+  if (sockAddr != NULL) {
+    free(sockAddr);
+  }
 
   if (engineObject != NULL) {
     (*engineObject)->Destroy(engineObject);
@@ -47,7 +48,7 @@ CallAudioManager::~CallAudioManager() {
   __android_log_print(ANDROID_LOG_WARN, TAG, "Shutdown complete....");
 }
 
-int CallAudioManager::run() {
+int CallAudioManager::start() {
   running = 1;
 
   if (slCreateEngine(&engineObject, 0, NULL, 0, NULL, NULL) != SL_RESULT_SUCCESS) {
@@ -64,13 +65,6 @@ int CallAudioManager::run() {
     __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to get engine interface!");
     return -1;
   }
-
-//  if (srtp_init() != err_status_ok) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "srtp_init failed!");
-//    return -1;
-//  }
-//
-//  srtp_initialized = 1;
 
   if (audioCodec.init() != 0) {
     __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to initialize codec!");
@@ -125,187 +119,105 @@ int CallAudioManager::run() {
   return 0;
 }
 
-//static int startAudio(int androidSdkVersion, int sampleRate, int bufferFrames,
-//                      int socketFd, const char* serverIp, int serverPort,
-//                      char* masterKey)
-//{
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "CallAudioManager::startAudio(%d, %d, %s, %d)",
-//                      androidSdkVersion, socketFd, serverIp, serverPort);
-//  running = 1;
-//
-//  struct sockaddr_in sockAddr;
-//  SLObjectItf        engineObject = NULL;
-//  SLEngineItf        engineEngine = NULL;
-//  int                result       = -1;
-//
-//  memset((void*)&sockAddr, 0, sizeof(sockAddr));
-//  sockAddr.sin_family = AF_INET;
-//  sockAddr.sin_port   = htons(serverPort);
-//
-//  if (inet_aton(serverIp, &sockAddr.sin_addr) == 0) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Invalid address: %s", serverIp);
-//    goto failure;
-//  }
-//
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Destination addr: %d", sockAddr.sin_addr.s_addr);
-//
-//  if (slCreateEngine(&engineObject, 0, NULL, 0, NULL, NULL) != SL_RESULT_SUCCESS) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to create engineObject!");
-//    goto failure;
-//  }
-//
-//  if ((*engineObject)->Realize(engineObject, SL_BOOLEAN_FALSE) != SL_RESULT_SUCCESS) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to realize engineObject!");
-//    goto failure;
-//  }
-//
-//  if ((*engineObject)->GetInterface(engineObject, SL_IID_ENGINE, &engineEngine) != SL_RESULT_SUCCESS) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to get engine interface!");
-//    goto failure;
-//  }
-//
-//  if (srtp_init() != err_status_ok) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "srtp_init failed!");
-//    goto failure;
-//  }
-//
-//  AudioCodec audioCodec;
-//
-//  if (audioCodec.init() != 0) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to initialize codec!");
-//    goto failure;
-//  }
-//
-//  RtpAudioSender audioSender(socketFd, &sockAddr, sizeof(sockAddr), masterKey);
-//
-//  if (audioSender.init() != 0) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to initialize RTP sender!");
-//    goto failure;
-//  }
-//
-//  RtpAudioReceiver audioReceiver(socketFd, &sockAddr, sizeof(sockAddr), masterKey);
-//
-//  if (audioReceiver.init() != 0) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to initialize RTP receiver!");
-//    goto failure;
-//  }
-//
-//  WebRtcJitterBuffer webRtcJitterBuffer(audioCodec);
-//
-//  if (webRtcJitterBuffer.init() != 0) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to initialize jitter buffer!");
-//    goto failure;
-//  }
-//
-//  SequenceCounter  sequenceCounter;
-//  MicrophoneReader microphoneReader(androidSdkVersion, audioCodec, audioSender);
-//  AudioPlayer      audioPlayer(sampleRate, bufferFrames, webRtcJitterBuffer, audioCodec);
-//
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Starting MicrophoneReader...");
-//
-//  if (microphoneReader.start(&engineEngine) == -1) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "ERROR -- MicrophoneReader::start() returned -1!");
-//    goto failure;
-//  }
-//
-//  __android_log_print(ANDROID_LOG_WARN, TAG, "Starting AudioPlayer...");
-//
-//  if (audioPlayer.start(&engineEngine) == -1) {
-//    __android_log_print(ANDROID_LOG_WARN, TAG, "AudioPlayer::start() returned -1!");
-//    goto failure;
-//  }
-//
-//  char buffer[4096];
-//
-//  while(running) {
-//    RtpPacket *packet = audioReceiver.receive(buffer, sizeof(buffer));
-//
-//    if (packet != NULL) {
-//      webRtcJitterBuffer.addAudio(packet);
-//      delete packet;
-//    }
-//  }
-//
-//  result = 0;
-//  goto cleanup;
-//
-//  failure:
-//    result = -1;
-//
-//  cleanup:
-//    microphoneReader.stop();
-//    audiPlayer.stop();
-//    webRtcJitterBuffer.stop();
-//
-//    if (engineObject != NULL) {
-//      (*engineObject)->Destroy(engineObject);
-//    }
-//
-//  return result;
-//}
+void CallAudioManager::stop() {
+  running = 0;
+  microphoneReader.stop();
+  audioPlayer.stop();
+  webRtcJitterBuffer.stop();
+}
 
-JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_start
-  (JNIEnv *env, jobject obj, jint androidSdkVersion, jint sampleRate, jint bufferFrames,
+void CallAudioManager::setMute(int muteEnabled) {
+  microphoneReader.setMute(muteEnabled);
+}
+
+static struct sockaddr_in* constructSockAddr(JNIEnv *env, jstring serverIpString, jint serverPort) {
+  const char* serverIp = env->GetStringUTFChars(serverIpString, 0);
+
+  struct sockaddr_in *sockAddr = (struct sockaddr_in*)malloc(sizeof(struct sockaddr_in));
+  memset(sockAddr, 0, sizeof(struct sockaddr_in));
+
+  sockAddr->sin_family = AF_INET;
+  sockAddr->sin_port   = htons(serverPort);
+
+  if (inet_aton(serverIp, &(sockAddr->sin_addr)) == 0) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "Invalid address: %s", serverIp);
+    free(sockAddr);
+    sockAddr = NULL;
+  }
+
+  env->ReleaseStringUTFChars(serverIpString, serverIp);
+  return sockAddr;
+}
+
+static SrtpStreamParameters* constructSrtpStreamParameters(JNIEnv *env, jbyteArray cipherKey, jbyteArray macKey, jbyteArray salt) {
+  uint8_t* cipherKeyBytes = (uint8_t*)env->GetByteArrayElements(cipherKey, 0);
+  uint8_t* macKeyBytes    = (uint8_t*)env->GetByteArrayElements(macKey, 0);
+  uint8_t* saltBytes      = (uint8_t*)env->GetByteArrayElements(salt, 0);
+
+  SrtpStreamParameters *parameters = new SrtpStreamParameters(cipherKeyBytes, macKeyBytes, saltBytes);
+
+  env->ReleaseByteArrayElements(cipherKey, (jbyte*)cipherKeyBytes, 0);
+  env->ReleaseByteArrayElements(macKey, (jbyte*)macKeyBytes, 0);
+  env->ReleaseByteArrayElements(salt, (jbyte*)saltBytes, 0);
+
+  return parameters;
+}
+
+jlong JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_create
+  (JNIEnv *env, jobject obj, jint androidSdkVersion,
    jint socketFd, jstring serverIpString, jint serverPort,
    jbyteArray senderCipherKey, jbyteArray senderMacKey, jbyteArray senderSalt,
    jbyteArray receiverCipherKey, jbyteArray receiverMacKey, jbyteArray receiverSalt)
 {
-  struct sockaddr_in sockAddr;
-  int result;
+  struct sockaddr_in *sockAddr = constructSockAddr(env, serverIpString, serverPort);
 
-  SrtpStreamParameters senderParameters((uint8_t*)env->GetByteArrayElements(senderCipherKey, 0),
-                                        (uint8_t*)env->GetByteArrayElements(senderMacKey, 0),
-                                        (uint8_t*)env->GetByteArrayElements(senderSalt, 0));
-
-  SrtpStreamParameters receiverParameters((uint8_t*)env->GetByteArrayElements(receiverCipherKey, 0),
-                                          (uint8_t*)env->GetByteArrayElements(receiverMacKey, 0),
-                                          (uint8_t*)env->GetByteArrayElements(receiverSalt, 0));
-
-
-  const char* serverIp = env->GetStringUTFChars(serverIpString, 0);
-
-  memset((void*)&sockAddr, 0, sizeof(sockAddr));
-  sockAddr.sin_family = AF_INET;
-  sockAddr.sin_port   = htons(serverPort);
-
-  if (inet_aton(serverIp, &sockAddr.sin_addr) == 0) {
-    __android_log_print(ANDROID_LOG_WARN, TAG, "Invalid address: %s", serverIp);
-    result = -1;
-  } else {
-    CallAudioManager callAudioManager(androidSdkVersion, socketFd, &sockAddr,
-                                      senderParameters, receiverParameters);
-    result = callAudioManager.run();
+  if (sockAddr == NULL) {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to construct sockAddr!");
+    env->ThrowNew(env->FindClass("org/thoughtcrime/redphone/audio/NativeAudioException"),
+                                 "Failed to initialize native audio");
+    return -1;
   }
 
+  SrtpStreamParameters *senderParameters   = constructSrtpStreamParameters(env, senderCipherKey, senderMacKey, senderSalt);
+  SrtpStreamParameters *receiverParameters = constructSrtpStreamParameters(env, receiverCipherKey, receiverMacKey, receiverSalt);
 
-//
-//  int result = startAudio(androidSdkVersion, sampleRate, bufferFrames,
-//                          socketFd, serverIp, serverPort, masterKeyBytes);
-//
-//  cleanup:
+  CallAudioManager *manager = new CallAudioManager(androidSdkVersion, socketFd, sockAddr,
+                                                   senderParameters, receiverParameters);
 
-//  env->ReleaseByteArrayElements(masterKey, (jbyte*)masterKeyBytes, 0);
+  return (jlong)manager;
+}
 
-  env->ReleaseByteArrayElements(senderCipherKey, (jbyte*)senderParameters.cipherKey, 0);
-  env->ReleaseByteArrayElements(senderMacKey, (jbyte*)senderParameters.macKey, 0);
-  env->ReleaseByteArrayElements(senderSalt, (jbyte*)senderParameters.salt, 0);
-
-  env->ReleaseByteArrayElements(receiverCipherKey, (jbyte*)receiverParameters.cipherKey, 0);
-  env->ReleaseByteArrayElements(receiverMacKey, (jbyte*)receiverParameters.macKey, 0);
-  env->ReleaseByteArrayElements(receiverSalt, (jbyte*)receiverParameters.salt, 0);
-
-  env->ReleaseStringUTFChars(serverIpString, serverIp);
+void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_start
+(JNIEnv *env, jobject obj, jlong handle)
+{
+  CallAudioManager *manager = reinterpret_cast<CallAudioManager *>(handle);
+  int              result   = manager->start();
 
   if (result == -1) {
-   env->ThrowNew(env->FindClass("org/thoughtcrime/redphone/audio/NativeAudioException"),
-                                "Failed to initialize native audio");
+    env->ThrowNew(env->FindClass("org/thoughtcrime/redphone/audio/NativeAudioException"),
+                                 "Failed to start native audio");
   }
 }
 
-JNIEXPORT void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_stop
-(JNIEnv *env, jobject obj)
+void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_setMute
+(JNIEnv *env, jobject obj, jlong handle, jboolean muteEnabled)
 {
-  running = 0;
-  __android_log_print(ANDROID_LOG_WARN, TAG, "Set running to 0!");
+  CallAudioManager *manager = reinterpret_cast<CallAudioManager *>(handle);
+  manager->setMute(muteEnabled);
 }
+
+void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_stop
+(JNIEnv *env, jobject obj, jlong handle)
+{
+  CallAudioManager *manager = reinterpret_cast<CallAudioManager*>(handle);
+  manager->stop();
+}
+
+void JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager2_dispose
+(JNIEnv *env, jobject obj, jlong handle)
+{
+  CallAudioManager *manager = reinterpret_cast<CallAudioManager*>(handle);
+  delete manager;
+}
+
 
