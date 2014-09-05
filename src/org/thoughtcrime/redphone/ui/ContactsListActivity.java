@@ -106,8 +106,8 @@ public class ContactsListActivity extends SherlockListFragment
     initializeSearch((android.widget.SearchView)menu.findItem(R.id.searchItem).getActionView());
   }
 
-  @SuppressLint({ "NewApi", "NewApi" })
-private void initializeSearch(android.widget.SearchView searchView) {
+  @SuppressLint("NewApi")
+  private void initializeSearch(android.widget.SearchView searchView) {
     searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
@@ -152,7 +152,7 @@ private void initializeSearch(android.widget.SearchView searchView) {
     private HashMap<String, Integer> groupingTable;
 
     public ContactsListAdapter(Context context, Cursor c) {
-      super(context, c);
+      super(context, c, false);
       this.indexer       = new ContactsSectionIndexer(c, Phone.DISPLAY_NAME);
       this.groupingTable = new HashMap<String, Integer>();
     }
