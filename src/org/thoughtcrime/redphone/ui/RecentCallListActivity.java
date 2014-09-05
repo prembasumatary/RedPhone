@@ -85,7 +85,7 @@ public class RecentCallListActivity extends SherlockListFragment
   private class CallListAdapter extends CursorAdapter {
 
     public CallListAdapter(Context context, Cursor c) {
-      super(context, c);
+      super(context, c, false);
     }
 
     @Override
