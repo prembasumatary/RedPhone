@@ -34,7 +34,6 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.QuickContactBadge;
 import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
@@ -50,6 +49,7 @@ import org.thoughtcrime.redphone.RedPhone;
 import org.thoughtcrime.redphone.RedPhoneService;
 import org.thoughtcrime.redphone.contacts.ContactAccessor;
 import org.thoughtcrime.redphone.contacts.ContactsSectionIndexer;
+import org.thoughtcrime.redphone.util.BitmapUtil;
 
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
@@ -222,12 +222,12 @@ private void initializeSearch(android.widget.SearchView searchView) {
 
   private class ContactItemView extends RelativeLayout {
     private ImageView divider;
-    private View sectionDivider;
-    private TextView sectionLabel;
-    private TextView name;
-    private TextView number;
-    private TextView type;
-    private QuickContactBadge contactPhoto;
+    private View      sectionDivider;
+    private TextView  sectionLabel;
+    private TextView  name;
+    private TextView  number;
+    private TextView  type;
+    private ImageView avatar;
 
     public ContactItemView(Context context) {
       super(context.getApplicationContext());
@@ -242,7 +242,7 @@ private void initializeSearch(android.widget.SearchView searchView) {
       this.sectionLabel   = (TextView)findViewById(R.id.section_label);
       this.divider        = (ImageView)findViewById(R.id.divider);
       this.sectionDivider = findViewById(R.id.section_divider);
-      this.contactPhoto   = (QuickContactBadge)findViewById(R.id.contact_photo);
+      this.avatar         = (ImageView)findViewById(R.id.contact_photo_image);
     }
 
     public void setSectionLabel(String label) {
@@ -260,11 +260,11 @@ private void initializeSearch(android.widget.SearchView searchView) {
     }
 
     public void set(String name, int personId, String number, int type) {
-      this.contactPhoto.setImageBitmap(loadContactPhoto(personId));
+      this.avatar.setImageBitmap(loadContactPhoto(personId));
       this.name.setText(name);
       this.number.setText(number);
       this.type.setText(Phone.getTypeLabel(ContactsListActivity.this.getResources(), type, "").toString().toUpperCase());
-      this.contactPhoto.setVisibility(View.VISIBLE);
+      this.avatar.setVisibility(View.VISIBLE);
       this.name.setVisibility(View.VISIBLE);
       this.divider.setVisibility(View.VISIBLE);
     }
@@ -273,7 +273,7 @@ private void initializeSearch(android.widget.SearchView searchView) {
       set(name, personId, number, type);
       this.name.setVisibility(View.INVISIBLE);
       this.divider.setVisibility(View.GONE);
-      this.contactPhoto.setVisibility(View.INVISIBLE);
+      this.avatar.setVisibility(View.INVISIBLE);
     }
 
     public String getNumber() {
@@ -297,9 +297,10 @@ private void initializeSearch(android.widget.SearchView searchView) {
     private Bitmap constructNewBitmap(long id) {
       Bitmap newBitmap            = ContactAccessor.getInstance()
                                     .getPhoto(ContactsListActivity.this.getActivity(), id);
-      SoftReference<Bitmap> newSR = new SoftReference<Bitmap>(newBitmap);
+      Bitmap croppedBitmap        = BitmapUtil.getCircleCroppedBitmap(newBitmap);
+      SoftReference<Bitmap> newSR = new SoftReference<Bitmap>(croppedBitmap);
       photoCache.put(id,newSR);
-      return newBitmap;
+      return croppedBitmap;
     }
 
     private Bitmap loadContactPhoto(long id) {
@@ -320,15 +321,15 @@ private void initializeSearch(android.widget.SearchView searchView) {
 
     if (isFavoritesFragment()) {
       if (this.queryFilter == null || this.queryFilter.trim().length() == 0) {
-        return ContactAccessor.getInstance().getFavoritesCursor(getActivity());
+        return ContactAccessor.getInstance().getRegisteredFavoritesCursor(getActivity());
       } else {
-        return ContactAccessor.getInstance().getFavoritesCursor(getActivity(), queryFilter);
+        return ContactAccessor.getInstance().getRegisteredFavoritesCursor(getActivity(), queryFilter);
       }
     } else {
       if (this.queryFilter == null || this.queryFilter.trim().length() == 0) {
-        return ContactAccessor.getInstance().getPeopleCursor(getActivity());
+        return ContactAccessor.getInstance().getRegisteredContactsCursor(getActivity());
       } else {
-        return ContactAccessor.getInstance().getPeopleCursor(getActivity(), queryFilter);
+        return ContactAccessor.getInstance().getRegisteredContactsCursor(getActivity(), queryFilter);
       }
     }
   }

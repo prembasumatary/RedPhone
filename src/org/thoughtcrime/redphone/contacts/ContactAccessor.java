@@ -57,47 +57,46 @@ public class ContactAccessor {
 
   private ContactAccessor() {}
 
-  public CursorLoader getPeopleCursor(Context context) {
-    return getPeopleCursor(context, Phone.CONTENT_URI);
+  public CursorLoader getRegisteredContactsCursor(Context context) {
+    return getRegisteredContactsCursor(context, Phone.CONTENT_URI);
   }
 
-  public CursorLoader getPeopleCursor(Context context, String filter) {
+  public CursorLoader getRegisteredContactsCursor(Context context, String filter) {
     Uri uri = Uri.withAppendedPath(Phone.CONTENT_FILTER_URI, Uri.encode(filter));
-    return getPeopleCursor(context, uri);
+    return getRegisteredContactsCursor(context, uri);
   }
 
-  private CursorLoader getPeopleCursor(Context context, Uri uri) {
-    return new CursorLoader(context, uri, PEOPLE_PROJECTION,
-                            PEOPLE_SELECTION, null, PEOPLE_ORDER);
+  private CursorLoader getRegisteredContactsCursor(Context context, Uri uri) {
+    return new RegisteredUserCursorLoader(context, uri, PEOPLE_PROJECTION,
+                                          PEOPLE_SELECTION, PEOPLE_ORDER, Phone.NUMBER, true);
   }
 
-  public CursorLoader getFavoritesCursor(Context context) {
-    return getFavoritesCursor(context, Phone.CONTENT_URI);
+  public CursorLoader getRegisteredFavoritesCursor(Context context) {
+    return getRegisteredFavoritesCursor(context, Phone.CONTENT_URI);
   }
 
-  public CursorLoader getFavoritesCursor(Context context, String filter) {
+  public CursorLoader getRegisteredFavoritesCursor(Context context, String filter) {
     Uri uri = Uri.withAppendedPath(Phone.CONTENT_FILTER_URI, Uri.encode(filter));
-    return getFavoritesCursor(context, uri);
+    return getRegisteredFavoritesCursor(context, uri);
   }
 
-  private CursorLoader getFavoritesCursor(Context context, Uri uri) {
-    return new CursorLoader(context, uri, PEOPLE_PROJECTION,
-                            PEOPLE_SELECTION, null, FAVORITES_ORDER);
+  public CursorLoader getRegisteredFavoritesCursor(Context context, Uri uri) {
+    return new RegisteredUserCursorLoader(context, uri, PEOPLE_PROJECTION,
+                                          PEOPLE_SELECTION, FAVORITES_ORDER, Phone.NUMBER, true);
   }
 
   public Bitmap getPhoto(Context context, long rowId) {
     Uri photoLookupUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, rowId);
-
-    InputStream inputStream =
-        ContactsContract.Contacts.openContactPhotoInputStream(context.getContentResolver(),
-                                                              photoLookupUri);
-
-    if (inputStream == null)
-      return getDefaultContactPhoto(context);
-    else
-      return BitmapFactory.decodeStream(inputStream);
+    return getPhoto(context, photoLookupUri);
   }
 
+  public Bitmap getPhoto(Context context, Uri uri) {
+    InputStream inputStream =
+        ContactsContract.Contacts.openContactPhotoInputStream(context.getContentResolver(), uri);
+
+    if (inputStream == null) return getDefaultContactPhoto(context);
+    else                     return BitmapFactory.decodeStream(inputStream);
+  }
 
   public Bitmap getDefaultContactPhoto(Context context) {
     synchronized (this) {
