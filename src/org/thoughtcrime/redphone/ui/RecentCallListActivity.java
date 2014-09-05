@@ -26,7 +26,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.CallLog.Calls;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -44,6 +43,10 @@ import org.thoughtcrime.redphone.Constants;
 import org.thoughtcrime.redphone.R;
 import org.thoughtcrime.redphone.RedPhone;
 import org.thoughtcrime.redphone.RedPhoneService;
+import org.thoughtcrime.redphone.contacts.ContactAccessor;
+import org.thoughtcrime.redphone.contacts.RegisteredUserCursorLoader;
+import org.thoughtcrime.redphone.util.BitmapUtil;
+import org.thoughtcrime.redphone.util.Util;
 
 /**
  * A tab for the dialer activity which displays recent call history.
@@ -96,22 +99,23 @@ public class RecentCallListActivity extends SherlockListFragment
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
       String name   = cursor.getString(cursor.getColumnIndexOrThrow(Calls.CACHED_NAME));
-      String label  = cursor.getString(cursor.getColumnIndexOrThrow(Calls.CACHED_NUMBER_LABEL));
       String number = cursor.getString(cursor.getColumnIndexOrThrow(Calls.NUMBER));
-      int type      = cursor.getInt(cursor.getColumnIndexOrThrow(Calls.TYPE));
-      long date     = cursor.getLong(cursor.getColumnIndexOrThrow(Calls.DATE));
+      int    type   = cursor.getInt(cursor.getColumnIndexOrThrow(Calls.TYPE));
+      long   date   = cursor.getLong(cursor.getColumnIndexOrThrow(Calls.DATE));
 
-      ((CallItemView)view).set(name, label, number, type, date);
+      ((CallItemView)view).set(name, number, type, date);
     }
   }
 
   private class CallItemView extends RelativeLayout {
     private Context context;
+    private ImageView avatar;
     private ImageView callTypeIcon;
     private TextView date;
-    private TextView label;
+    private TextView name;
+//    private TextView label;
     private TextView number;
-    private TextView line1;
+//    private TextView line1;
 
     private Drawable incomingCallIcon;
     private Drawable outgoingCallIcon;
@@ -126,22 +130,23 @@ public class RecentCallListActivity extends SherlockListFragment
       this.context          = context.getApplicationContext();
       this.callTypeIcon     = (ImageView) findViewById(R.id.call_type_icon);
       this.date             = (TextView)  findViewById(R.id.date);
-      this.label            = (TextView)  findViewById(R.id.label);
+      this.avatar           = (ImageView) findViewById(R.id.contact_photo_image);
       this.number           = (TextView)  findViewById(R.id.number);
-      this.line1            = (TextView)  findViewById(R.id.line1);
+      this.name             = (TextView) findViewById(R.id.name);
       this.incomingCallIcon = getResources().getDrawable(R.drawable.ic_call_log_list_incoming_call);
       this.outgoingCallIcon = getResources().getDrawable(R.drawable.ic_call_log_list_outgoing_call);
       this.missedCallIcon   = getResources().getDrawable(R.drawable.ic_call_log_list_missed_call);
     }
 
-    public void set(String name, String label, String number, int type, long date) {
-      this.line1.setText((name == null || name.equals("")) ? number : name);
-      this.number.setText((name == null || name.equals("")) ? "" : number);
-      this.label.setText(label);
+    public void set(String name, String number, int type, long date) {
+      this.name.setText(Util.isEmpty(name) ? number : name);
+      this.number.setText(Util.isEmpty(name) ? "" : number);
       this.date.setText(DateUtils.getRelativeDateTimeString(context, date,
                                                             System.currentTimeMillis(),
                                                             DateUtils.MINUTE_IN_MILLIS,
                                                             DateUtils.FORMAT_ABBREV_RELATIVE));
+
+      this.avatar.setImageBitmap(BitmapUtil.getCircleCroppedBitmap(ContactAccessor.getInstance().getDefaultContactPhoto(context)));
 
       if (type == Calls.INCOMING_TYPE) {
         callTypeIcon.setImageDrawable(incomingCallIcon);
@@ -154,7 +159,7 @@ public class RecentCallListActivity extends SherlockListFragment
 
     public String getNumber() {
       if (this.number.getText().toString().equals(""))
-        return this.line1.getText().toString();
+        return this.name.getText().toString();
 
       return this.number.getText().toString();
     }
@@ -188,8 +193,8 @@ public class RecentCallListActivity extends SherlockListFragment
     };
 
     ((TextView)getListView().getEmptyView()).setText(R.string.RecentCallListActivity_loading);
-    return new CursorLoader(getActivity(), Calls.CONTENT_URI,
-                            projection, null, null, Calls.DEFAULT_SORT_ORDER);
+    return new RegisteredUserCursorLoader(getActivity(), Calls.CONTENT_URI, projection, null,
+                                          Calls.DEFAULT_SORT_ORDER, Calls.NUMBER, false);
   }
 
   @Override
