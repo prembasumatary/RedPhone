@@ -113,7 +113,7 @@ public class DialerActivity extends SherlockFragmentActivity {
   }
 
   private void setupTabs() {
-    int[] icons = new int[] { R.drawable.ic_tab_contacts, R.drawable.ic_tab_recent, R.drawable.ic_tab_favorites };
+    int[] icons = new int[] { R.drawable.ic_tab_contacts, R.drawable.ic_tab_recent, R.drawable.ic_tab_favorites, R.drawable.ic_dialpad };
 
     for (int i = 0; i < icons.length; i++) {
       ActionBar.Tab tab = getSupportActionBar().newTab();
@@ -200,18 +200,20 @@ public class DialerActivity extends SherlockFragmentActivity {
         case 1:
           return new RecentCallListActivity();
         case 2:
-        default:
           ContactsListActivity fragment = new ContactsListActivity();
           Bundle args = new Bundle();
           args.putBoolean("favorites", true);
           fragment.setArguments(args);
           return fragment;
+        case 3:
+        default:
+          return new DialPadActivity();
       }
     }
 
     @Override
     public int getCount() {
-      return 3;
+      return 4;
     }
 
   }
