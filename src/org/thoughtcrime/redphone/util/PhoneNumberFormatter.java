@@ -77,6 +77,9 @@ public class PhoneNumberFormatter {
     String localNumber            = preferences.getString(Constants.NUMBER_PREFERENCE, "No Stored Number");
     number                        = number.replaceAll("[^0-9+]", "");
 
+    if (Util.isEmpty(number))
+      return number;
+
     if (number.charAt(0) == '+')
       return number;
 
