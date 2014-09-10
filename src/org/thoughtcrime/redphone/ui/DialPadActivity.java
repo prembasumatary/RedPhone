@@ -18,8 +18,10 @@
 package org.thoughtcrime.redphone.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -129,7 +131,8 @@ public class DialPadActivity extends SherlockFragment
 
   @Override
   public void onPressed(View view, boolean pressed) {
-    if (!pressed) return;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH ? !pressed : pressed) return;
+
     switch (view.getId()) {
       case R.id.one:   keyPressed(KeyEvent.KEYCODE_1);     break;
       case R.id.two:   keyPressed(KeyEvent.KEYCODE_2);     break;
@@ -179,7 +182,6 @@ public class DialPadActivity extends SherlockFragment
 //    if (getView().getTranslationY() != 0) {
 //      return;
 //    }
-
     KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
     digitEntry.onKeyDown(keyCode, event);
 
