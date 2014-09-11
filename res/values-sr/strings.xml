@@ -58,7 +58,6 @@
   <string name="CallQualityDialog__we_re_making_changes">Mi pravimo promene</string>
   <string name="CallQualityDialog__whispersystems_needs_your_help_pretext">Open WhisperSystems treba Vašu pomoć. Kako radimo na poboljšavanju kvaliteta naših poziva, trebamo informacije o kvaliteti i performansama da bismo poboljšali naš sistem.</string>
   <string name="CallQualityDialog__linktext">Nauči više o sakupljanju podataka</string>
-  <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">.\n\nPrijavite se ispod da pomognete u pravljenju boljeg RedPhone-a.</string>
   <string name="CallQualityDialog__you_can_update_these_settings_at_any_time_through_the_general_settings_menu">Možete podesiti ove postavke u bilo koje vreme preko RedPhone menija za postavke</string>
   <string name="CallQualityDialog__please_rate_the_audio_quality_of_the_call_below">Molimo ocenite kvalitetu ovog poziva</string>
   <string name="CallQualityDialog__submit">Izloži</string>
@@ -76,7 +75,6 @@
   <string name="CreateAccountActivity_you_must_specify_your_country_code">Morate izabrati Vaš kod države</string>
   <string name="CreateAccountActivity_the_number_you_specified_s_is_invalid">Broj koji ste odredili (%s) nije važeći.</string>
   <string name="CreateAccountActivity_invalid_number">Nevažeći broj</string>
-  <string name="CreateAccountActivity_we_will_now_verify_that_the_following_number_is_associated">Sada ćemo da verifikujemo da je sledeći broj udružen sa ovim uređajem:\n\n%s\n\nDa li je ovo tačan broj ili želite da ga promenite prije nastavka?</string>
   <string name="CreateAccountActivity_continue">Nastaviti</string>
   <string name="CreateAccountActivity_edit">Promeniti</string>
   <string name="NotificationBarManager_redphone_call_in_progress">RedPhone poziv u toku</string>
@@ -87,10 +85,6 @@
   <string name="QualityReporting_send_diagnostics">Poslati dijagnostiku?</string>
   <string name="RecentCallListActivity_loading">Učitavanje...</string>
   <string name="RecentCallListActivity_empty_call_log">Prazna evidencija poziva.</string>
-  <string name="RedPhoneChooser_upgrade_to_redphone">Koristiti RedPhone?</string>
-  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">Ovaj kontakt takođe koristi RedPhone. Da li želite da poboljšate vaš poziv u siguran poziv?</string>
-  <string name="RedPhoneChooser_secure_call">Siguran poziv</string>
-  <string name="RedPhoneChooser_insecure_call">Nesiguran poziv</string>
   <string name="RegistrationProgressActivity_verifying_number">Verifikacija broja</string>
   <string name="RegistrationProgressActivity_edit_s">Uredite %s</string>
   <string name="RegistrationProgressActivity_registration_complete">Registracija završena!</string>
@@ -119,11 +113,9 @@
   <string name="about_activity__additional_information">Dodatne informacije: </string>
   <string name="about_activity__attribution">Atribucija:</string>
   <string name="about_activity__aboutText">Molimo Vas da pregledate whispersystems.org za dodatne informacije ili da kontaktirate support@whispersystems.org sa Vašim problemima, pitanjima ili komentarima.</string>
-  <string name="about_activity__attributionText">RedPhone linkuje SpanDSP biblioteku koja je licencirana pod LGPL.\n\nRedPhone koristi SPEEX kodek koji se koristi pod Xiph.org varijantom BSD licence: © 2002-2003, Jean-Marc Valin/Xiph.Org Foundation\n\nRedistribucija i korišćenje SPEEX biblioteke u izvoru i binarnoj formi, sa ili bez modifikacija, je dozvoljeno pod uslovom da su ispunjeni sledeći uslovi:\n\n* Redistribucija izvornog koda mora sadržavati navedene informacije o copyright-u, ovu listu uslova i disclaimer koji sledi.\n* Redistribucija u binarnoj formi mora reproducirati gore navedene informacije o copyright-u, ovu listu uslova i disclaimer u dokumentaciji i/ili drugim materijalima koji dolaze sa distribucijom.\n* Niti ime Xiph.org fondacije niti imena saradnika ne smeju koristiti ili promovirati produkte bez posebne prethodno napisane dozvole.\n\nSPEEX biblioteka je obezbeđena od vlasnika copyright-a \"kakva jeste\" i bilo kakav izraz primenjenog uticaja, uključujući, ali ne limitovano na, impliciranu garanciju prodaje i pogodnosti za određenu svrhu se odbacuju. U bilo kakvom događaju fondacija i saradnici ne mogu biti odgovorni za bilo kakva direktna, indirektna, slučajna, nenamerna, primerna ili posledična oštećenja (uključujući, ali ne limitovano na, nabavku zamenjenih dobara ili servisa; gubitka profita ili podataka; interupcija u poslu) bilo kako prouzrokovanih na bilo kakvu teoriju pouzdanosti, bilo u ugovoru, strogoj odgovornosti ili deliktu (uključujući nemarnost) koji su nastali načinom korišćenja softvera, čak i ako je upozoreno na mogućnost takve štete.\n\nNeki zvučni uzorci su licencirani pod Creative Commons Sampling Plus Licence: http://creativecommons.org/licenses/sampling+/1.0/\n\nOd acclivity (http://www.freesound.org/usersViewSingle.php?id=37876):\nShipsBell.wav (http://www.freesound.org/samplesViewSingle.php?id=32304)\n\nOd Splashdust (http://www.freesound.org/usersViewSingle.php?id=754949):\nnegativebeep.wav (http://www.freesound.org/samplesViewSingle.php?id=67454)\n\nOd Peter_Gross (http://www.freesound.org/usersViewSingle.php?id=33429):\nSonar_pings.ogg (http://www.freesound.org/samplesViewSingle.php?id=12677)\n\nOd suonho (http://www.freesound.org/samplesViewSingle.php?id=58348): ambienta_soundtrack_moog_sweep\n\nOd Mike Koenig: Busy Signal</string>
   <string name="call_controls__redphone_call">REDPHONE POZIV</string>
   <string name="call_card__redphone_call">RedPhone poziv</string>
   <string name="create_account__register">Registracija</string>
-  <string name="create_acount__please_confirm_your_country_code_and_phone_number">Da bi zvali i primali sigurne pozive, RedPhone mora da verifikuje Vaš broj telefona i da ga registruje u sistemu.\n\nMolimo potvrdite Vaš državni kod i broj telefona ovog uređaja.</string>
   <string name="create_account__your_country">VAŠA DRŽAVA</string>
   <string name="create_account__your_country_code_and_phone_number">POZIVNI KOD VAŠE DRŽAVE I BROJ TELEFONA</string>
   <string name="create_account__phone_number">broj telefona</string>
@@ -162,6 +154,8 @@
   <string name="preferences__provide_feeback">Pružite povratne informacije</string>
   <string name="preferences__prompt_for_feedback_on_call_quality_after_call_has_ended">Pitaj za povratne informacije o kvaliteti poziva posle završetka poziva</string>
   <string name="preferences__securely_upload_metrics_to_improve_audio_quality">Sigurno upload-ujte podatke da biste poboljšali audio kvalitetu</string>
+  <string name="preferences__disable_bluetooth">Uključi Bluetooth</string>
+  <string name="preferences__disable_bluetooth_summary">Isključenje Bluetooth-a može uzrokovati probleme sa audio sistemom na nekim uređajima</string>
   <string name="registration_progress__sms_verification_failed">SMS verifikacija nije uspela.</string>
   <string name="registration_progress__redphone_timed_out_while_waiting_for_an_sms_message_to_verify_your_phone_number">Isteklo je vreme čekanja za SMS za verifikaciju RedPhone-a sa Vašim brojem telefona.</string>
   <string name="registration_progress__edit_number">Podesite broj</string>

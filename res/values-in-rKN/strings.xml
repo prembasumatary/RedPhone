@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="app_name">ರೆಡ್ ಫೋನ್</string>
-  <string name="RedPhone_id_like_to_call_you_securely_using_redphone_you_can_install_redphone_from_the_play_store_s">ನಾನು ರೆಡ್ ಫೋನ್  ಬಳಸಿಕೊಂಡು ಸುರಕ್ಷಿತವಾಗಿ ನಿಮಗೆ  ಕರೆ ಮಾಡಲು ಬಯಸುತ್ತೇನೆ. ನೀವು ಗೂಗಲ್  ಪ್ಲೇ ಅಂಗಡಿಯಿಂದ ರೆಡ್ ಫೋನ್ ಇನ್ಸ್ಟಾಲ್ ಮಾದಿಕೊಳ್ಳುತ್ತೀರ : %s</string>
+  <string name="RedPhone_id_like_to_call_you_securely_using_redphone_you_can_install_redphone_from_the_play_store_s">ನಾನು ರೆಡ್ ಫೋನ್  ಬಳಸಿಕೊಂಡು ಸುರಕ್ಷಿತವಾಗಿ ನಿಮಗೆ  ಕರೆ ಮಾಡಲು ಬಯಸುತ್ತೇನೆ. ನೀವು ಗೂಗಲ್  ಪ್ಲೇ ಅಂಗಡಿಯಿಂದ ರೆಡ್ ಫೋನ್ ಇನ್ಸ್ಟಾಲ್ ಮಾಡಿಕೊಳ್ಳುಬಹುದು : %s</string>
   <string name="RedPhone_answering">ಉತ್ತರಿಸು...</string>
   <string name="RedPhone_ending_call">ಕರೆ ಕೊನೆಗೊಳಿಸು</string>
-  <string name="RedPhone_dialing">ಡಯಲ್ ಮಾಡಿ...</string>
-  <string name="RedPhone_cancelling_call">ಕರೆ ರದ್ದುಮಾಡು</string>
-  <string name="RedPhone_call_rejected">ಕರೆ ತಿರಸ್ಕರಿಸು</string>
-  <string name="RedPhone_ringing">ಮೊಳಗುತ್ತಿದೇ...</string>
+  <string name="RedPhone_dialing">ಡಯಲ್ ಮಾಡಲಾಗುತ್ತಿದೆ...</string>
+  <string name="RedPhone_cancelling_call">ಕರೆ ರದ್ದುಮಾಡಲಾಗುತ್ತಿದೆ</string>
+  <string name="RedPhone_call_rejected">ಕರೆ ತಿರಸ್ಕರಿಸಲಾಗಿದೆ</string>
+  <string name="RedPhone_ringing">ಮೊಳಗುತ್ತಿದೆ...</string>
   <string name="RedPhone_busy">ಕಾರ್ಯನಿರತವಾಗಿದೆ...</string>
   <string name="RedPhone_connected">ಸಂಪರ್ಕಿತಗೊಂಡಿದೆ</string>
   <string name="RedPhone_connecting">ಸಂಪರ್ಕಿಸುತಿದ್ದೇವೆ...</string>
@@ -17,8 +17,8 @@
   <string name="RedPhone_server_failed_exclamation">ಸರ್ವರ್ ವಿಫಲವಾಗಿದೆ!</string>
   <string name="RedPhone_client_failed">ಕ್ಲೈಂಟ್ ವಿಫಲವಾಗಿದೆ</string>
   <string name="RedPhone_login_failed_exclamation">ಲಾಗಿನ್ ವಿಫಲವಾಗಿದೆ!</string>
-  <string name="RedPhone_message_from_the_server">ಸರ್ವರ್ನಿಂದ ಸಂದೇಶ:</string>
-  <string name="RedPhone_number_not_registered_with_redphone_exclamation">ಸಂಖ್ಯೆ ರೆಡ್ ಫೋನ್ ಜೋತೆ ನೊಂದಣಿಯಾಗಿಲ್ಲ!</string>
+  <string name="RedPhone_message_from_the_server">ಸರ್ವರ್ ನಿಂದ ಸಂದೇಶ:</string>
+  <string name="RedPhone_number_not_registered_with_redphone_exclamation">ಸಂಖ್ಯೆ ರೆಡ್ ಫೋನ್ನೊಂದಿಗೆ ನೊಂದಣಿಯಾಗಿಲ್ಲ!</string>
   <string name="RedPhone_the_number_you_dialed_is_not_registered_with_redphone_both_parties_of_a_call_need_to_have_redphone_installed">ನೀವು ಡಯಲ್ ಮಾಡಿದ ಸಂಖ್ಯೆಯ ರೆಡ್ ಫೋನ್ ಜೊತೆ ನೋಂದಣಿಯಾಗಿಲ್ಲ. ಸುರಕ್ಷಿತ ಸಂಭಾಷಣೆಯನ್ನು ಹೊಂದಲು ಎರಡೂ ಪಕ್ಷಗಳು ರೆಡ್ ಫೋನ್ ಇನ್ಸ್ಟಾಲ್ ಮಾಡಬೇಕು. ನೀವು ಡಯಲ್ ಪ್ರಯತ್ನಿಸುತ್ತಿದ್ದ ಸಂಪರ್ಕಕ್ಕೆ ಒಂದು ರೆಡ್ ಫೋನ್ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಲಿಂಕ್ ಕಳುಹಿಸಲು ಬಯಸುವಿರಾ?</string>
   <string name="RedPhone_no_thanks_exclamation">ಇಲ್ಲ ಧನ್ಯವಾದಗಳು!</string>
   <string name="RedPhone_yes_exclamation">ಹೌದು!</string>
@@ -58,7 +58,6 @@
   <string name="CallQualityDialog__we_re_making_changes">ನಾವು ಬದಲಾವಣೆಗಳನ್ನು ಮಾಡುತ್ತಿದ್ದೇವೆ </string>
   <string name="CallQualityDialog__whispersystems_needs_your_help_pretext">ಮುಕ್ತ ವಿಷ್ಪರ್ ಸಿಸ್ಟೆಮ್ಸ್ಗೆ ನಿಮ್ಮ ಸಹಾಯದ ಅಗತ್ಯವಿದೆ. ನಾವು ನಮ್ಮ ಕರೆಗಳ ಗುಣಮಟ್ಟವನ್ನು ಸುಧಾರಿಸುವ ಕಾರ್ಯದಲ್ಲಿ ತೊಡಗಿಸುಕೊಂಡಿರುವಾಗ ನಮಗೆ  ಪ್ರತಿಕ್ರಿಯೆ ಮತ್ತು ಸಾಧನೆ ಮಾಪನಗಳ ಅಗತ್ಯವಿದೆ.</string>
   <string name="CallQualityDialog__linktext">ಅಂಕಿಅಂಶಗಳ ಸಂಗ್ರಹಣೆಯ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ</string>
-  <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">.⏎\n⏎\n ರೆಡ್ ಫೋನ್ ಉತ್ತಮಗೊಳಿಸಲು ಕೆಳಗೆ ಆಯ್ದುಕೊಳ್ಳುವ ಮೂಲಕ ತೊಡಗಿಸಿಕೊಳ್ಳಿ.</string>
   <string name="CallQualityDialog__you_can_update_these_settings_at_any_time_through_the_general_settings_menu">ನೀವು ರೆಡ್ ಫೋನ್ ಸೆಟ್ಟಿಂಗ್ಸ್ ಮೆನು ಮೂಲಕ ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ಈ ಆಯ್ಕೆಗಳು ನವೀಕರಿಸಬಹುದು</string>
   <string name="CallQualityDialog__please_rate_the_audio_quality_of_the_call_below">ಈ ಕರೆಯ ಗುಣಮಟ್ಟವನ್ನು ಮೌಲೀಕರಿಸಿ</string>
   <string name="CallQualityDialog__submit">ಒಪ್ಪಿಸು</string>
@@ -76,7 +75,6 @@
   <string name="CreateAccountActivity_you_must_specify_your_country_code">ನಿಮ್ಮ ರಾಷ್ಟ್ರದ ಕೋಡ್ ಅನ್ನು ಸೂಚಿಸಬೇಕು</string>
   <string name="CreateAccountActivity_the_number_you_specified_s_is_invalid">ನೀವು ನಮೂದಿಸಿದ ಸಂಖ್ಯೆ (% s) ಅಮಾನ್ಯವಾಗಿದೆ.</string>
   <string name="CreateAccountActivity_invalid_number">ಅಮಾನ್ಯ ಸಂಖ್ಯೆ</string>
-  <string name="CreateAccountActivity_we_will_now_verify_that_the_following_number_is_associated">ನಾವು ಈಗ ಈ ಸಂಖ್ಯೆ ಈ ಸಾಧನಕ್ಕೆ ಸಂಬಂಧಿಸಿದ್ದು ಎಂಬುದನ್ನು ಪರಿಶೀಲಿಸುತ್ತೇವೆ :⏎\n⏎\n%s⏎\n⏎\nಈ ಸಂಖ್ಯೆ ಸರಿಯಾಗಿದೆ, ಅಥವಾ ನೀವು ಮುಂದುವರೆಯುವ ಮೊದಲು ಅದನ್ನು ಸಂಪಾದಿಸಲು ಬಯಸುತ್ತೀರ?</string>
   <string name="CreateAccountActivity_continue">ಮುಂದುವರಿಸು</string>
   <string name="CreateAccountActivity_edit">ಪರಿಷ್ಕರಿಸು</string>
   <string name="NotificationBarManager_redphone_call_in_progress">ರೆಡ್ ಫೋನ್ ಕರೆ ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>
@@ -87,10 +85,6 @@
   <string name="QualityReporting_send_diagnostics">ವಿಶ್ಲೇಷಣಾತ್ಮಕ ಮಾಹಿತಿಯನ್ನು ಕಳುಹಿಸಿ?</string>
   <string name="RecentCallListActivity_loading"> ತುಂಬಿಸುತ್ತಿದ್ದೇವೆ...</string>
   <string name="RecentCallListActivity_empty_call_log">ಖಾಲಿ ಕರೆ ದಾಖಲೆ.</string>
-  <string name="RedPhoneChooser_upgrade_to_redphone">ರೆಡ್ ಫೋನ್ಗೆ ಉನ್ನತೀಕರಿಸು?</string>
-  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">ಈ ಸಂಪರ್ಕ ಸಹ ರೆಡ್ ಫೋನ್ ನ್ನು ಬಳಸುತ್ತಾರೆ. ನೀವು ಈ ಕರೆಯನ್ನು ಸುರಕ್ಷಿತ ಕರೆಗೆ ಉನ್ನತಿಕರಿಸಲು ಬಯಸುವಿರಾ?</string>
-  <string name="RedPhoneChooser_secure_call">ಸುರಕ್ಷಿತ ಕರೆ</string>
-  <string name="RedPhoneChooser_insecure_call">ಅಸುರಕ್ಷಿತ ಕರೆ</string>
   <string name="RegistrationProgressActivity_verifying_number">ಸಂಖ್ಯೆ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ</string>
   <string name="RegistrationProgressActivity_edit_s">ಪರಿಷ್ಕರಿಸು %s</string>
   <string name="RegistrationProgressActivity_registration_complete">ನೋಂದಣಿ ಪೂರ್ಣಗೊಂಡಿದೆ!</string>
@@ -119,11 +113,9 @@
   <string name="about_activity__additional_information">ಹೆಚ್ಚುವರಿ ಮಾಹಿತಿ:</string>
   <string name="about_activity__attribution">ಗುಣವಿಶೇಷಗಳು:</string>
   <string name="about_activity__aboutText">ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ whispersystems.org ನೋಡಿ, ಅಥವಾ ಸಮಸ್ಯೆಗಳು, ಪ್ರಶ್ನೆಗಳು, ಅಥವಾ ಕಾಮೆಂಟ್ಗಳೊಂದಿಗೆ support@whispersystems.orgನ್ನು ಸಂಪರ್ಕಿಸಿ.</string>
-  <string name="about_activity__attributionText">RedPhone links to the SpanDSP library, which is licensed under the LGPL.⏎\n⏎\nRedPhone uses the SPEEX Codec, which is used under the Xiph.Org variant of the BSD license: © 2002-2003, Jean-Marc Valin/Xiph.Org Foundation⏎\n⏎\nRedistribution and use of the SPEEX library in source and binary forms, with or without modification, are permitted provided that the following conditions are met:⏎\n⏎\n⇥* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.⏎\n⇥* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.⏎\n⇥* Neither the name of the Xiph.org Foundation nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.⏎\n⏎\nThe SPEEX library is provided by the copyright holders and contributors “as is” and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the foundation or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.⏎\n⏎\n⏎\nSome sound samples are licensed under the Creative Commons Sampling Plus License: http://creativecommons.org/licenses/sampling+/1.0/⏎\n⏎\nBy acclivity (http://www.freesound.org/usersViewSingle.php?id=37876):⏎\nShipsBell.wav (http://www.freesound.org/samplesViewSingle.php?id=32304)⏎\n⏎\nBy Splashdust (http://www.freesound.org/usersViewSingle.php?id=754949):⏎\nnegativebeep.wav (http://www.freesound.org/samplesViewSingle.php?id=67454)⏎\n⏎\nBy Peter_Gross (http://www.freesound.org/usersViewSingle.php?id=33429):⏎\nSonar_pings.ogg (http://www.freesound.org/samplesViewSingle.php?id=12677⏎\n⏎\nBy suonho: http://www.freesound.org/samplesViewSingle.php?id=58348: ambienta_soundtrack_moog_sweep⏎\n⏎\nBy Mike Koenig: Busy Signal</string>
   <string name="call_controls__redphone_call">ರೆಡ್ ಫೋನ್ ಕರೆ</string>
   <string name="call_card__redphone_call">ರೆಡ್ ಫೋನ್ ಕರೆ</string>
   <string name="create_account__register">ನೋಂದಣಿ</string>
-  <string name="create_acount__please_confirm_your_country_code_and_phone_number">ಸುರಕ್ಷಿತ ಕರೆಗಳನ್ನು ಮಾಡಲು ಹಾಗೂ ಸ್ವೀಕರಿಸಲು, ರೆಡ್ ಫೋನ್ ನಿಮ್ಮ ದೂರವಾಣಿ ಸಂಖ್ಯೆಯನ್ನು ಪರಿಶೀಲಿಸುವ  ಹಾಗೂ ವ್ಯವಸ್ಥೆಯೊಂದಿಗೆ ಅದನ್ನು ನೋಂದಯಿಸುವ ಅಗತ್ಯವಿದೆ.⏎\n⏎\nಈ ಸಾಧನಕ್ಕೆ ನಿಮ್ಮ ರಾಷ್ಟ್ರದ ಸಂಕೇತವನ್ನು ಹಾಗೂ ದೂರವಾಣಿ ಸಂಖ್ಯೆಯನ್ನು ದಯವಿಟ್ಟು ಖಚಿತಪಡಿಸಿ.</string>
   <string name="create_account__your_country">ನಿಮ್ಮ ರಾಷ್ಟ್ರ</string>
   <string name="create_account__your_country_code_and_phone_number">ನಿಮ್ಮ ದೇಶದ ಸಂಕೇತ ಮತ್ತು ದೂರವಾಣಿ ಸಂಖ್ಯೆ</string>
   <string name="create_account__phone_number">ದೂರವಾಣಿ ಸಂಖ್ಯೆ</string>

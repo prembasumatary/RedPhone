@@ -58,7 +58,6 @@
   <string name="CallQualityDialog__we_re_making_changes">我們正在改變</string>
   <string name="CallQualityDialog__whispersystems_needs_your_help_pretext">Open WhisperSystems需要你的幫助。我們一直努力提高我們的通話質量，我們需要反饋和性能測量以改進系統。</string>
   <string name="CallQualityDialog__linktext">學習更多關於數據收集</string>
-  <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">.⏎\n⏎\n下面的選項幫助使RedPhone變得更好。</string>
   <string name="CallQualityDialog__you_can_update_these_settings_at_any_time_through_the_general_settings_menu">通過設置菜單，你在任何時候都可以更新這些性能。</string>
   <string name="CallQualityDialog__please_rate_the_audio_quality_of_the_call_below">請統計此次通話質量</string>
   <string name="CallQualityDialog__submit">提交</string>
@@ -76,7 +75,6 @@
   <string name="CreateAccountActivity_you_must_specify_your_country_code">你必須填入國家碼</string>
   <string name="CreateAccountActivity_the_number_you_specified_s_is_invalid">你填入的號碼無效，請檢查位數是否正確，應該為11位號碼，比如11122223333。</string>
   <string name="CreateAccountActivity_invalid_number">無效號碼</string>
-  <string name="CreateAccountActivity_we_will_now_verify_that_the_following_number_is_associated">我們將驗證下面的號碼是否和這個手機關聯：%s。這個號碼正確嗎？或你要修改號碼嗎？</string>
   <string name="CreateAccountActivity_continue">繼續</string>
   <string name="CreateAccountActivity_edit">編輯</string>
   <string name="NotificationBarManager_redphone_call_in_progress">RedPhone 通話進行中</string>
@@ -87,10 +85,6 @@
   <string name="QualityReporting_send_diagnostics">發送診斷信息嗎？</string>
   <string name="RecentCallListActivity_loading">加載中...，請耐心等待，謝謝！</string>
   <string name="RecentCallListActivity_empty_call_log">清空通話紀錄。</string>
-  <string name="RedPhoneChooser_upgrade_to_redphone">升級RedPhone嗎？</string>
-  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">這個聯絡人也在使用RedPhone，您想改用安全通話嗎？</string>
-  <string name="RedPhoneChooser_secure_call">安全通話</string>
-  <string name="RedPhoneChooser_insecure_call">非安全通話</string>
   <string name="RegistrationProgressActivity_verifying_number">驗證號碼中</string>
   <string name="RegistrationProgressActivity_edit_s">編輯 %s</string>
   <string name="RegistrationProgressActivity_registration_complete">注冊完成！</string>
@@ -119,11 +113,9 @@
   <string name="about_activity__additional_information">附加信息：</string>
   <string name="about_activity__attribution">屬性：</string>
   <string name="about_activity__aboutText">有任何問題，疑問或建議，請打開whispersystems.org網站查看更多信息，或者發郵件聯系 support@whispersystems.org。</string>
-  <string name="about_activity__attributionText">RedPhone鏈接了SpanDSP庫, SpanDSP庫基於LGPL.⏎\n⏎\nRedPhone uses the SPEEX Codec, which is used under the Xiph.Org variant of the BSD license: © 2002-2003, Jean-Marc Valin/Xiph.Org Foundation⏎\n⏎\nRedistribution and use of the SPEEX library in source and binary forms, with or without modification, are permitted provided that the following conditions are met:⏎\n⏎\n⇥* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.⏎\n⇥* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.⏎\n⇥* Neither the name of the Xiph.org Foundation nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.⏎\n⏎\nThe SPEEX library is provided by the copyright holders and contributors “as is” and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the foundation or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.⏎\n⏎\n⏎\nSome sound samples are licensed under the Creative Commons Sampling Plus License: http://creativecommons.org/licenses/sampling+/1.0/⏎\n⏎\nBy acclivity (http://www.freesound.org/usersViewSingle.php?id=37876):⏎\nShipsBell.wav (http://www.freesound.org/samplesViewSingle.php?id=32304)⏎\n⏎\nBy Splashdust (http://www.freesound.org/usersViewSingle.php?id=754949):⏎\nnegativebeep.wav (http://www.freesound.org/samplesViewSingle.php?id=67454)⏎\n⏎\nBy Peter_Gross (http://www.freesound.org/usersViewSingle.php?id=33429):⏎\nSonar_pings.ogg (http://www.freesound.org/samplesViewSingle.php?id=12677⏎\n⏎\nBy suonho: http://www.freesound.org/samplesViewSingle.php?id=58348: ambienta_soundtrack_moog_sweep⏎\n⏎\nBy Mike Koenig: Busy Signal</string>
   <string name="call_controls__redphone_call">REDPHONE來電</string>
   <string name="call_card__redphone_call">RedPhone來電</string>
   <string name="create_account__register">注冊</string>
-  <string name="create_acount__please_confirm_your_country_code_and_phone_number">為了撥打和接聽安全電話，RedPhone需要驗證你的手機號碼並注冊到系統。請確認你的國家碼和手機號碼。</string>
   <string name="create_account__your_country">國家碼，中國大陸直接填入86</string>
   <string name="create_account__your_country_code_and_phone_number">國家碼和手機號碼</string>
   <string name="create_account__phone_number">手機號碼</string>

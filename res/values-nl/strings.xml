@@ -58,7 +58,7 @@
   <string name="CallQualityDialog__we_re_making_changes">Wij zijn veranderingen aan het doorvoeren</string>
   <string name="CallQualityDialog__whispersystems_needs_your_help_pretext">Open WhisperSystems heeft je hulp nodig. Tijdens het verbeteren van de kwaliteit van de oproepen hebben wij terugkoppeling en prestatie metingen nodig om het systeem te verbeteren.</string>
   <string name="CallQualityDialog__linktext">Lees meer over data verzameling</string>
-  <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">.⏎\n⏎\nKies beneden om te helpen RedPhone beter te maken.</string>
+  <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">./n/n/Kies beneden voor \"opt in\" om RedPhone te verbeteren.</string>
   <string name="CallQualityDialog__you_can_update_these_settings_at_any_time_through_the_general_settings_menu">U kunt deze voorkeuren op elk moment bijwerkingen middels het RedPhone instellingen menu</string>
   <string name="CallQualityDialog__please_rate_the_audio_quality_of_the_call_below">Waardeer de kwaliteit van deze oproep alstublief</string>
   <string name="CallQualityDialog__submit">Verstuur</string>
@@ -76,7 +76,11 @@
   <string name="CreateAccountActivity_you_must_specify_your_country_code">U moet uw landcode specificeren</string>
   <string name="CreateAccountActivity_the_number_you_specified_s_is_invalid">Het nummer dat u opgaf (%s) is ongeldig.</string>
   <string name="CreateAccountActivity_invalid_number">Ongeldig nummer</string>
-  <string name="CreateAccountActivity_we_will_now_verify_that_the_following_number_is_associated">We gaan nu verifiëren dat het volgende nummer bij dit toestel hoort:\n\n%s\n\nIs dit nummer correct, of wilt u deze bewerken alvorens verder te gaan?</string>
+  <string name="CreateAccountActivity_we_will_now_verify_that_the_following_number_is_associated">We gaan nu verifiëren dat het volgende nummer bij dit toestel hoort:
+
+%s
+
+Is dit nummer correct, of wilt u deze bewerken alvorens verder te gaan?</string>
   <string name="CreateAccountActivity_continue">Doorgaan</string>
   <string name="CreateAccountActivity_edit">Bewerk</string>
   <string name="NotificationBarManager_redphone_call_in_progress">RedPhone oproep in uitvoering</string>
@@ -87,10 +91,10 @@
   <string name="QualityReporting_send_diagnostics">Stuur diagnostische gegevens?</string>
   <string name="RecentCallListActivity_loading">Laden...</string>
   <string name="RecentCallListActivity_empty_call_log">Geen gesprekshistorie.</string>
-  <string name="RedPhoneChooser_upgrade_to_redphone">Upgraden naar RedPhone?</string>
-  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">Deze contactpersoon gebruikt ook RedPhone. Wilt u upgraden naar een beveiligd gesprek?</string>
-  <string name="RedPhoneChooser_secure_call">Beveiligd Gesprek</string>
-  <string name="RedPhoneChooser_insecure_call">Onveilig Gesprek</string>
+  <string name="RedPhoneChooser_upgrade_to_redphone">Beveiligen met RedPhone?</string>
+  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">Deze contactpersoon gebruikt ook RedPhone. Wilt u dit gesprek beveiligen?</string>
+  <string name="RedPhoneChooser_secure_call">Ja, beveilig</string>
+  <string name="RedPhoneChooser_insecure_call">Nee</string>
   <string name="RegistrationProgressActivity_verifying_number">Nummer aan het verifiëren</string>
   <string name="RegistrationProgressActivity_edit_s">Bewerk %s</string>
   <string name="RegistrationProgressActivity_registration_complete">Registratie compleet!</string>
@@ -119,11 +123,9 @@
   <string name="about_activity__additional_information">Additionele informatie:</string>
   <string name="about_activity__attribution">Attributie:</string>
   <string name="about_activity__aboutText">Kijkt u alstublieft op whispersystems.org voor meer informatie, of neem contact op via support@whispersystems.org met problemen, vragen, of commentaar.</string>
-  <string name="about_activity__attributionText">RedPhone linkt naar de de SpanDSP bibliotheek, welke onder de LGPL licentie valt.\n\nRedPhone gebruikt de SPEEX Codec, welke valt onder de Xiph.Org variant van de BSD licentie: © 2002-2003, Jean-Marc Valin/Xiph.Org Foundation:\n\nRedistribution and use of the SPEEX library in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n\t* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n\t* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n\t* Neither the name of the Xiph.org Foundation nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.\n\nThe SPEEX library is provided by the copyright holders and contributors “as is” and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the foundation or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.\n\n\nSommige geluiden vallen onder de Creative Commons Sampling Plus Licentie: http://creativecommons.org/licenses/sampling+/1.0/\n\nDoor acclivity (http://www.freesound.org/usersViewSingle.php?id=37876):\nShipsBell.wav (http://www.freesound.org/samplesViewSingle.php?id=32304)\n\nDoor Splashdust (http://www.freesound.org/usersViewSingle.php?id=754949):\nnegativebeep.wav (http://www.freesound.org/samplesViewSingle.php?id=67454)\n\nDoor Peter_Gross (http://www.freesound.org/usersViewSingle.php?id=33429):\nSonar_pings.ogg (http://www.freesound.org/samplesViewSingle.php?id=12677\n\nDoor suonho: http://www.freesound.org/samplesViewSingle.php?id=58348: ambienta_soundtrack_moog_sweep\n\nDoor Mike Koenig: Bezettoon</string>
   <string name="call_controls__redphone_call">REDPHONE OPROEP</string>
   <string name="call_card__redphone_call">RedPhone Oproep</string>
   <string name="create_account__register">Registreer</string>
-  <string name="create_acount__please_confirm_your_country_code_and_phone_number">Om beveiligde gesprekken te beginnen en ontvangen, moet RedPhone uw telefoonnummer verifiëren en registreren in het systeem.\n\nBevestigt u alstublieft uw landcode en telefoonnummer voor dit toestel.</string>
   <string name="create_account__your_country">UW LAND</string>
   <string name="create_account__your_country_code_and_phone_number">UW LANDCODE EN TELEFOONNUMMER</string>
   <string name="create_account__phone_number">telefoonnummer</string>

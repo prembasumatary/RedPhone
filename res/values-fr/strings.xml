@@ -58,7 +58,7 @@
   <string name="CallQualityDialog__we_re_making_changes">Nous apportons des changements</string>
   <string name="CallQualityDialog__whispersystems_needs_your_help_pretext">Open WhisperSystems à besoin de votre aide. Puisque nous travaillons à améliorer la qualité de vos appels, nous avons besoin de commentaires et de mesures de performances find\'améliorer le système.</string>
   <string name="CallQualityDialog__linktext">En savoir plus sur la collecte de données</string>
-  <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">Cochez ci-dessous afin d\'aider à améliorer RedPhone.</string>
+  <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">Cochez la case ci-dessous pour aider à rendre RedPhone meilleur.</string>
   <string name="CallQualityDialog__you_can_update_these_settings_at_any_time_through_the_general_settings_menu">Vous pouvez mettre à jour ces préférences à tout moment via le menu des paramètres RedPhone</string>
   <string name="CallQualityDialog__please_rate_the_audio_quality_of_the_call_below">Veuillez noter la qualité de cet appel</string>
   <string name="CallQualityDialog__submit">Envoyer</string>
@@ -76,7 +76,7 @@
   <string name="CreateAccountActivity_you_must_specify_your_country_code">Vous devez rentrer votre code pays</string>
   <string name="CreateAccountActivity_the_number_you_specified_s_is_invalid">Le numéro que vous avez rentré (%s) est incorrect.</string>
   <string name="CreateAccountActivity_invalid_number">Numéro incorrect</string>
-  <string name="CreateAccountActivity_we_will_now_verify_that_the_following_number_is_associated">Nous allons maintenant vérifier que le numéro suivant soit associé à cet appareil :\n\n%s\n\nCe numéro est-il correct ou voulez vous le modifier avant de continuer ?</string>
+  <string name="CreateAccountActivity_we_will_now_verify_that_the_following_number_is_associated">Nous allons maintenant vérifier que le numéeo suivant est associé avec cet appareil :\n\n%s\n\n Ce numéro est-il correct ou souhaitez-vous le modifier avant de continuer ?</string>
   <string name="CreateAccountActivity_continue">Continuer</string>
   <string name="CreateAccountActivity_edit">Modifier</string>
   <string name="NotificationBarManager_redphone_call_in_progress">Appel RedPhone en cours</string>
@@ -87,10 +87,10 @@
   <string name="QualityReporting_send_diagnostics">Envoyer diagnostic ?</string>
   <string name="RecentCallListActivity_loading">Chargement...</string>
   <string name="RecentCallListActivity_empty_call_log">Journal d\'appel vide.</string>
-  <string name="RedPhoneChooser_upgrade_to_redphone">Appeller avec RedPhone ?</string>
-  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">Ce contact utilise aussi RedPhone. Voulez-vous appeler de manière sécurisée avec RedPhone ?</string>
-  <string name="RedPhoneChooser_secure_call">Appel sécurisé</string>
-  <string name="RedPhoneChooser_insecure_call">Appel non sécurisé</string>
+  <string name="RedPhoneChooser_upgrade_to_redphone">Sécuriser l\'appel avec RedPhone?</string>
+  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">Ce contact est également utilisateur de RedPhone. Aimeriez-vous sécuriser votre appel ?</string>
+  <string name="RedPhoneChooser_secure_call">Oui, sécuriser</string>
+  <string name="RedPhoneChooser_insecure_call">Non</string>
   <string name="RegistrationProgressActivity_verifying_number">Vérification du numéro</string>
   <string name="RegistrationProgressActivity_edit_s">Modifier %s</string>
   <string name="RegistrationProgressActivity_registration_complete">Enregistrement fini !</string>
@@ -119,11 +119,10 @@
   <string name="about_activity__additional_information">Informations supplémentaires :</string>
   <string name="about_activity__attribution">Attribution:</string>
   <string name="about_activity__aboutText">Veuillez visiter whispersystems.org pour plus d\'informations ou contacter support@whispersystems.org pour des problèmes, questions ou commentaires.</string>
-  <string name="about_activity__attributionText">\nRedPhone est liée à la bibliothèque SpanDSP qui est régie par la LGPL.\n\nRedPhone utilise le codec SPEEX, qui est régi par la variante Xiph.Org de la licence BSD : © 2002-2003, Jean-Marc Valin/Fondation Xiph.Org\n\nLa redistribution du code source, modifié ou non, sous forme de binaire est soumise aux conditions suivantes :\n\n* Le copyright ci-dessus, la présente liste des conditions et l\'avertissement \nqui la suit doivent figurer dans le code source.\n\n* La documentation et/ou les fichiers accompagnant le code source distribué sous forme de binaire doivent faire apparaître le copyright ci-dessus, la présente liste des conditions et l\'avertissement qui la suit.\n\n* Le nom de la Fondation Xiph.Org, pas plus que ceux de ses collaborateurs, ne sauraient être utilisés dans le but de promouvoir ou de légitimer un produit dérivé de ce programme sans autorisation écrite préalable à cet effet.\n\nLA BIBLIOTHÈQUE SPEEX EST FOURNIE « TELLE QU\'EN L\'ÉTAT » PAR LES DÉTENTEURS DES DROITS D\'AUTEURS ET LEURS COLLABORATEURS ET IL N\'EST DONNÉ AUCUNE GARANTIE, IMPLICITE OU EXPLICITE, QUANT À SON UTILISATION COMMERCIALE, PROFESSIONNELLE OU AUTRE. LES DÉTENTEURS DES DROITS D\'AUTEURS ET LEURS COLLABORATEURS NE \nPEUVENT EN AUCUN CAS ÊTRE TENUS POUR RESPONSABLES DE QUELQUE DOMMAGE OU PRÉJUDICE DIRECT, INDIRECT, SECONDAIRE OU ACCESSOIRE (Y COMPRIS LES PERTES FINANCIÈRES DUES AU MANQUE À GAGNER, À L\'INTERRUPTION D\'ACTIVITÉS, OU LA PERTE D\'INFORMATIONS ET AUTRES) DÉCOULANT DE L\'UTILISATION DU PROGRAMME, OU DE L\'IMPOSSIBILITÉ D\'UTILISER CELUI-CI, ET DONT L\'UTILISATEUR ACCEPTE L\'ENTIÈRE RESPONSABILITÉ.\n\n\nCertains extraits audio sont régis par la licence Creative Commons Sampling Plus License: http://creativecommons.org/licenses/sampling+/1.0/\n\nPar acclivity (http://www.freesound.org/usersViewSingle.php?id=37876):\nShipsBell.wav (http://www.freesound.org/samplesViewSingle.php?id=32304)\n\nPar Splashdust (http://www.freesound.org/usersViewSingle.php?id=754949):\nnegativebeep.wav (http://www.freesound.org/samplesViewSingle.php?id=67454)\n\nPar Peter_Gross (http://www.freesound.org/usersViewSingle.php?id=33429):\nSonar_pings.ogg (http://www.freesound.org/samplesViewSingle.php?id=12677\n\nPar suonho: http://www.freesound.org/samplesViewSingle.php?id=58348: ambienta_soundtrack_moog_sweep\n\nPar Mike Koenig: Busy Signal</string>
   <string name="call_controls__redphone_call">APPEL REDPHONE</string>
   <string name="call_card__redphone_call">Appel RedPhone</string>
   <string name="create_account__register">S\'enregistrer</string>
-  <string name="create_acount__please_confirm_your_country_code_and_phone_number">Pour émettre et recevoir des appels sécurisés, RedPhone a besoin de vérifier votre numéro et de l\'enregistrer avec le système.\n\nVeuillez confirmer votre code pays et votre numéro pour ce téléphone.</string>
+  <string name="create_acount__please_confirm_your_country_code_and_phone_number">Pour passer et recevoir des appels sécurisés, Redphone a besoin de vérifier votre numéro de téléphone et de l\'enregistrer dans le système.\n\nVeuillez confirmer votre numéro de téléphone pour cet appareil, ainsi que votre code pays.</string>
   <string name="create_account__your_country">VOTRE PAYS</string>
   <string name="create_account__your_country_code_and_phone_number">VOTRE CODE PAYS ET NUMÉRO DE TÉLÉPHONE</string>
   <string name="create_account__phone_number">numéro de téléphone</string>

@@ -58,7 +58,6 @@
   <string name="CallQualityDialog__we_re_making_changes">เรากำลังปรับปรุง</string>
   <string name="CallQualityDialog__whispersystems_needs_your_help_pretext">Open WhisperSystems ต้องการความช่วยเหลือจากคุณ ในขณะที่เราทำงานเพื่อที่จะเพิ่มคุณภาพของการโทร เราต้องการข้อเสนอแนะและดัชนีประสิทธิภาพเพื่อที่จะปรับปรุงระบบ</string>
   <string name="CallQualityDialog__linktext">เรียนรู้เกี่ยวกับการเก็บข้อมูล</string>
-  <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">.\n\nแสดงความจำนงเพื่อที่จะปรับปรุง RedPhone</string>
   <string name="CallQualityDialog__you_can_update_these_settings_at_any_time_through_the_general_settings_menu">คุณสามารถปรับค่าเมื่อไหร่ก็ได้ผ่านเมนูค่าตั้งของ RedPhone</string>
   <string name="CallQualityDialog__please_rate_the_audio_quality_of_the_call_below">กรุณาให้คะแนนคุณภาพของการโทร</string>
   <string name="CallQualityDialog__submit">ส่ง</string>
@@ -76,7 +75,6 @@
   <string name="CreateAccountActivity_you_must_specify_your_country_code">คุณต้องระบุรหัสประเทศ</string>
   <string name="CreateAccountActivity_the_number_you_specified_s_is_invalid">เลขหมายที่คุณระบุ (%s) ไม่ถูกต้อง</string>
   <string name="CreateAccountActivity_invalid_number">เลขหมายไม่ถูกต้อง</string>
-  <string name="CreateAccountActivity_we_will_now_verify_that_the_following_number_is_associated"> เราจะทำการยืนยันว่าหมายเลขโทรศัพท์ต่อไปนี้ได้ถูกใช้กับอุปกรณ์เครื่องนี้:\n\n%s\n\nหมายเลขนี้ถูกต้องหรือไม่ หรือว่าคุณต้องการที่จะเปลี่ยนแปลงก่อนที่จะทำเนินการต่อ?</string>
   <string name="CreateAccountActivity_continue">ต่อไป</string>
   <string name="CreateAccountActivity_edit">แก้ไข</string>
   <string name="NotificationBarManager_redphone_call_in_progress">กำลังดำเนินการโทรโดย RedPhone</string>
@@ -87,10 +85,6 @@
   <string name="QualityReporting_send_diagnostics">ส่งข้อมูลการวินิจฉัย?</string>
   <string name="RecentCallListActivity_loading">กำลังโหลด...</string>
   <string name="RecentCallListActivity_empty_call_log">บรรทึกการโทรว่างเปล่า</string>
-  <string name="RedPhoneChooser_upgrade_to_redphone">ปรับรุ่นขึ้นไปเป็น RedPhone?</string>
-  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">ผู้ติดต่อคนนี้ใช้ RedPhone คุณต้องการที่จะปรับรุ่นขึ้นไปเป็นการโทรแบบปลอดภัยหรือไม่?</string>
-  <string name="RedPhoneChooser_secure_call">โทรแบบปลอดภัย</string>
-  <string name="RedPhoneChooser_insecure_call">โทรแบบไม่ปลอดภัย</string>
   <string name="RegistrationProgressActivity_verifying_number">กำลังยืนยันเลขหมาย</string>
   <string name="RegistrationProgressActivity_edit_s">แก้ไข %s</string>
   <string name="RegistrationProgressActivity_registration_complete">การลงทะเบียนเรียบร้อยแล้ว!</string>
@@ -122,7 +116,6 @@
   <string name="call_controls__redphone_call">โทรด้วย REDPHONE</string>
   <string name="call_card__redphone_call">โทรด้วย REDPHONE</string>
   <string name="create_account__register">ลงทะเบียน</string>
-  <string name="create_acount__please_confirm_your_country_code_and_phone_number">เพื่อที่จะรับสายหรือโทรอย่างปลอดภัย RedPhone ต้องยืนยันหมายเลขโทรศัพท์และลงทะเบียนกับระบบ\n\nกรุณายืนยันรหัสประเทศและเบอร์โทรศัพท์ของอุปกรณ์เครื่องนี้</string>
   <string name="create_account__your_country">ประเทศของคุณ</string>
   <string name="create_account__your_country_code_and_phone_number">ประเทศของคุณและหมายเลขโทรศัพท์</string>
   <string name="create_account__phone_number">หมายเลขโทรศัพท์</string>

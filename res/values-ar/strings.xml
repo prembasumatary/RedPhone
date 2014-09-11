@@ -58,7 +58,6 @@
   <string name="CallQualityDialog__we_re_making_changes">نقوم بإحداث تغييرات</string>
   <string name="CallQualityDialog__whispersystems_needs_your_help_pretext">يحتاج Open WhisperSystems إلى مساعدتك. في الوقت الذي نعمل فيه على تحسين جودة مكالماتنا, نحتاج إلى ملاحظات وقياسات الأداء لتحسين النظام.</string>
   <string name="CallQualityDialog__linktext">تعرّف أكثر على جمع البيانات</string>
-  <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">.⏎\n⏎\nإنضم في الأسفل للمساهمة في جعل RedPhone أحسن.</string>
   <string name="CallQualityDialog__you_can_update_these_settings_at_any_time_through_the_general_settings_menu">يمكنك تثبيت الخيارات في أي وقت من خلال قائمة إعدادات RedPhone.</string>
   <string name="CallQualityDialog__please_rate_the_audio_quality_of_the_call_below">يرجى تقييم جودة هذه المكالمة</string>
   <string name="CallQualityDialog__submit">قدَم</string>
@@ -76,7 +75,6 @@
   <string name="CreateAccountActivity_you_must_specify_your_country_code">يجب أن تحدد رمز بلدك</string>
   <string name="CreateAccountActivity_the_number_you_specified_s_is_invalid">الرقم الذي حدّدته (%s) غير صالح.</string>
   <string name="CreateAccountActivity_invalid_number">رقم غير صالح</string>
-  <string name="CreateAccountActivity_we_will_now_verify_that_the_following_number_is_associated">سنقوم الآن بالتحقق من أن الرقم التالي مرتبط بهذا الجهاز:⏎\n⏎\n%s⏎\n⏎\nهل هذا الرقم صحيح, أو تودّ تعديله قبل المواصلة؟</string>
   <string name="CreateAccountActivity_continue">إستمر</string>
   <string name="CreateAccountActivity_edit">تعديل</string>
   <string name="NotificationBarManager_redphone_call_in_progress">مكالمة RedPhone جارية</string>
@@ -87,10 +85,10 @@
   <string name="QualityReporting_send_diagnostics">إرسال تشخيص؟</string>
   <string name="RecentCallListActivity_loading">جاري التحميل...</string>
   <string name="RecentCallListActivity_empty_call_log">سجل إتصالات فارغ.</string>
-  <string name="RedPhoneChooser_upgrade_to_redphone">تحديث إلى RedPhone؟</string>
-  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">تستعمل جهة الإتصال RedPhone أيضا. هل تودّ التحديث إلى مكالمة آمنة؟</string>
-  <string name="RedPhoneChooser_secure_call">مكالمة آمنة</string>
-  <string name="RedPhoneChooser_insecure_call">مكالمة غير آمنة</string>
+  <string name="RedPhoneChooser_upgrade_to_redphone">تأمين مع RedPhone؟</string>
+  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">تستعمل جهة الإتصال RedPhone أيضا. هل تودّ تأمين هذه المكالمة؟</string>
+  <string name="RedPhoneChooser_secure_call">نعم, قم بالتأمين</string>
+  <string name="RedPhoneChooser_insecure_call">لا</string>
   <string name="RegistrationProgressActivity_verifying_number">جاري التحقٌق من الرقم</string>
   <string name="RegistrationProgressActivity_edit_s">تعديل %s</string>
   <string name="RegistrationProgressActivity_registration_complete">تسجيل كامل!</string>
@@ -119,11 +117,9 @@
   <string name="about_activity__additional_information">معلومات إضافيّة:</string>
   <string name="about_activity__attribution">نسب:</string>
   <string name="about_activity__aboutText">يرجى متابعة whispersystems.org لمعلومات إضافية, أوالإتصال بsupport@whispersystems.org في حال مشاكل, أسئلة, أو تعليقات.</string>
-  <string name="about_activity__attributionText">رد فون يربط مع مكتبة SpanDSP البرمجية المصنفة تحت رخصة LGPL.\n\nردفون يستخدم كوديك SPEEX المصنف تحت رخصة Xiph.org المستنسخة من BSD. © 2002-2003, Jean-Marc Valin/Xiph.Org Foundation\n\n\nنشر واستخدام مكتبة SPEEX البرمجية سواء بصيغة كود المصدر أو بصيغة تنفيذية، مع أو دون تغيير، مسموح به تحت الشروط التالية:\n\n* أي نسخة من كود المصدر يجب أن تحتوي على نسخة من تنبيه حقوق النسخ، و هذه الشروط والتوضيح التالي.\n\n* النشر بالصيغة التنفيذية يجب أن يتم بنسخة تطبع تنبيه حقوق النسخ، هذه الشروط،  والتوضيح التالي في الوثائق المرفقة مع النسخ المنشورة.\n\n* لا يمكن استخدام اسم منظمة Xiph.org Foundation أو اسم أحد المشاركين فيها للترويج لأي منتج مشتق من هذا دون اذن مسبق.\n\n* مكتبة SPEEX مقدمة من حاملي حقوق النسخ والمشاركين فيها كما هي دون ضمانات أو كفالة. لا يمكن بأي حال من الاحوال تحميل المنظمة أو المشاركين أي مسؤولية لأي ضرر مباشر وغير مباشر بأي صورة كانت وتحت أي ظرف قد ينتج بسبب استخدام هذا البرنامج والمكتبات البرمجية.\n\n\n\nSome sound samples are licensed under the Creative Commons Sampling Plus License: http://creativecommons.org/licenses/sampling+/1.0/\n\nBy acclivity (http://www.freesound.org/usersViewSingle.php?id=37876):\nShipsBell.wav (http://www.freesound.org/samplesViewSingle.php?id=32304)\n\nBy Splashdust (http://www.freesound.org/usersViewSingle.php?id=754949):\nnegativebeep.wav (http://www.freesound.org/samplesViewSingle.php?id=67454)\n\nBy Peter_Gross (http://www.freesound.org/usersViewSingle.php?id=33429):\nSonar_pings.ogg (http://www.freesound.org/samplesViewSingle.php?id=12677\n\nBy suonho: http://www.freesound.org/samplesViewSingle.php?id=58348: ambienta_soundtrack_moog_sweep\n\nBy Mike Koenig: Busy Signal</string>
   <string name="call_controls__redphone_call">مكالمة REDPHONE</string>
   <string name="call_card__redphone_call">مكالمة RedPhone</string>
   <string name="create_account__register">تسجيل</string>
-  <string name="create_acount__please_confirm_your_country_code_and_phone_number">لأجل طلب و تلقّي مكالمات آمنة, يحتاج RedPhone للتحقق من رقم هاتفك و تسجيله مع النظام.⏎\n⏎\nيرجى تأكيد رمز بلدك و رقم هاتف هذا الجهاز.</string>
   <string name="create_account__your_country">بلدك</string>
   <string name="create_account__your_country_code_and_phone_number">رمز بلدك و رقم الهاتف</string>
   <string name="create_account__phone_number">رقم هاتف</string>

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Редфон</string>
-  <string name="RedPhone_id_like_to_call_you_securely_using_redphone_you_can_install_redphone_from_the_play_store_s">Бих искал да ви се обадя засекретено с RedPhone. Можете да инсталирате RedPhone от Play Store:% S</string>
+  <string name="app_name">RedPhone</string>
+  <string name="RedPhone_id_like_to_call_you_securely_using_redphone_you_can_install_redphone_from_the_play_store_s">Бих искал да ви се обадя засекретено с RedPhone. Можете да инсталирате RedPhone от Play Store:%s</string>
   <string name="RedPhone_answering">Отговор...</string>
   <string name="RedPhone_ending_call">Край на разговора</string>
   <string name="RedPhone_dialing">Избиране...</string>
@@ -58,7 +58,6 @@
   <string name="CallQualityDialog__we_re_making_changes">Правим промени</string>
   <string name="CallQualityDialog__whispersystems_needs_your_help_pretext">Open WhisperSystems се нуждае от вашата помощ. Тъй като ние работим, за да подобрим качеството на нашите разговори, ни трябва обратна връзка и показателите за ефективност за подобряване на системата.</string>
   <string name="CallQualityDialog__linktext">Научете повече за събирането на данни</string>
-  <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">Включете се в по-долу, за да направим RedPhone по-добър.</string>
   <string name="CallQualityDialog__you_can_update_these_settings_at_any_time_through_the_general_settings_menu">Можете да актуализирате тези настройки по всяко време чрез  меню Настройки</string>
   <string name="CallQualityDialog__please_rate_the_audio_quality_of_the_call_below">Моля оценете качеството на този разговор</string>
   <string name="CallQualityDialog__submit">Изпращане</string>
@@ -76,7 +75,6 @@
   <string name="CreateAccountActivity_you_must_specify_your_country_code">Код за избиране на страната</string>
   <string name="CreateAccountActivity_the_number_you_specified_s_is_invalid">Номера който посочихте  (%s) е невалиден.</string>
   <string name="CreateAccountActivity_invalid_number">Невалиден номер</string>
-  <string name="CreateAccountActivity_we_will_now_verify_that_the_following_number_is_associated">Сега ще се  провери дали следния номер е свързан с това устройство: ⏎\n⏎\n% S ⏎\n⏎\nТова ли е правилния номер, или бихте искали да го редактирате преди да продължите?</string>
   <string name="CreateAccountActivity_continue">Продължи</string>
   <string name="CreateAccountActivity_edit">Редакция</string>
   <string name="NotificationBarManager_redphone_call_in_progress">RedPhone обаждане</string>
@@ -87,10 +85,10 @@
   <string name="QualityReporting_send_diagnostics">Да изпратя диагностична информация?</string>
   <string name="RecentCallListActivity_loading">Зареждане...</string>
   <string name="RecentCallListActivity_empty_call_log">Празен дневник.</string>
-  <string name="RedPhoneChooser_upgrade_to_redphone">Да обновя до RedPhone?</string>
-  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">Този контакт също използва RedPhone. Искате ли да премина на засекретен разговорl?</string>
-  <string name="RedPhoneChooser_secure_call">Засекретен разговор</string>
-  <string name="RedPhoneChooser_insecure_call">Незасекретен разговор</string>
+  <string name="RedPhoneChooser_upgrade_to_redphone">Да засекретя ли с RedPhone?</string>
+  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">Този контакт също използва RedPhone. Искате ли да засекретите този разговор?</string>
+  <string name="RedPhoneChooser_secure_call">Да, засекрети</string>
+  <string name="RedPhoneChooser_insecure_call">Не</string>
   <string name="RegistrationProgressActivity_verifying_number">Проверка на номера</string>
   <string name="RegistrationProgressActivity_edit_s">Редактиране %s</string>
   <string name="RegistrationProgressActivity_registration_complete">Регистрацията е успешна!</string>
@@ -119,11 +117,9 @@
   <string name="about_activity__additional_information">Допълнителна информация:</string>
   <string name="about_activity__attribution">Признание:</string>
   <string name="about_activity__aboutText">Моля, вижте whispersystems.org за допълнителна информация или се свържете support@whispersystems.org с проблеми, въпроси или коментари.</string>
-  <string name="about_activity__attributionText">RedPhone използва библиотеката SpanDSP, която се разпространява под лиценз LGPL. ⏎\n⏎\nRedPhone използва Speex Codec, който се използва под Xiph.Org вариант на BSD лиценз: © 2002-2003, Jean-Marc Valin / Xiph.Org Foundation ⏎\n⏎\nПреразпределение и използването на библиотеката Speex в двоичен код и форми, с или без модификации, са разрешени при условие, че са изпълнени следните условия: ⏎\n⏎\n⇥ * При повторно разпространение на изходния код трябва  горните авторски права, този списък с условия и следното уточнение. ⏎\n⇥ * Редистрибуциите в двоична форма трябва да възпроизвеждат горните авторски права, този списък с условия и следния отказ от отговорност в документацията и / или други материали, предоставени с разпределението. ⏎\n⇥ * Нито името на Xiph.org Foundation, нито имената на участниците могат да бъдат използвани за подкрепа или насърчаване на продукти, получени от този софтуер без изричното предварително писмено разрешение. ⏎\n⏎\nБиблиотеката Speex е предоставена от притежателите на авторските права и сътрудници \"както е\" и нито явни или неявни гаранции, включително, но не само подразбиращи се гаранции за продаваемост и пригодност за определена цел, се отхвърлят. В никакъв случай  фондацията или сътрудниците носят отговорност за преки, косвени, случайни, специални, примерни, или последващи щети (включително, но не само, доставка на заместващи стоки или услуги; загуба на употреба, данни или печалби, или прекъсване на бизнеса), причинени по какъвто и всяка теория на отговорност, било то по договор, стриктна отговорност или деликт (включително небрежност или по друг начин), произтичащи по някакъв начин от използването на този софтуер, дори ако има информация за възможността от такива щети. ⏎\n⏎\n⏎\nНякои звукови проби са лицензирани под Creative Commons License Вземането на проби Plus: http://creativecommons.org/licenses/sampling+/1.0/ ⏎\n⏎\nПо нагорнище (http://www.freesound.org/usersViewSingle.php?id=37876): ⏎\nShipsBell.wav (http://www.freesound.org/samplesViewSingle.php?id=32304) ⏎\n⏎\nЧрез Splashdust (http://www.freesound.org/usersViewSingle.php?id=754949): ⏎\nnegativebeep.wav (http://www.freesound.org/samplesViewSingle.php?id=67454) ⏎\n⏎\nЧрез Peter_Gross (http://www.freesound.org/usersViewSingle.php?id=33429): ⏎\nSonar_pings.ogg (http://www.freesound.org/samplesViewSingle.php?id=12677 ⏎\n⏎\nЧрез suonho: http://www.freesound.org/samplesViewSingle.php?id=58348: ambienta_soundtrack_moog_sweep ⏎\n⏎\nОт Майк Кьониг: Busy Signal</string>
   <string name="call_controls__redphone_call">REDPHONE ОБАЖДАНЕ</string>
   <string name="call_card__redphone_call">RedPhone Обаждане</string>
   <string name="create_account__register">Регистър</string>
-  <string name="create_acount__please_confirm_your_country_code_and_phone_number">За да осъществявате и приемате засекретени повиквания, RedPhone трябва да провери телефонния  номер и да го регистрира в системата. ⏎\n⏎\nМоля, потвърдете националния код и телефонния номер за това устройство.</string>
   <string name="create_account__your_country">ВАШАТА СТРАНА</string>
   <string name="create_account__your_country_code_and_phone_number">НАЦИОНАЛЕН КОД И ТЕЛЕФОНЕН НОМЕР</string>
   <string name="create_account__phone_number">телефонен номер</string>

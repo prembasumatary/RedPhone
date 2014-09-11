@@ -58,7 +58,6 @@
   <string name="CallQualityDialog__we_re_making_changes">Chúng tôi hiện đang thực thi các thay đổi</string>
   <string name="CallQualityDialog__whispersystems_needs_your_help_pretext">Open WhisperSystems cần sự trợ giúp từ bạn. Bởi chúng tôi đang cố gắng cải thiện chất lượng cuộc gọi, chúng tôi cần nhận được phản hồi từ phía bạn về chất lượng dịch vụ của RedPhone nhằm cải tiến sản phẩm được tốt hơn.</string>
   <string name="CallQualityDialog__linktext">Tìm hiểu thêm về quy trình thu thập dữ liệu</string>
-  <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">.\n\nPhần tùy chọn bên dưới sẽ giúp RedPhone hoạt động tốt hơn.</string>
   <string name="CallQualityDialog__you_can_update_these_settings_at_any_time_through_the_general_settings_menu">Bạn có thể cập nhật các tùy biến này bất kỳ lúc nào thông qua hệ thống menu thiết lập của RedPhone</string>
   <string name="CallQualityDialog__please_rate_the_audio_quality_of_the_call_below">Xin vui lòng xếp hạng chất lượng của cuộc gọi này</string>
   <string name="CallQualityDialog__submit">Đệ trình</string>
@@ -76,7 +75,6 @@
   <string name="CreateAccountActivity_you_must_specify_your_country_code">Bạn phải cung cấp mã vùng quốc gia</string>
   <string name="CreateAccountActivity_the_number_you_specified_s_is_invalid">Con số bạn cung cấp (%s) không hợp lệ.</string>
   <string name="CreateAccountActivity_invalid_number">Số không hợp lệ</string>
-  <string name="CreateAccountActivity_we_will_now_verify_that_the_following_number_is_associated">Chúng tôi sẽ xác nhận số điện thoại sau đây được liên kết đến thiết bị này:\n\n%s\n\nĐây có phải là số chính xác, hoặc bạn có muốn thay đổi số này trước khi tiếp tục hay không?</string>
   <string name="CreateAccountActivity_continue">Tiếp tục</string>
   <string name="CreateAccountActivity_edit">Chỉnh sửa</string>
   <string name="NotificationBarManager_redphone_call_in_progress">Cuộc gọi dạng RedPhone đang được triển khai</string>
@@ -87,10 +85,6 @@
   <string name="QualityReporting_send_diagnostics">Gửi phân tích lỗi?</string>
   <string name="RecentCallListActivity_loading">Đang tải...</string>
   <string name="RecentCallListActivity_empty_call_log">Làm rỗng nhật ký cuộc gọi</string>
-  <string name="RedPhoneChooser_upgrade_to_redphone">Nâng cấp RedPhone?</string>
-  <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">Liên lạc này cũng dùng RedPhone. Bạn có muốn nâng cấp người này thành dạng cuộc gọi an toàn?</string>
-  <string name="RedPhoneChooser_secure_call">Gọi an toàn</string>
-  <string name="RedPhoneChooser_insecure_call">Cuộc gọi không an toàn</string>
   <string name="RegistrationProgressActivity_verifying_number">Đang xác nhận số</string>
   <string name="RegistrationProgressActivity_edit_s">Chỉnh sửa %s</string>
   <string name="RegistrationProgressActivity_registration_complete">Đã đăng ký thành công!</string>
@@ -119,11 +113,9 @@
   <string name="about_activity__additional_information">Thông tin bổ sung:</string>
   <string name="about_activity__attribution">Thẩm quyền:</string>
   <string name="about_activity__aboutText">Xin vui lòng truy cập vào whispersystems.org để biết thêm chi tiết, hoặc liên hệ support@whispersystems.org khi có trục trặc xảy ra hoặc khi bạn có thắc mắc hoặc bình luận gì về chương trình.</string>
-  <string name="about_activity__attributionText">RedPhone links to the SpanDSP library, which is licensed under the LGPL.\n\nRedPhone uses the SPEEX Codec, which is used under the Xiph.Org variant of the BSD license: © 2002-2003, Jean-Marc Valin/Xiph.Org Foundation\n\nRedistribution and use of the SPEEX library in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n\t* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n\t* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n\t* Neither the name of the Xiph.org Foundation nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.\n\nThe SPEEX library is provided by the copyright holders and contributors “as is” and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the foundation or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.\n\n\nSome sound samples are licensed under the Creative Commons Sampling Plus License: http://creativecommons.org/licenses/sampling+/1.0/\n\nBy acclivity (http://www.freesound.org/usersViewSingle.php?id=37876):\nShipsBell.wav (http://www.freesound.org/samplesViewSingle.php?id=32304)\n\nBy Splashdust (http://www.freesound.org/usersViewSingle.php?id=754949):\nnegativebeep.wav (http://www.freesound.org/samplesViewSingle.php?id=67454)\n\nBy Peter_Gross (http://www.freesound.org/usersViewSingle.php?id=33429):\nSonar_pings.ogg (http://www.freesound.org/samplesViewSingle.php?id=12677\n\nBy suonho: http://www.freesound.org/samplesViewSingle.php?id=58348: ambienta_soundtrack_moog_sweep\n\nBy Mike Koenig: Busy Signal</string>
   <string name="call_controls__redphone_call">CUỘC GỌI REDPHONE</string>
   <string name="call_card__redphone_call">Cuộc gọi RedPhone</string>
   <string name="create_account__register">Đăng ký</string>
-  <string name="create_acount__please_confirm_your_country_code_and_phone_number">Để có thể thực hiện và nhận các cuộc gọi ở chế độ an toàn, RedPhone cần xác nhận số điện thoại của bạn và đăng ký số điện thoại này với hệ thống hiện tại.\n\nXin xác nhận mã vùng quốc gia và số điện thoại của bạn trên thiết bị này.</string>
   <string name="create_account__your_country">QUỐC GIA CỦA BẠN</string>
   <string name="create_account__your_country_code_and_phone_number">MÃ VÙNG QUỐC GIA VÀ SỐ ĐIỆN THOẠI</string>
   <string name="create_account__phone_number">số điện thoại</string>
