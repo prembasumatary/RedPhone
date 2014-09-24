@@ -6,6 +6,7 @@
 #include "RtpAudioReceiver.h"
 #include "RtpAudioSender.h"
 #include "AudioPlayer.h"
+#include "NetworkUtil.h"
 
 #include "CallAudioManager.h"
 
@@ -18,11 +19,12 @@
 
 #define TAG "CallAudioManager"
 
-CallAudioManager::CallAudioManager(int androidSdkVersion, int socketFd, struct sockaddr_in *sockAddr,
+CallAudioManager::CallAudioManager(int androidSdkVersion, int socketFd,
+                                   struct sockaddr *sockAddr, int sockAddrLen,
                                    SrtpStreamParameters *senderParameters, SrtpStreamParameters *receiverParameters)
   : running(0), finished(1), engineObject(NULL), engineEngine(NULL), audioCodec(),
-    audioSender(socketFd, sockAddr, sizeof(struct sockaddr_in), senderParameters),
-    audioReceiver(socketFd, sockAddr, sizeof(struct sockaddr_in), receiverParameters),
+    audioSender(socketFd, sockAddr, sockAddrLen, senderParameters),
+    audioReceiver(socketFd, receiverParameters),
     webRtcJitterBuffer(audioCodec), clock(),
     microphoneReader(androidSdkVersion, audioCodec, audioSender, clock),
     audioPlayer(webRtcJitterBuffer, audioCodec),
@@ -163,23 +165,49 @@ void CallAudioManager::setMute(int muteEnabled) {
   microphoneReader.setMute(muteEnabled);
 }
 
-static struct sockaddr_in* constructSockAddr(JNIEnv *env, jstring serverIpString, jint serverPort) {
-  const char* serverIp = env->GetStringUTFChars(serverIpString, 0);
+static void constructSockAddr(JNIEnv *env, jstring serverIpString, jint serverPort,
+                              struct sockaddr** result, int *resultLen)
+{
+  const char* serverIp    = env->GetStringUTFChars(serverIpString, 0);
+  int         addressType = NetworkUtil::getAddressType(serverIp);
 
-  struct sockaddr_in *sockAddr = (struct sockaddr_in*)malloc(sizeof(struct sockaddr_in));
-  memset(sockAddr, 0, sizeof(struct sockaddr_in));
+  if (addressType == 1) {
+    struct sockaddr_in *sockAddr = (struct sockaddr_in*)malloc(sizeof(struct sockaddr_in));
+    memset(sockAddr, 0, sizeof(struct sockaddr_in));
 
-  sockAddr->sin_family = AF_INET;
-  sockAddr->sin_port   = htons(serverPort);
+    sockAddr->sin_family = AF_INET;
+    sockAddr->sin_port   = htons(serverPort);
 
-  if (inet_aton(serverIp, &(sockAddr->sin_addr)) == 0) {
-    __android_log_print(ANDROID_LOG_WARN, TAG, "Invalid address: %s", serverIp);
-    free(sockAddr);
-    sockAddr = NULL;
+    if (inet_aton(serverIp, &(sockAddr->sin_addr)) == 0) {
+      __android_log_print(ANDROID_LOG_WARN, TAG, "Invalid address: %s", serverIp);
+      free(sockAddr);
+      sockAddr = NULL;
+    }
+
+    *result    = (struct sockaddr*)sockAddr;
+    *resultLen = sizeof(struct sockaddr_in);
+  } else if (addressType == 0) {
+    struct sockaddr_in6 *sockAddr = (struct sockaddr_in6*)malloc(sizeof(struct sockaddr_in6));
+    memset(sockAddr, 0, sizeof(struct sockaddr_in6));
+
+    sockAddr->sin6_family = AF_INET6;
+    sockAddr->sin6_port   = htons(serverPort);
+
+    if (inet_pton(AF_INET6, serverIp, &(sockAddr->sin6_addr)) != 1) {
+      __android_log_print(ANDROID_LOG_WARN, TAG, "Invalid IPv6 address: %s", serverIp);
+      free(sockAddr);
+      sockAddr = NULL;
+    }
+
+    *result    = (struct sockaddr*)sockAddr;
+    *resultLen = sizeof(struct sockaddr_in6);
+  } else {
+    __android_log_print(ANDROID_LOG_WARN, TAG, "Unknown address type: %d", addressType);
+    *result    = NULL;
+    *resultLen = 0;
   }
 
   env->ReleaseStringUTFChars(serverIpString, serverIp);
-  return sockAddr;
 }
 
 static SrtpStreamParameters* constructSrtpStreamParameters(JNIEnv *env, jbyteArray cipherKey, jbyteArray macKey, jbyteArray salt) {
@@ -202,7 +230,10 @@ jlong JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_create
    jbyteArray senderCipherKey, jbyteArray senderMacKey, jbyteArray senderSalt,
    jbyteArray receiverCipherKey, jbyteArray receiverMacKey, jbyteArray receiverSalt)
 {
-  struct sockaddr_in *sockAddr = constructSockAddr(env, serverIpString, serverPort);
+  struct sockaddr *sockAddr;
+  int sockAddrLen;
+
+  constructSockAddr(env, serverIpString, serverPort, &sockAddr, &sockAddrLen);
 
   if (sockAddr == NULL) {
     __android_log_print(ANDROID_LOG_WARN, TAG, "Failed to construct sockAddr!");
@@ -214,7 +245,7 @@ jlong JNICALL Java_org_thoughtcrime_redphone_audio_CallAudioManager_create
   SrtpStreamParameters *senderParameters   = constructSrtpStreamParameters(env, senderCipherKey, senderMacKey, senderSalt);
   SrtpStreamParameters *receiverParameters = constructSrtpStreamParameters(env, receiverCipherKey, receiverMacKey, receiverSalt);
 
-  CallAudioManager *manager = new CallAudioManager(androidSdkVersion, socketFd, sockAddr,
+  CallAudioManager *manager = new CallAudioManager(androidSdkVersion, socketFd, sockAddr, sockAddrLen,
                                                    senderParameters, receiverParameters);
 
   if (manager->init() != 0) {

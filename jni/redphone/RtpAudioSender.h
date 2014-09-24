@@ -15,19 +15,13 @@ private:
   int      socketFd;
   uint32_t sequenceNumber;
 
-  struct sockaddr_in *sockAddr;
-  int                sockAddrLen;
+  struct sockaddr *sockAddr;
+  int             sockAddrLen;
 
-//  SequenceCounter sequenceCounter;
   SrtpStream      srtpStream;
 
-//  int           initialized;
-//  srtp_t        session;
-//  srtp_policy_t policy;
-//  char *masterKey;
-
 public:
-  RtpAudioSender(int socketFd, struct sockaddr_in *sockAddr, int sockAddrLen,
+  RtpAudioSender(int socketFd, struct sockaddr *sockAddr, int sockAddrLen,
                  SrtpStreamParameters *parameters);
 
 //  ~RtpAudioSender();

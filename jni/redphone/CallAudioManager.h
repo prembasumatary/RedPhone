@@ -25,13 +25,13 @@ private:
   Clock              clock;
   MicrophoneReader   microphoneReader;
   AudioPlayer        audioPlayer;
-  struct sockaddr_in *sockAddr;
+  struct sockaddr    *sockAddr;
   pthread_cond_t     condition;
   pthread_mutex_t    mutex;
 
 public:
 
-  CallAudioManager(int androidSdkVersion, int socketFd, struct sockaddr_in *sockAddr,
+  CallAudioManager(int androidSdkVersion, int socketFd, struct sockaddr *sockAddr, int sockAddrLen,
                    SrtpStreamParameters *senderParameters, SrtpStreamParameters *receiverParameters);
   ~CallAudioManager();
   int init();
