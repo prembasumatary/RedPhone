@@ -131,7 +131,7 @@ public class DialPadActivity extends SherlockFragment
 
   @Override
   public void onPressed(View view, boolean pressed) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH ? !pressed : pressed) return;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN ? !pressed : pressed) return;
 
     switch (view.getId()) {
       case R.id.one:   keyPressed(KeyEvent.KEYCODE_1);     break;
