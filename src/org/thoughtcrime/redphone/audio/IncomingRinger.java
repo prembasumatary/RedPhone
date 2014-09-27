@@ -73,15 +73,19 @@ public class IncomingRinger {
   }
 
   public void start() {
-    //TODO request audio gain here
-    //audioManager).requestAudioFocus( )
+    AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+    audioManager.requestAudioFocus(new AudioManager.OnAudioFocusChangeListener() {
+                                     @Override
+                                     public void onAudioFocusChange(int focusChange) {}
+                                   },
+                                   AudioManager.STREAM_MUSIC,
+                                   AudioManager.AUDIOFOCUS_GAIN);
 
     if(player == null) {
       //retry player creation to pick up changed ringtones or audio server restarts
       player = createPlayer();
     }
 
-    AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
     int ringerMode = audioManager.getRingerMode();
 
     if (shouldVibrate()) {
