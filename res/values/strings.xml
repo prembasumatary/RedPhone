@@ -25,53 +25,10 @@
     <string name="RedPhone_yes_exclamation">Yes!</string>
     <string name="RedPhone_codec_failed_to_initialize">Codec Failed to Initialize</string>
 
-    <string name="RedPhoneService_missed_redphone_call">Missed RedPhone Call</string>
-
-    <string name="MicrophoneReader_microphone_failed_to_initialize_try_changing_audio_call_mode_in_settings">Microphone failed to initialize.  Try changing Audio Call Mode in Settings?</string>
-
-    <string name="RobustAudioTrack_audiotrack_did_not_initialize">AudioTrack did not initialize</string>
-
     <string name="AboutActivity_about_redphone">About RedPhone</string>
     <string name="AboutActivity_redphone_beta_s">RedPhone Beta %s</string>
 
     <string name="ApplicationPreferencesActivity_redphone_settings">RedPhone Settings</string>
-    <string name="ApplicationPreferencesActivity_updating_signaling_method">Updating Signaling Method</string>
-    <string name="ApplicationPreferencesActivity_changing_signaling_method_this_could_take_a_second">Changing signaling method, this could take a second...</string>
-    <string name="ApplicationPreferencesActivity_error_registering_with_c2dm_server">Error registering with C2DM server...</string>
-    <string name="ApplicationPreferencesActivity_error_unregistering_with_c2dm_server">Error unregistering with C2DM server...</string>
-    <string name="ApplicationPreferencesActivity_error_communicating_with_c2dm_server">Error communicating with C2DM server...</string>
-
-    <string name="CallMetricsInfo__metrics_collection_details">To help improve call quality, you can choose to send Open WhisperSystems information that will help us to better understand RedPhone\'s performance.  This data is never visible to a third party.  All call metrics data is encrypted before it is stored or uploaded to Open WhisperSystem\'s servers.  When enabled, the following information is collected during each call:</string>
-    <string name="CallMetricsInfo__title">Quality Metrics</string>
-    <string name="CallMetricsInfo__device_description">Device Description</string>
-    <string name="CallMetricsInfo__device_description_explanation">Model, manufacturer, carrier, connection type, OS version, persistent random UUID</string>
-    <string name="CallMetricsInfo__mic_and_codec_performance">Microphone and Codec Performance</string>
-    <string name="CallMetricsInfo__mic_and_codec_performance_explanation">Mic clipping, dropped audio samples, average call volume</string>
-    <string name="CallMetricsInfo__packet_arrival">Packet arrival interval histogram</string>
-    <string name="CallMetricsInfo__packet_arrival_explanation">Provides data on network latency jitter</string>
-    <string name="CallMetricsInfo__out_of_order_arrival">Out of order arrival counts</string>
-    <string name="CallMetricsInfo__out_of_order_arrival_explanation">Tracks packet delivery irregularities</string>
-    <string name="CallMetricsInfo__audio_gap_fill_counts">Audio Gap Fills</string>
-    <string name="CallMetricsInfo__audio_gap_fill_counts_explanation">Indicates when missing data required audio to be synthesized</string>
-    <string name="CallMetricsInfo__system_metrics">System Metrics</string>
-    <string name="CallMetricsInfo__system_metrics_explanation">CPU load, memory usage</string>
-
-    <string name="CallQualityDialog_call_feedback">Call Feedback</string>
-    <string name="CallQualityDialog_call_quality">Call Quality</string>
-    <string name="CallQualityDialog_call_quality_rating">Call Quality Rating</string>
-    <string name="CallQualityDialog__i_would_like_to_help_by_sending_performance_statistics">Send performance metrics</string>
-    <string name="CallQualityDialog__i_would_like_to_rate_the_quality_of_my_call_once_it_is_over">Allow me to rate calls after they complete</string>
-    <string name="CallQualityDialog__provide_call_quality_feedback">Provide call quality feedback</string>
-    <string name="CallQualityDialog__redphone">RedPhone</string>
-    <string name="CallQualityDialog__we_re_making_changes">We\'re Making Changes</string>
-    <string name="CallQualityDialog__whispersystems_needs_your_help_pretext">Open WhisperSystems needs your help. As we work to improve the quality of our calls, we need feedback and performance metrics to improve the system. </string>
-    <string name="CallQualityDialog__linktext">Learn more about data collection</string>
-    <string name="CallQualityDialog__whispersystems_needs_your_help_posttext">.\n\nOpt in below to help make RedPhone better.</string>
-    <string name="CallQualityDialog__you_can_update_these_settings_at_any_time_through_the_general_settings_menu">You can update these preferences at any time through the RedPhone settings menu</string>
-    <string name="CallQualityDialog__please_rate_the_audio_quality_of_the_call_below">Please rate the quality of this call</string>
-    <string name="CallQualityDialog__submit">Submit</string>
-    <string name="CallQualityDialog__select_the_issues_that_affected_this_call">Select the issues that affected this call</string>
-    <string name="CallQualityDialog__done">Done</string>
 
     <string name="CallScreen_incoming_call">Incoming call...</string>
     <string name="CallScreen_audio_menu_handset">Handset</string>
@@ -94,16 +51,11 @@
     <string name="NotificationBarManager_redphone_call_in_progress">RedPhone call in progress</string>
     <string name="NotificationBarManager_missed_redphone_call_from_s">Missed RedPhone call from %s</string>
     <string name="NotificationBarManager_missed_redphone_call">Missed RedPhone call</string>
-    
-    <string name="QualityReporting_would_you_like_to_send_diagnostic_information_about_this_call_to_whisper_systems">Would you like to send diagnostic information about this call to Whisper Systems?</string>
-    <string name="QualityReporting_never">Never</string>
-    <string name="QualityReporting_send_diagnostics">Send Diagnostics?</string>
 
     <string name="RecentCallListActivity_loading">Loading...</string>
     <string name="RecentCallListActivity_empty_call_log">Empty call log.</string>    
     
     <string name="RedPhoneChooser_upgrade_to_redphone">Secure with RedPhone?</string>
-    <string name="RedPhoneChooser_this_contact_also_uses_redphone_would_you_like_to_upgrade_to_a_secure_call">This contact also uses RedPhone. Would you like to secure this call?</string>
     <string name="RedPhoneChooser_secure_call">Yes, secure</string>
     <string name="RedPhoneChooser_insecure_call">No</string>
     
@@ -150,15 +102,9 @@
     <string name="create_account__your_country_code_and_phone_number">YOUR COUNTRY CODE AND PHONE NUMBER</string>
     <string name="create_account__phone_number">phone number</string>
     
-    <string name="contacts_list_content__search">Search</string>
-
     <string name="country_selection_fragment__search">Search...</string>
     <string name="country_selection_fragment__loading_countries">Loading countries...</string>
-    
-    <string name="outbound_chooser__you_ve_initiated_a_call_with_a_contact_who_also_uses_redphone_would_you_like_to_upgrade_this_to_a_redphone_call">You\'ve initiated a call with a contact who also uses RedPhone. Would you like to upgrade this to a RedPhone call?</string>
-    <string name="outbound_chooser__secure_call">Secure Call</string>
-    <string name="outbound_chooser__insecure_call">Insecure Call</string>
-    
+
     <string name="about_menu__about">About</string>
     
     <string name="contact_list_options_menu__search">Search</string>
@@ -174,24 +120,7 @@
     <string name="preferences__general_settings">General Settings</string>
     <string name="preferences__prompt_for_call_upgrade">Prompt for call upgrade</string>
     <string name="preferences__when_making_insecure_calls_prompt_for_upgrade_to_redphone_if_contact_is_redphone_enabled">When making insecure calls, prompt for upgrade to RedPhone if contact is RedPhone-enabled.</string>
-    <string name="preferences__advanced_signaling_settings">Advanced: Signaling Settings</string>
     <string name="preferences__advanced_audio_settings">Advanced: Audio Settings</string>
-    <string name="preferences__enable_audio_compatibility_mode_higher_latency">Enable Audio Compatibility Mode [higher latency]</string>
-    <string name="preferences__compatibility_mode">Compatibility Mode</string>
-    <string name="preferences__use_in_call_audio_mode">Use In-Call Audio Mode</string>
-    <string name="preferences__enable_if_audio_comes_from_rear_speaker">Enable if audio comes from rear speaker</string>
-    <string name="preferences__single_thread_mode">Single-Thread Mode</string>
-    <string name="preferences__may_improve_performance_on_some_devices">May improve performance on some devices</string>
-    <string name="preferences__force_minimum_latency">Force minimum latency</string>
-    <string name="preferences__reduce_latency_at_the_expense_of_audio_quality">Reduce latency at the expense of audio quality</string>
-    <string name="preferences__signaling_method">Signaling Method</string>
-    <string name="preferences__modify_the_method_used_to_notify_your_device_of_incoming_calls">Modify the method used to notify your device of incoming calls.</string>
-    <string name="preferences__analytics_settings">Analytics Settings</string>
-    <string name="preferences__enable_call_metrics_upload">Send Data</string>
-    <string name="preferences__enable_call_quality_dialog">Provide Feedback</string>
-    <string name="preferences__provide_feeback">Provide Feedback</string>
-    <string name="preferences__prompt_for_feedback_on_call_quality_after_call_has_ended">Prompt for feedback on call quality after call has ended</string>
-    <string name="preferences__securely_upload_metrics_to_improve_audio_quality">Securely upload metrics to improve audio quality</string>
     <string name="preferences__disable_bluetooth">Enable Bluetooth</string>
     <string name="preferences__disable_bluetooth_summary">Disabling Bluetooth may resolve audio issues on some devices</string>
 
