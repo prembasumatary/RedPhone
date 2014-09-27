@@ -68,16 +68,7 @@
                  android:layoutDirection="ltr" >
 
         <TableRow>
-            <org.thoughtcrime.redphone.dialer.DialpadKeyButton
-                    android:id="@+id/one"
-                    style="@style/DialpadKeyButtonStyle">
-                <LinearLayout
-                        style="@style/DialpadKeyInternalLayoutStyle">
-                    <TextView
-                            android:id="@+id/dialpad_key_number"
-                            style="@style/DialpadKeyNumberStyle"/>
-                </LinearLayout>
-            </org.thoughtcrime.redphone.dialer.DialpadKeyButton>
+            <include layout="@layout/dialpad_key" android:id="@+id/one"/>
             <include layout="@layout/dialpad_key" android:id="@+id/two"/>
             <include layout="@layout/dialpad_key" android:id="@+id/three"/>
         </TableRow>
@@ -101,7 +92,7 @@
                 <LinearLayout
                         style="@style/DialpadKeyInternalLayoutStyle">
                     <TextView
-                            android:id="@id/dialpad_key_number"
+                            android:id="@+id/dialpad_key_number"
                             style="@style/DialpadKeyStarPoundStyle" />
                     <View
                             android:layout_height="match_parent"
